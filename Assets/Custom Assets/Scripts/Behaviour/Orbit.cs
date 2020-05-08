@@ -12,6 +12,7 @@ public class Orbit : MonoBehaviour
     public orbitAxis orbitAxi;
     public Vector3 pivotPoint;
     public GameObject pivotObject;
+    public bool objectDistanceAsRadius;
     public float radius = 10;
     public float rotationSpeed = 80;
     public float heightSpeed = 1;
@@ -27,14 +28,14 @@ public class Orbit : MonoBehaviour
             case orbitAxis.Z: axis = Vector3.forward;
             break;
         }
-
-
         Vector3 center;
         if(pivotObject==null){
             center = pivotPoint;
         }else{
             center = pivotObject.transform.position;
         }
+
+        if(objectDistanceAsRadius){ radius = (transform.position-center).magnitude; }
 
         transform.position = (transform.position - center).normalized * radius + center;
     }
