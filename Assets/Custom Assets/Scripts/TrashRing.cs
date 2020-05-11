@@ -10,30 +10,28 @@ public class TrashRing : MonoBehaviour
     public float radius;
     public int amount;
     public GameObject debrisPrefab;
-    public GameObject[] debris;
-    public int[] debrisDegrees;
+    public TrashCloud[] clouds;  
     public int debrisLocation;
 
     public void CreateDebris(){
-        DestroyDebris();
-        debris = new GameObject[amount];
-        debrisDegrees = new int[amount];
-        for(int i=0; i< debris.Length; ++i){
-            debrisDegrees[i] = (360/debris.Length)*i;
-            Vector2 blah = CalculateDegPos((360/debris.Length)*i, radius);
-            debris[i] = Instantiate(debrisPrefab,
+        if(clouds!=null) DestroyDebris();
+        clouds = new TrashCloud[amount];
+        for(int i=0; i< amount; ++i){
+            clouds[i].locatDeg = (360/amount)*i;
+            Vector2 blah = CalculateDegPos((360/amount)*i, radius);
+            clouds[i].debris = Instantiate(debrisPrefab,
             new Vector3(blah.x, blah.y ,0),
             Quaternion.identity) as GameObject;
             
-            debris[i].transform.parent = transform;
+            clouds[i].debris.transform.parent = transform;
         }
     }
 
     void DestroyDebris(){
-        for(int i=0; i< debris.Length; ++i){
-            DestroyImmediate(debris[i], true);
+        for(int i=0; i< clouds.Length; ++i){
+            DestroyImmediate(clouds[i].debris, true);
         }
-        debris = null;
+        clouds = null;
     }
 
     public float CalculateCirc(float pRadius){
@@ -76,10 +74,10 @@ public class TrashRingEditor : Editor
             if(on){on=false;}else{on=true;}
         }
 
-        if(on || tr.debris.Length>0){
-            for(int i=0; i<tr.debris.Length;++i){
-            tr.debrisDegrees[i] = EditorGUILayout.IntSlider("Relative Position " + (i+1),tr.debrisDegrees[i], 0,360);
-            tr.debris[i].transform.position = tr.CalculateDegPos(tr.debrisDegrees[i], tr.radius);
+        if(on || tr.clouds.Length>0){
+            for(int i=0; i<tr.clouds.Length;++i){
+            tr.clouds[i].locatDeg = EditorGUILayout.IntSlider("Relative Position " + (i+1),tr.clouds[i].locatDeg, 0,360);
+            tr.clouds[i].debris.transform.position = tr.CalculateDegPos(tr.clouds[i].locatDeg, tr.radius);
             }
         }       
     }
