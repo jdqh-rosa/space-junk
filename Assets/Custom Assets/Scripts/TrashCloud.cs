@@ -8,4 +8,10 @@ public struct TrashCloud
     public float radius;
     public GameObject debris;
     public int range;
+    public Vector2 relRange;
+    public GameObject[] debrisCloud;
+    public int cloudSize;
+    void Start(){
+        debrisCloud = new GameObject[cloudSize];
+    }
 }
