@@ -2,9 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ShootLaser : MonoBehaviour
+public class Satellite : MonoBehaviour
 {
-    public GameObject laserPrefab;
+    // Start is called before the first frame update
+    void Start()
+    {
+        
+    }
+
+     public GameObject laserPrefab;
     
     void Update()
     {

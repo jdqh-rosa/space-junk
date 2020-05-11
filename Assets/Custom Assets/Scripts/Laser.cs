@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Laser : MonoBehaviour
 {
+    public GameObject target;
      LineRenderer lr;
      
     void Start()
@@ -16,6 +17,7 @@ public class Laser : MonoBehaviour
     {
         lr.SetPosition(0, transform.position);
             RaycastHit hit;
+            if(target!=null) lr.SetPosition(1,target.transform.position);
             if (Physics.Raycast(transform.position, transform.forward, out hit))
             {
                 if (hit. collider)
