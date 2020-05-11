@@ -15,7 +15,7 @@ public class Orbit : MonoBehaviour
     public bool objectDistanceAsRadius;
     public float radius = 10;
     public float rotationSpeed = 80;
-    public float heightSpeed = 1;
+    public float radiusSpeed = 1;
     private Vector3 axis = Vector3.up;
 
     void Start()
@@ -50,6 +50,6 @@ public class Orbit : MonoBehaviour
     {
         transform.RotateAround(pPoint, axis, rotationSpeed * Time.deltaTime);
         Vector3 goToPosition = (transform.position - pPoint).normalized * radius+pPoint;
-        transform.position = Vector3.MoveTowards(transform.position, goToPosition, Time.deltaTime * heightSpeed);
+        transform.position = Vector3.MoveTowards(transform.position, goToPosition, Time.deltaTime * radiusSpeed);
     }
 }
