@@ -5,6 +5,7 @@ using UnityEngine;
 public class NoInteractionReset : MonoBehaviour
 {
     public float ResetTimer = 30f;
+    public SceneManager SceneManager;
     private float timeleft;
 
     private void Start()
@@ -29,6 +30,10 @@ public class NoInteractionReset : MonoBehaviour
             if (timeleft <= 0f)
             {
                 Debug.Log("RESET GAME");
+                if (SceneManager != null)
+                {
+                    SceneManager.LoadLevel(0);
+                }
             }
         }
     }
