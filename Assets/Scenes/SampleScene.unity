@@ -134,6 +134,7 @@ GameObject:
   - component: {fileID: 87870437}
   - component: {fileID: 87870436}
   - component: {fileID: 87870435}
+  - component: {fileID: 87870440}
   m_Layer: 0
   m_Name: Satellite
   m_TagString: Untagged
@@ -235,6 +236,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &87870440
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 87870434}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c4e8027d0a37a74439feeea0b5ed20d5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  laserDuration: 1
+  laser: {fileID: 1138868720}
 --- !u!1 &111553032
 GameObject:
   m_ObjectHideFlags: 0

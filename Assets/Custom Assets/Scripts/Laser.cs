@@ -15,6 +15,7 @@ public class Laser : MonoBehaviour
 
     void Update()
     {
+        print(transform.position);
         lr.SetPosition(0, transform.position);
             RaycastHit hit;
             if(target!=null) lr.SetPosition(1,target.transform.position);
@@ -23,10 +24,14 @@ public class Laser : MonoBehaviour
                 if (hit. collider)
                 {
                     lr.SetPosition(1, hit.point);
+                    //print("hit");
+                    //gameObject.SetActive(false);
                 }
             }
         else {
         lr.SetPosition(1, transform.position + (transform.forward * 5000));
         }
     }
+
+    
 }
