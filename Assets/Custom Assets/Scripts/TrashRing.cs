@@ -19,7 +19,7 @@ public class TrashRing : MonoBehaviour
         for(int i=0; i< amount; ++i){
             clouds[i].radius = radius;
             clouds[i].locatDeg = (360/amount)*i;
-            Vector2 blah = CalculateDegPos((360/amount)*i, radius);
+            Vector2 blah = Helper.CalculateDegPos((360/amount)*i, radius);
             clouds[i].debris = Instantiate(debrisPrefab,
             new Vector3(blah.x, blah.y ,0),
             Quaternion.identity) as GameObject;
@@ -28,36 +28,20 @@ public class TrashRing : MonoBehaviour
         }
     }
 
-    public void CreateCloud(TrashCloud cloud){
-        cloud.debrisCloud = new GameObject[cloud.cloudSize];
-        for(int i=0; i< cloud.cloudSize; ++i){
-            Vector2 blah = CalculateDegPos(cloud.relRange.x + (cloud.range/amount)*i, cloud.radius);
-            cloud.debrisCloud[i] = Instantiate(cloud.debris,
-            new Vector3(blah.x, blah.y, 0),
-            Quaternion.identity) as GameObject;
+    public void InstantiateCloud(){
+        for(int u=0; u<clouds.Length; ++u){
+            clouds[u].debrisCloud = new GameObject[clouds[u].cloudSize];
+            for(int i=0; i< clouds[u].cloudSize; ++i){
+                clouds[u].debrisCloud[i] = Instantiate(clouds[u].debris) as GameObject;
+            }
         }
     }
 
     void DestroyDebris(){
         for(int i=0; i< clouds.Length; ++i){
-            DestroyImmediate(clouds[i].debris, true);
+            if(clouds[i].debris!=null) DestroyImmediate(clouds[i].debris, true);
         }
         clouds = null;
-    }
-
-    public float CalculateCirc(float pRadius){
-        return (2 * Mathf.PI * pRadius);
-    }
-
-    public float CalculateCircDeg(float pRadius){
-        return 360/CalculateCirc(pRadius);
-    }
-
-    public Vector2 CalculateDegPos(float deg, float pRadius)
-    {
-        float x = pRadius * Mathf.Cos(deg*Mathf.Deg2Rad);
-        float y = x * Mathf.Tan(deg*Mathf.Deg2Rad);
-        return new Vector2(x,y);
     }
 }
 
@@ -65,7 +49,8 @@ public class TrashRing : MonoBehaviour
 [CustomEditor(typeof(TrashRing))]
 public class TrashRingEditor : Editor
 {
-    bool on=false;
+    bool debris;
+    bool cloud;
     public override void OnInspectorGUI(){
         serializedObject.Update();
         
@@ -81,21 +66,28 @@ public class TrashRingEditor : Editor
         if(GUILayout.Button("Create Debris")){
             tr.CreateDebris();
             //(on)? !on : !on;
-            if(on){on=false;}else{on=true;}
+            if(debris){debris=false;}else{debris=true;}
         }
-
-        if(on || tr.clouds.Length>0){
+//Create Inspector elements for each debris instance
+        if(debris || tr.clouds.Length>0){
             for(int i=0; i<tr.clouds.Length;++i){
                 EditorGUILayout.LabelField("Debris #" + (i+1));
                 tr.clouds[i].locatDeg = EditorGUILayout.IntSlider("Relative Position ",tr.clouds[i].locatDeg, 0,360);
-                tr.clouds[i].debris.transform.position = tr.CalculateDegPos(tr.clouds[i].locatDeg, tr.clouds[i].radius);
+                tr.clouds[i].debris.transform.position = Helper.CalculateDegPos(tr.clouds[i].locatDeg, tr.clouds[i].radius);
                 tr.clouds[i].radius = EditorGUILayout.FloatField("Radius: ", tr.clouds[i].radius);
                 tr.clouds[i].range = EditorGUILayout.IntSlider("Relative Range", tr.clouds[i].range, 0, 360);
                 tr.clouds[i].relRange = new Vector2(tr.clouds[i].locatDeg - tr.clouds[i].range/2, tr.clouds[i].locatDeg + tr.clouds[i].range/2);
                 tr.clouds[i].cloudSize = EditorGUILayout.IntField("Cloud Size", tr.clouds[i].cloudSize);
                 if(GUILayout.Button("Create Cloud")){
-                    tr.CreateCloud(tr.clouds[i]);
+                    tr.clouds[i].CreateDebrisCloud();
+                    tr.InstantiateCloud();
+                    if(cloud){cloud=!cloud;}else{cloud=!cloud;}
                 }
+                if(cloud || tr.clouds[i].debrisCloud!=null)
+                {
+                    tr.clouds[i].UpdatePos();
+                }
+
             }
         }       
     }
