@@ -126,7 +126,11 @@ public class GameManagerEditor : Editor
                 gm.trashRing.clouds[i].cloudSize = EditorGUILayout.IntField("Cloud Size", tr.clouds[i].cloudSize);
                 if(GUILayout.Button("Create Cloud")){
                     tr.clouds[i].CreateDebrisCloud();
-                    tr.InstantiateCloud();
+                    //tr.InstantiateCloud();
+                    if(cloud){cloud=!cloud;}else{cloud=!cloud;}
+                }
+                if(GUILayout.Button("Destroy Cloud")){
+                    tr.clouds[i].DestroyDebrisCloud();
                     if(cloud){cloud=!cloud;}else{cloud=!cloud;}
                 }
                 if(cloud || tr.clouds[i].debrisCloud!=null)

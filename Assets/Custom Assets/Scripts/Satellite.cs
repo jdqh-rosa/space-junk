@@ -47,7 +47,6 @@ public class Satellite : MonoBehaviour
                 lr.enabled = false;
                 gameObject.GetComponent<Renderer>().material.color = Color.white;
             }
-            lr.SetPosition(1, target.gameObject.transform.position);
         }
 
         laserCountDown -= Time.deltaTime;
@@ -74,6 +73,7 @@ public class Satellite : MonoBehaviour
                 {
                     print("hit target");
                     gameObject.GetComponent<Renderer>().material.color = Color.red;
+                    lr.SetPosition(1, target.gameObject.transform.position);
                 }
                 lr.SetPosition(1, hit.point);
                 //print("hit");

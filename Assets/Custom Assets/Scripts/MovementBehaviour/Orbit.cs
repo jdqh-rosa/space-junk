@@ -21,14 +21,7 @@ public class Orbit : MonoBehaviour
 
     void Start()
     {
-        switch(orbitAxi){
-            case orbitAxis.X: axis = Vector3.right;
-            break;
-            case orbitAxis.Y: axis = Vector3.up;
-            break;
-            case orbitAxis.Z: axis = Vector3.forward;
-            break;
-        }
+        ChangeAxis();
         Vector3 center;
         if(pivotObject==null){
             center = pivotPoint;
@@ -42,6 +35,8 @@ public class Orbit : MonoBehaviour
     }
     void Update()
     {
+        ChangeAxis();
+
         if(pivotObject==null){
             OrbitAroundPoint(pivotPoint);
         }else{OrbitAroundPoint(pivotObject.transform.position);}
@@ -54,5 +49,16 @@ public class Orbit : MonoBehaviour
         transform.position = Vector3.MoveTowards(transform.position, goToPosition, Time.deltaTime * radiusSpeed);
     }
 
+    void ChangeAxis()
+    {
+        switch(orbitAxi){
+            case orbitAxis.X: axis = Vector3.right;
+            break;
+            case orbitAxis.Y: axis = Vector3.up;
+            break;
+            case orbitAxis.Z: axis = Vector3.forward;
+            break;
+        }
+    }
 
 }

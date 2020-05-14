@@ -396,7 +396,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pivotPoint: {x: 0, y: 0, z: 0}
   radius: 10
-  amount: 5
+  amount: 2
   debrisPrefab: {fileID: 8084704634655610896, guid: cb8c0f3c07c37374cb3d7573acb3aeb4,
     type: 3}
   debrisLocation: 15
@@ -876,6 +876,11 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8621235244456290389, guid: 9cc4eca935fb1f44e8ba62e776ac71a5,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 648b1dc5b9a7d324f83549b225288ef4, type: 2}
     - target: {fileID: 8621235244456290391, guid: 9cc4eca935fb1f44e8ba62e776ac71a5,
         type: 3}
       propertyPath: m_LocalPosition.x
