@@ -4,18 +4,33 @@ using UnityEngine;
 
 public class Satellite : MonoBehaviour
 {
-    // Start is called before the first frame update
+    public float laserDuration = 1;
+    public GameObject laser;
+
+    private bool laserOn=false;
     void Start()
     {
-        
+        laser.SetActive(false);
     }
-
-     public GameObject laserPrefab;
-    
     void Update()
     {
-        if(Input.GetKeyUp(KeyCode.Space)){
-            Instantiate(laserPrefab);
+        ShootLaser();
+    }
+
+    float laserTimer=0;
+    void ShootLaser(){
+        
+        if(Input.GetKeyUp(KeyCode.Space))
+        {
+            laserTimer = laserDuration;
+        }
+        
+        if(laserTimer>0)
+        {
+            laserTimer-=Time.deltaTime;
+            laser.SetActive(true);
+        }else{
+            laser.SetActive(false);
         }
     }
 }

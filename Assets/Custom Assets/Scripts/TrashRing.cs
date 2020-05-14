@@ -69,6 +69,7 @@ public class TrashRingEditor : Editor
             if(debris){debris=false;}else{debris=true;}
         }
 //Create Inspector elements for each debris instance
+        if(tr.clouds==null){return;}
         if(debris || tr.clouds.Length>0){
             for(int i=0; i<tr.clouds.Length;++i){
                 EditorGUILayout.LabelField("Debris #" + (i+1));
