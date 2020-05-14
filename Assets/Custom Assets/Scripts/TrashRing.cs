@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 
-[ExecuteInEditMode]
+//**// CONTROL ORBITTING TRASH //**//
 public class TrashRing : MonoBehaviour
 {
     public Vector3 pivotPoint;
     public float radius;
-    public int amount;
+    public int amount=1;
     public GameObject debrisPrefab;
     public TrashCloud[] clouds;  
     public int debrisLocation;
@@ -24,7 +24,7 @@ public class TrashRing : MonoBehaviour
             new Vector3(blah.x, blah.y ,0),
             Quaternion.identity) as GameObject;
             
-            clouds[i].debris.transform.parent = transform;
+            //clouds[i].debris.transform.parent = transform;
         }
     }
 
@@ -51,9 +51,10 @@ public class TrashRingEditor : Editor
 {
     bool debris;
     bool cloud;
-    public override void OnInspectorGUI(){
+    public override void OnInspectorGUI()
+    {
         serializedObject.Update();
-        
+
         TrashRing tr = (TrashRing)target;
 
         //DrawDefaultInspector();
@@ -62,34 +63,38 @@ public class TrashRingEditor : Editor
         tr.debrisPrefab = (GameObject)EditorGUILayout.ObjectField(tr.debrisPrefab, typeof(GameObject), true);
         tr.radius = EditorGUILayout.FloatField("Radius", tr.radius);
         tr.amount = EditorGUILayout.IntField("Debris Amount", tr.amount);
-        
-        if(GUILayout.Button("Create Debris")){
+
+        if (GUILayout.Button("Create Debris"))
+        {
             tr.CreateDebris();
             //(on)? !on : !on;
-            if(debris){debris=false;}else{debris=true;}
+            if (debris) { debris = false; } else { debris = true; }
         }
-//Create Inspector elements for each debris instance
-        if(tr.clouds==null){return;}
-        if(debris || tr.clouds.Length>0){
-            for(int i=0; i<tr.clouds.Length;++i){
-                EditorGUILayout.LabelField("Debris #" + (i+1));
-                tr.clouds[i].locatDeg = EditorGUILayout.IntSlider("Relative Position ",tr.clouds[i].locatDeg, 0,360);
+        //Create Inspector elements for each debris instance
+        if (tr.clouds == null) { return; }
+        if (debris || tr.clouds.Length > 0)
+        {
+            for (int i = 0; i < tr.clouds.Length; ++i)
+            {
+                EditorGUILayout.LabelField("Debris #" + (i + 1));
+                tr.clouds[i].locatDeg = EditorGUILayout.IntSlider("Relative Position ", tr.clouds[i].locatDeg, 0, 360);
                 tr.clouds[i].debris.transform.position = Helper.CalculateDegPos(tr.clouds[i].locatDeg, tr.clouds[i].radius);
                 tr.clouds[i].radius = EditorGUILayout.FloatField("Radius: ", tr.clouds[i].radius);
                 tr.clouds[i].range = EditorGUILayout.IntSlider("Relative Range", tr.clouds[i].range, 0, 360);
-                tr.clouds[i].relRange = new Vector2(tr.clouds[i].locatDeg - tr.clouds[i].range/2, tr.clouds[i].locatDeg + tr.clouds[i].range/2);
+                tr.clouds[i].relRange = new Vector2(tr.clouds[i].locatDeg - tr.clouds[i].range / 2, tr.clouds[i].locatDeg + tr.clouds[i].range / 2);
                 tr.clouds[i].cloudSize = EditorGUILayout.IntField("Cloud Size", tr.clouds[i].cloudSize);
-                if(GUILayout.Button("Create Cloud")){
+                if (GUILayout.Button("Create Cloud"))
+                {
                     tr.clouds[i].CreateDebrisCloud();
                     tr.InstantiateCloud();
-                    if(cloud){cloud=!cloud;}else{cloud=!cloud;}
+                    if (cloud) { cloud = !cloud; } else { cloud = !cloud; }
                 }
-                if(cloud || tr.clouds[i].debrisCloud!=null)
+                if (cloud || tr.clouds[i].debrisCloud != null)
                 {
                     tr.clouds[i].UpdatePos();
                 }
 
             }
-        }       
+        }
     }
 }

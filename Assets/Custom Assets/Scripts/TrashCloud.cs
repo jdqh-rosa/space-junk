@@ -17,11 +17,20 @@ public struct TrashCloud
 
 //initialize the cloud objects in an array
     public void CreateDebrisCloud(){
+        DestroyDebrisCloud();
         debrisCloud = new GameObject[cloudSize];
         for(int i=0; i< cloudSize; ++i){
             //Vector2 blah = Helper.CalculateDegPos(relRange.x + (range/(cloudSize-1))*i, radius);
             debrisCloud[i] = debris as GameObject;
         }
+    }
+
+    void DestroyDebrisCloud(){
+        if(debrisCloud==null) return;
+        for(int i=0; i< debrisCloud.Length; ++i){
+            if(debrisCloud[i]!=null) GameObject.Destroy(debrisCloud[i]);
+        }
+        debrisCloud = null;
     }
 
     //Update the position of every cloud object
