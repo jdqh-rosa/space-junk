@@ -24,7 +24,7 @@ public class TrashRing : MonoBehaviour
             Vector2 blah = Helper.CalculateDegPos((360 / amount) * i, radius);
             clouds[i].debris = Instantiate(debrisPrefab,
             new Vector3(blah.x, blah.y, 0),
-            Quaternion.identity) as GameObject;
+            Quaternion.identity, transform) as GameObject;
 
             //clouds[i].debris.transform.parent = transform;
         }
@@ -37,7 +37,7 @@ public class TrashRing : MonoBehaviour
             clouds[u].debrisCloud = new GameObject[clouds[u].cloudSize];
             for (int i = 0; i < clouds[u].cloudSize; ++i)
             {
-                clouds[u].debrisCloud[i] = Instantiate(clouds[u].debris) as GameObject;
+                clouds[u].debrisCloud[i] = Instantiate(clouds[u].debris, transform) as GameObject;
             }
         }
     }

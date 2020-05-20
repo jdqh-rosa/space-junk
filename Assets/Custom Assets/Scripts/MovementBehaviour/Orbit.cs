@@ -10,7 +10,7 @@ public class Orbit : MonoBehaviour
     Y,
     Z
 };
-    public orbitAxis orbitAxi;
+    public orbitAxis orbitAxi = orbitAxis.Z;
     public Vector3 pivotPoint;
     public GameObject pivotObject;
     public bool objectDistanceAsRadius;
