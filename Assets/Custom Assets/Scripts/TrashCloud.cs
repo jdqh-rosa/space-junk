@@ -43,7 +43,7 @@ public struct TrashCloud
     {
         for (int i = 0; i < cloudSize; ++i)
         {
-            Vector2 blah = Helper.CalculateDegPos(relRange.x + (range / (cloudSize - 1)) * i, radius);
+            Vector2 blah = Helper.CalcDegToPos(relRange.x + (range / (cloudSize - 1)) * i, radius);
             if (i <= debrisCloud.Length)
             {
                 if (debrisCloud[i] != null)

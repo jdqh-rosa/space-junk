@@ -75,7 +75,7 @@ public class GameManagerEditor : Editor
             for(int i=0; i<tr.clouds.Length;++i){
                 EditorGUILayout.LabelField("Debris #" + (i+1));
                 gm.trashRing.clouds[i].locatDeg = EditorGUILayout.IntSlider("Relative Position ", gm.trashRing.clouds[i].locatDeg, 0,360);
-                gm.trashRing.clouds[i].debris.transform.position = Helper.CalculateDegPos(tr.clouds[i].locatDeg, tr.clouds[i].radius);
+                gm.trashRing.clouds[i].debris.transform.position = Helper.CalcDegToPos(tr.clouds[i].locatDeg, tr.clouds[i].radius);
                 gm.trashRing.clouds[i].radius = EditorGUILayout.FloatField("Radius: ", tr.clouds[i].radius);
                 gm.trashRing.clouds[i].range = EditorGUILayout.IntSlider("Relative Range", tr.clouds[i].range, 0, 360);
                 gm.trashRing.clouds[i].relRange = new Vector2(tr.clouds[i].locatDeg - tr.clouds[i].range/2, tr.clouds[i].locatDeg + tr.clouds[i].range/2);

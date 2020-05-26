@@ -8,6 +8,7 @@ public class Rocket : MonoBehaviour
     public float launchDuration;
     public float launchSpeed;
     public float launchDistance;
+    public float launchRand;
     [Header("Flight")]
     public float movementSpeed;
     public float destructTime;
@@ -16,13 +17,14 @@ public class Rocket : MonoBehaviour
     private Vector3 endPosition;
     void Start()
     {
+        launchDistance = Random.Range(launchDistance - launchRand, launchDistance + launchRand+1);
         startPosition = transform.position;
         endPosition = transform.position + transform.up * launchDistance;
     }
 
     void Update()
     {
-        if (t <= launchDuration)
+        if (launchDistance >= (transform.position-startPosition).magnitude)
         {
             RocketLaunch();
         }
@@ -37,8 +39,14 @@ public class Rocket : MonoBehaviour
     float t = 0;
     void RocketLaunch()
     {
-        transform.position = Vector3.Slerp(startPosition, endPosition, t);
-        t += Time.deltaTime;
+        //transform.position = Vector3.Slerp(startPosition, endPosition, t);
+        //t += Time.deltaTime * launchDuration/launchSpeed;
+        transform.position += transform.up * launchSpeed * Time.deltaTime;
+
+        if(launchDistance <= (transform.position-startPosition).magnitude)
+        {
+            DropJunk();
+        }
     }
 
     void RocketFlight()
@@ -53,4 +61,8 @@ public class Rocket : MonoBehaviour
         }
     }
 
+    void DropJunk()
+    {
+        GetComponent<JunkDrop>().Drop();
+    }
 }

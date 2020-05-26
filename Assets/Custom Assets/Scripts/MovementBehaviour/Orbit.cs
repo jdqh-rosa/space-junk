@@ -37,6 +37,7 @@ public class Orbit : MonoBehaviour
     {
         ChangeAxis();
 
+        //if there's a pivotObject, use it as the pivot point
         if(pivotObject==null){
             OrbitAroundPoint(pivotPoint);
         }else{OrbitAroundPoint(pivotObject.transform.position);}

@@ -455,9 +455,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6efdfd70e53c23243ab8221ce19c995c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  location: {x: 0, y: 0, z: 0}
-  rotationSpeed: 0
-  worldOrbit: {fileID: 0}
 --- !u!4 &1003969563
 Transform:
   m_ObjectHideFlags: 0
@@ -494,6 +491,24 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &1012658287
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1012658281}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7631d0ab0431f804488ccf0d01a9aeba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  trashPrefab: {fileID: 287584116993078101, guid: dc08398888827d447be1b72ed75e6470,
+    type: 3}
+  dropAmount: 10
+  dropRange: 5
+  spreadSpeed: 3
+  pivotPoint: {x: 0, y: 0, z: 0}
 --- !u!1 &1185213318 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3838595715295648688, guid: dc82585089210024183450f750e0f9f5,
@@ -643,6 +658,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1301306965}
   - component: {fileID: 1301306964}
+  - component: {fileID: 1301306966}
   m_Layer: 0
   m_Name: Game Manager
   m_TagString: Untagged
@@ -688,6 +704,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1301306966
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1301306963}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0674df6ad6897a4aa249533829443d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1334591730
 GameObject:
   m_ObjectHideFlags: 0
@@ -765,7 +793,7 @@ MonoBehaviour:
   pivotObject: {fileID: 1823913018}
   objectDistanceAsRadius: 0
   radius: 0
-  orbitSpeed: 0
+  orbitSpeed: -10
   radiusSpeed: 1
 --- !u!1001 &1863524094
 PrefabInstance:
@@ -1030,6 +1058,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Rocket
+      objectReference: {fileID: 0}
+    - target: {fileID: 133941756599076391, guid: 86be5e0b1e91d2d4791ae6f98342b576,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 86be5e0b1e91d2d4791ae6f98342b576, type: 3}

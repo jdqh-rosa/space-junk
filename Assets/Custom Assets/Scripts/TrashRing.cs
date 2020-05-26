@@ -21,7 +21,7 @@ public class TrashRing : MonoBehaviour
         {
             clouds[i].radius = radius;
             clouds[i].locatDeg = (360 / amount) * i;
-            Vector2 blah = Helper.CalculateDegPos((360 / amount) * i, radius);
+            Vector2 blah = Helper.CalcDegToPos((360 / amount) * i, radius);
             clouds[i].debris = Instantiate(debrisPrefab,
             new Vector3(blah.x, blah.y, 0),
             Quaternion.identity, transform) as GameObject;
@@ -107,7 +107,7 @@ public class TrashRingEditor : Editor
                 {
                     EditorGUILayout.LabelField("Debris #" + (i + 1));
                     tr.clouds[i].locatDeg = EditorGUILayout.IntSlider("Relative Position ", tr.clouds[i].locatDeg, 0, 360);
-                    tr.clouds[i].debris.transform.position = Helper.CalculateDegPos(tr.clouds[i].locatDeg, tr.clouds[i].radius);
+                    tr.clouds[i].debris.transform.position = Helper.CalcDegToPos(tr.clouds[i].locatDeg, tr.clouds[i].radius);
                     tr.clouds[i].radius = EditorGUILayout.FloatField("Radius: ", tr.clouds[i].radius);
                     tr.clouds[i].range = EditorGUILayout.IntSlider("Relative Range", tr.clouds[i].range, 0, 360);
                     tr.clouds[i].relRange = new Vector2(tr.clouds[i].locatDeg - tr.clouds[i].range / 2, tr.clouds[i].locatDeg + tr.clouds[i].range / 2);

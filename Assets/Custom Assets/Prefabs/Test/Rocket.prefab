@@ -108,8 +108,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   launchDuration: 1
-  launchSpeed: 50
-  launchDistance: 12
+  launchSpeed: 10
+  launchDistance: 5
+  launchRand: 2
   movementSpeed: 5
   destructTime: 3
 --- !u!114 &-1707514889827988374
@@ -127,6 +128,8 @@ MonoBehaviour:
   trashPrefab: {fileID: 287584116993078101, guid: dc08398888827d447be1b72ed75e6470,
     type: 3}
   dropAmount: 5
-  dropRange: 10
+  dropRand: 3
+  dropRange: 30
+  dropGap: 10
   spreadSpeed: 10
   pivotPoint: {x: 0, y: 0, z: 0}
