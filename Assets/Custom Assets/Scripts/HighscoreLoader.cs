@@ -11,16 +11,28 @@ public class HighscoreLoader : MonoBehaviour
     private float currentY = 0;
     void Start()
     {
+        //createTable("SELECT * FROM highscores ORDER BY Score DESC");
+    }
+
+    private void createTable(string query)
+    {
+        //Clear the current grid
+        foreach (Transform child in transform)
+        {
+            Destroy(child.gameObject);
+        }
+        currentY = 0;
+
         //Set rowheight to calculate height of other objects
         rowheight = RowPrefab.GetComponent<RectTransform>().sizeDelta.y;
 
         //Get all of the highscores
         dbConnection db = new dbConnection();
-        List<highscore> scores = db.Select("SELECT * FROM highscores ORDER BY Score DESC");
+        List<highscore> scores = db.Select(query);
 
         //Loop trough all scores
         int pos = 1;
-        foreach(highscore score in scores)
+        foreach (highscore score in scores)
         {
             createRow(score, pos);
             pos++;
@@ -46,6 +58,26 @@ public class HighscoreLoader : MonoBehaviour
         row.transform.GetChild(0).GetComponent<TextMeshProUGUI>().SetText("#"+position);
         row.transform.GetChild(1).GetComponent<TextMeshProUGUI>().SetText(pScore.Name);
         row.transform.GetChild(2).GetComponent<TextMeshProUGUI>().SetText(pScore.Score.ToString());
-        row.transform.GetChild(3).GetComponent<TextMeshProUGUI>().SetText(pScore.Date.ToShortDateString());
+        row.transform.GetChild(3).GetComponent<TextMeshProUGUI>().SetText(pScore.Date.ToString("dd/MM/yyyy"));
+    }
+
+    public void Daily()
+    {
+        createTable("SELECT * FROM highscores WHERE DATE(Date) = DATE('now') ORDER BY Score DESC");
+    }
+
+    public void Weekly()
+    {
+        createTable("SELECT * FROM highscores WHERE DATE(Date) >= DATE('now', 'weekday 0', '-7 days') ORDER BY Score DESC");
+    }
+
+    public void Monthly()
+    {
+        createTable("SELECT * FROM highscores WHERE strftime('%m', Date) = strftime('%m', DATE('now')) ORDER BY Score DESC");
+    }
+
+    public void Alltime()
+    {
+        createTable("SELECT * FROM highscores ORDER BY Score DESC");
     }
 }
