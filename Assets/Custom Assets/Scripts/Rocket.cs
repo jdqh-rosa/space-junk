@@ -5,7 +5,7 @@ using UnityEngine;
 public class Rocket : MonoBehaviour
 {
     [Header("Launch")]
-    public float launchDuration;
+    //public float launchDuration;
     public float launchSpeed;
     public float launchDistance;
     public float launchRand;
@@ -14,12 +14,14 @@ public class Rocket : MonoBehaviour
     public float destructTime;
 
     private Vector3 startPosition;
-    private Vector3 endPosition;
+   // private Vector3 endPosition;
+
+    public bool destroy;
     void Start()
     {
         launchDistance = Random.Range(launchDistance - launchRand, launchDistance + launchRand+1);
         startPosition = transform.position;
-        endPosition = transform.position + transform.up * launchDistance;
+        //endPosition = transform.position + transform.up * launchDistance;
     }
 
     void Update()
@@ -32,7 +34,7 @@ public class Rocket : MonoBehaviour
         {
             RocketFlight();
         }
-        if (0 >= destructTime) Destroy(gameObject);
+        if (0 >= destructTime && destroy) Destroy(gameObject);
         destructTime -= Time.deltaTime;
     }
 

@@ -9,7 +9,6 @@ public class Satellite : MonoBehaviour
     public float laserDuration = 0.1f;
     public GameObject target;
     public LineRenderer lr;
-    public Orbit orbit;
 
     public RaycastHit rayCastHit;
     public bool shootMe;
