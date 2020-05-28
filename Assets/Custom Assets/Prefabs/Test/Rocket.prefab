@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 133941756599076384}
   - component: {fileID: -1707514889827988374}
   - component: {fileID: -3092838478448108076}
+  - component: {fileID: -4149715254324172055}
   m_Layer: 0
   m_Name: Rocket
   m_TagString: Untagged
@@ -108,7 +109,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 30085c9a47c8dd34aa8ab2eef4c8a76c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  launchDuration: 1
   launchSpeed: 10
   launchDistance: 5
   launchRand: 2
@@ -131,10 +131,11 @@ MonoBehaviour:
     type: 3}
   dropAmount: 5
   dropRand: 3
-  dropRange: 30
   dropGap: 5
-  spreadSpeed: 10
   pivotPoint: {x: 0, y: 0, z: 0}
+  trashSpeed: -10
+  trashSpeedRand: 2
+  randomSpeed: 0
 --- !u!54 &-3092838478448108076
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -151,3 +152,16 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &-4149715254324172055
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 133941756599076391}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59aac86a371f0234fb1ebb463b051550, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rocketPrefab: {fileID: 133941756599076391}

@@ -10,7 +10,10 @@ public class TrashHandler : MonoBehaviour
     static Transform trashHandlerTF;
 
     public float minGapLength=1;
+    public float trashSpeed;
+    public float trashSpeedRand;
 
+    static public bool speedChange = true;
     void Start()
     {
         trashHandlerTF = transform;

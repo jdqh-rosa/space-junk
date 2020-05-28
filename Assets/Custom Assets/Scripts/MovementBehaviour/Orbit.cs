@@ -15,7 +15,7 @@ public class Orbit : MonoBehaviour
     public GameObject pivotObject;
     public bool objectDistanceAsRadius;
     public float radius = 10;
-    public float orbitSpeed = 80;
+    public float orbitSpeed = 0;
     public float radiusSpeed = 1;
     private Vector3 axis = Vector3.up;
 

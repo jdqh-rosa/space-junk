@@ -25,6 +25,7 @@ public class GameManager : MonoBehaviour
 
     [Header("Earth", order = 1)]
     public Vector3 earthLocation;
+    public float worldRadius;
     public float earthRotation;
 
     [Header("Base")]
@@ -59,7 +60,7 @@ public class GameManager : MonoBehaviour
 
     GameObject earthObject;
     GameObject satelliteObject;
-    GameObject[] baseObjects;
+    GameObject baseObject;
     GameObject[] trashObjects;
 
     public void Start()
@@ -76,16 +77,16 @@ public class GameManager : MonoBehaviour
 
     void CreateBase()
     {
-        baseObjects = new GameObject[baseAmount];
-        for (int i = 0; i < baseAmount; ++i)
-        {
-            baseObjects[i] = Instantiate(earthBasePrefabs[(int)currentPhase], baseLocation, Quaternion.identity);
-        }
+        baseLocation = Helper.CalcDegToPos(50, worldRadius);
+        baseObject = Instantiate(earthBasePrefabs[(int)currentPhase], baseLocation, Quaternion.Euler(0,0,-50));
     }
 
     void CreateSatellite()
     {
         satelliteObject = Instantiate(satellitePrefabs[(int)currentPhase]);
+        satelliteObject.GetComponent<Satellite>().target = earthObject;
+        satelliteObject.GetComponent<Satellite>().lr = satelliteObject.GetComponent<LineRenderer>();
+        GetComponent<HitDetection>().satellite = satelliteObject;
     }
 
     void Update()

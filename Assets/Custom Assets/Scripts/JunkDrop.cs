@@ -16,6 +16,10 @@ public class JunkDrop : MonoBehaviour
     private float locatDeg;
     //Vector2 relRange;
 
+    public float trashSpeed;
+    public float trashSpeedRand;
+    private float randomSpeed;
+
     public void Drop()
     {
         dropAmount = Random.Range(dropAmount - dropRand, dropAmount + dropRand + 1);
@@ -26,9 +30,13 @@ public class JunkDrop : MonoBehaviour
         //relRange = new Vector2(locatDeg - dropRange / 2, locatDeg + dropRange / 2);
         for (int i = 0; i < dropAmount; ++i)
         {
-            cluster[i] = Instantiate(trashPrefab, transform.position, Quaternion.identity);
+            cluster[i] = Instantiate(trashPrefab, transform.position, transform.rotation);
         }
         TrashHandler.AddToList(cluster[0]);
+
+        randomSpeed = Random.Range(trashSpeed - trashSpeedRand, trashSpeed + trashSpeedRand);
+
+        cluster[0].GetComponent<Orbit>().orbitSpeed = randomSpeed;
     }
 
     bool destroy;
@@ -41,13 +49,17 @@ public class JunkDrop : MonoBehaviour
             if ((cluster[i].transform.position - cluster[i - 1].transform.position).magnitude >= Helper.Degrees2Distance(locatDeg, locatDeg - dropGap, radius))
             {
                 TrashHandler.AddToList(cluster[i]);
-                destroy=true;
+                if (TrashHandler.speedChange)
+                {
+                    cluster[i].GetComponent<Orbit>().orbitSpeed = randomSpeed;
+                }
+                destroy = true;
             }
             else
             {
-                destroy=false;
+                destroy = false;
             }
         }
-            gameObject.GetComponent<Rocket>().destroy=destroy;
+        gameObject.GetComponent<Rocket>().destroy = destroy;
     }
 }

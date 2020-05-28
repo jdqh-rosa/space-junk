@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 5783105454087988529}
   - component: {fileID: 3414717952846450947}
   - component: {fileID: -2350054961022104863}
+  - component: {fileID: 7827939817480567256}
   m_Layer: 0
   m_Name: Trash
   m_TagString: TrashJunk
@@ -60,7 +61,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 8a756b8c08eba1644bf4f7865680f08f, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -110,3 +111,22 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &7827939817480567256
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 287584116993078101}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5be5077911491904d936db7dc91a95ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  orbitAxi: 2
+  pivotPoint: {x: 0, y: 0, z: 0}
+  pivotObject: {fileID: 0}
+  objectDistanceAsRadius: 1
+  radius: 10
+  orbitSpeed: 0
+  radiusSpeed: 1

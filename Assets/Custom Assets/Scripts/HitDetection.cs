@@ -5,6 +5,9 @@ using UnityEngine;
 public class HitDetection : MonoBehaviour
 {
     public GameObject satellite;
+    public GameObject baseObject;
+    public float worldRadius;
+    public bool baseSwitch = false;
     void Start()
     {
 
@@ -19,7 +22,20 @@ public class HitDetection : MonoBehaviour
             {
                 satellite.GetComponent<Satellite>().rayCastHit.collider.gameObject.GetComponent<SpawnRocket>().Launch();
                 satellite.GetComponent<Satellite>().shootMe = false;
+
+                if (baseSwitch)
+                {
+                    Destroy(satellite.GetComponent<Satellite>().rayCastHit.collider.gameObject);
+                    CreateBase();
+                }
             }
         }
     }
+
+    void CreateBase()
+    {
+        int rand = Random.Range(0, 360);
+        Instantiate(baseObject, Helper.CalcDegToPos(rand, worldRadius), Quaternion.Euler(0, 0, rand - 90));
+    }
+
 }
