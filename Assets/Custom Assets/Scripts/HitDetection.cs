@@ -38,6 +38,5 @@ public class HitDetection : MonoBehaviour
                 satellite.GetComponent<Satellite>().shootMe = false;
             }
         }
-        print(GameManager.Instance.currentStreak);
     }
 }

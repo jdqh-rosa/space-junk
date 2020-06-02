@@ -64,6 +64,8 @@ public sealed class GameManager : MonoBehaviour
 
     [Header("Skill: Slow Satellite")]
     public float slowSatDuration;
+    public float slowSatSpeed;
+    public float slowSatPercentage;
 
     [Header("Events", order = 0 )]
 
@@ -135,6 +137,14 @@ public sealed class GameManager : MonoBehaviour
         GetComponent<HitDetection>().satellite = satelliteObject;
     }
 
+    
+
+    void Update()
+    {
+        StreakHoldTimer();
+        SlowSatTimer();
+    }
+
     float holdStreakTimer;
     private void StreakHoldTimer()
     {
@@ -150,10 +160,21 @@ public sealed class GameManager : MonoBehaviour
         }
     }
 
-    void Update()
+    float slowSatTimer;
+    private void SlowSatTimer()
     {
-        StreakHoldTimer();
+        slowSatTimer+=Time.deltaTime;
+
+        if(slowSatDuration >= slowSatTimer)
+        {
+            satelliteObject.GetComponent<Orbit>().orbitSpeed = slowSatSpeed;
+        }
+        else
+        {
+            satelliteObject.GetComponent<Orbit>().orbitSpeed = satelliteSpeed;
+        }
     }
+
 }
 
 public enum Phase
