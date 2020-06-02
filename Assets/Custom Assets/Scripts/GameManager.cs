@@ -9,8 +9,6 @@ using UnityEditor;
 //[ExecuteInEditMode]
 public sealed class GameManager : MonoBehaviour
 {
-    private static readonly GameManager INSTANCE = new GameManager();
-
     static public Phase currentPhase = Phase.Past;
 
     [Header("Prefabs")]
@@ -58,16 +56,32 @@ public sealed class GameManager : MonoBehaviour
     public int trashDropRand;
     public float trashGap;
 
+    [Header("Skills", order = 0)]
+    
+    [Header("Skill: Maintain Streak", order = 1)]
+    public float holdStreakDuration;
+    public bool holdStreak;
+
+    [Header("Skill: Slow Satellite")]
+    public float slowSatDuration;
+
+    [Header("Events", order = 0 )]
+
+    [Header("Black Hole", order =1)]
+    public float blackHoleChancePerMinute;
+    public float blackHoleRadius;
+    public float blackHoleDuration;
+
+    [Header("GamePlay Blabla", order =0)]
+    public int streak;
+    public int currentStreak;
+
+    private static GameManager INSTANCE = new GameManager();
 
     GameObject earthObject;
     GameObject satelliteObject;
     GameObject baseObject;
     GameObject[] trashObjects;
-
-    private GameManager()
-    {
-
-    }
 
     public static GameManager Instance
     {
@@ -77,11 +91,23 @@ public sealed class GameManager : MonoBehaviour
         }
     }
 
+    private void Awake()
+    {
+        if(INSTANCE != null && INSTANCE != this)
+        {
+            Destroy(this.gameObject);
+        }
+        else
+        {
+            INSTANCE = this;
+        }
+    }
+
     public void Start()
     {
-        CreateEarth();
-        CreateBase();
-        CreateSatellite();
+        Instance.CreateEarth();
+        Instance.CreateBase();
+        Instance.CreateSatellite();
     }
 
     public void CreateEarth()
@@ -91,7 +117,7 @@ public sealed class GameManager : MonoBehaviour
 
     public void CreateBase()
     {
-         int rand = Random.Range(0, 360);
+        int rand = Random.Range(0, 360);
         baseObject = Instantiate(earthBasePrefabs[(int)currentPhase], Helper.CalcDegToPos(rand, worldRadius), Quaternion.Euler(0, 0, rand - 90));
         baseObject.transform.parent = earthObject.transform;
     }
@@ -133,14 +159,15 @@ public class GameManagerEditor : Editor
         base.OnInspectorGUI();
         GameManager gm = (GameManager)target;
 
-        if(GUILayout.Button("Create World")){
+        if (GUILayout.Button("Create World"))
+        {
             gm.CreateEarth();
         }
-        if(GUILayout.Button("Create Base"))
+        if (GUILayout.Button("Create Base"))
         {
             gm.CreateBase();
         }
-        if(GUILayout.Button("Create Satellite"))
+        if (GUILayout.Button("Create Satellite"))
         {
             gm.CreateSatellite();
         }
