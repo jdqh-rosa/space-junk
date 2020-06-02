@@ -4,9 +4,10 @@ using UnityEngine;
 using UnityEditor;
 
 //**// GAME MANAGER INSPECTOR CODE //**//
+/*
 [CustomEditor(typeof(GameManager))]
 public class GameManagerEditor : Editor
-{/*
+{
     bool debris;
     bool cloud;
     bool showPastObjects = false;
@@ -96,6 +97,6 @@ public class GameManagerEditor : Editor
             }
         } 
     }
-    */
+    
 }
-
+*/

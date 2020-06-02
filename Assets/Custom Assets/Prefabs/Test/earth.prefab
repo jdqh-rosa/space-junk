@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 8621235244456290389}
   - component: {fileID: 8621235244456290386}
   - component: {fileID: 8368594546402631443}
-  - component: {fileID: -6915818155174471997}
   m_Layer: 0
   m_Name: earth
   m_TagString: Untagged
@@ -112,20 +111,5 @@ MonoBehaviour:
   pivotObject: {fileID: 0}
   objectDistanceAsRadius: 0
   radius: 0
-  orbitSpeed: 80
+  orbitSpeed: 0
   radiusSpeed: 1
---- !u!114 &-6915818155174471997
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8621235244456290387}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6efdfd70e53c23243ab8221ce19c995c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  earthPrefab: {fileID: 0}
-  location: {x: 0, y: 0, z: 0}
-  rotationSpeed: 0

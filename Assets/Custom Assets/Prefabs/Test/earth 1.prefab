@@ -112,7 +112,7 @@ MonoBehaviour:
   pivotObject: {fileID: 0}
   objectDistanceAsRadius: 0
   radius: 0
-  orbitSpeed: 80
+  orbitSpeed: 0
   radiusSpeed: 1
 --- !u!1001 &6841214047447353589
 PrefabInstance:

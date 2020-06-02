@@ -7,8 +7,10 @@ using UnityEditor;
 //**// NFI //**//
 
 //[ExecuteInEditMode]
-public class GameManager : MonoBehaviour
+public sealed class GameManager : MonoBehaviour
 {
+    private static readonly GameManager INSTANCE = new GameManager();
+
     static public Phase currentPhase = Phase.Past;
 
     [Header("Prefabs")]
@@ -29,7 +31,7 @@ public class GameManager : MonoBehaviour
     public float earthRotation;
 
     [Header("Base")]
-    public int baseAmount;
+    //public int baseAmount;
     public Vector3 baseLocation;
 
     [Header("Satellite")]
@@ -56,12 +58,24 @@ public class GameManager : MonoBehaviour
     public int trashDropRand;
     public float trashGap;
 
-    public bool init = false;
 
     GameObject earthObject;
     GameObject satelliteObject;
     GameObject baseObject;
     GameObject[] trashObjects;
+
+    private GameManager()
+    {
+
+    }
+
+    public static GameManager Instance
+    {
+        get
+        {
+            return INSTANCE;
+        }
+    }
 
     public void Start()
     {
@@ -70,22 +84,28 @@ public class GameManager : MonoBehaviour
         CreateSatellite();
     }
 
-    void CreateEarth()
+    public void CreateEarth()
     {
         earthObject = Instantiate(earthPrefabs[(int)currentPhase], earthLocation, Quaternion.identity);
     }
 
-    void CreateBase()
+    public void CreateBase()
     {
-        baseLocation = Helper.CalcDegToPos(50, worldRadius);
-        baseObject = Instantiate(earthBasePrefabs[(int)currentPhase], baseLocation, Quaternion.Euler(0,0,-50));
+         int rand = Random.Range(0, 360);
+        baseObject = Instantiate(earthBasePrefabs[(int)currentPhase], Helper.CalcDegToPos(rand, worldRadius), Quaternion.Euler(0, 0, rand - 90));
+        baseObject.transform.parent = earthObject.transform;
     }
 
-    void CreateSatellite()
+    public void CreateSatellite()
     {
         satelliteObject = Instantiate(satellitePrefabs[(int)currentPhase]);
+        satelliteObject.GetComponent<Orbit>().radius = satelliteRadius;
+        satelliteObject.GetComponent<Orbit>().orbitSpeed = satelliteSpeed;
         satelliteObject.GetComponent<Satellite>().target = earthObject;
         satelliteObject.GetComponent<Satellite>().lr = satelliteObject.GetComponent<LineRenderer>();
+        satelliteObject.GetComponent<Satellite>().laserRate = laserFireRate;
+        satelliteObject.GetComponent<Satellite>().laserKey = laserKey;
+        satelliteObject.GetComponent<Satellite>().laserDuration = laserActiveLength;
         GetComponent<HitDetection>().satellite = satelliteObject;
     }
 
@@ -100,4 +120,30 @@ public enum Phase
     Past,
     Present,
     Future
+}
+
+
+//**// GAME MANAGER INSPECTOR CODE //**//
+[CustomEditor(typeof(GameManager))]
+public class GameManagerEditor : Editor
+{
+    public override void OnInspectorGUI()
+    {
+        //serializedObject.Update();
+        base.OnInspectorGUI();
+        GameManager gm = (GameManager)target;
+
+        if(GUILayout.Button("Create World")){
+            gm.CreateEarth();
+        }
+        if(GUILayout.Button("Create Base"))
+        {
+            gm.CreateBase();
+        }
+        if(GUILayout.Button("Create Satellite"))
+        {
+            gm.CreateSatellite();
+        }
+
+    }
 }

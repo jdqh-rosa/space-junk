@@ -26,16 +26,9 @@ public class HitDetection : MonoBehaviour
                 if (baseSwitch)
                 {
                     Destroy(satellite.GetComponent<Satellite>().rayCastHit.collider.gameObject);
-                    CreateBase();
+                    GameManager.Instance.CreateBase();
                 }
             }
         }
     }
-
-    void CreateBase()
-    {
-        int rand = Random.Range(0, 360);
-        Instantiate(baseObject, Helper.CalcDegToPos(rand, worldRadius), Quaternion.Euler(0, 0, rand - 90));
-    }
-
 }

@@ -7,6 +7,7 @@ public class Satellite : MonoBehaviour
 {
     public float laserRate = 1;
     public float laserDuration = 0.1f;
+    public KeyCode laserKey;
     public GameObject target;
     public LineRenderer lr;
 
@@ -33,7 +34,7 @@ public class Satellite : MonoBehaviour
         //COOLDOWN FOR THE LASER
         if (laserCountDown <= 0)
         {
-            if (Input.GetMouseButtonUp(0))
+            if (Input.GetKeyDown(laserKey))
             {
                 if (!lr.enabled) { lr.enabled = true; }
                 PewPew();
