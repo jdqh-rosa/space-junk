@@ -6,28 +6,108 @@ using UnityEditor;
 //**// GAME MANAGER CODE //**//
 //**// NFI //**//
 
-[ExecuteInEditMode]
-public class GameManager : MonoBehaviour
+//[ExecuteInEditMode]
+public sealed class GameManager : MonoBehaviour
 {
-    public GameObject earth;
-    public GameObject satellite;
-    public GameObject earthBase;
-    public GameObject rocket;
-    public GameObject spaceDebris;
-    public TrashRing trashRing;
-    
-    public bool init=false;
+    private static readonly GameManager INSTANCE = new GameManager();
 
-    //public void Init()
-    //{
-    //    earths = new GameObject[3];
-    //    satellites = new GameObject[3];
-    //    earthBases = new GameObject[3];
-    //    rockets = new GameObject[3];
-    //    spaceDebris = new GameObject[3];
-    //    trashRing = new TrashRing();
-    //    init =true;
-    //}
+    static public Phase currentPhase = Phase.Past;
+
+    [Header("Prefabs")]
+    public GameObject[] earthPrefabs;
+    public GameObject[] satellitePrefabs;
+    public GameObject[] earthBasePrefabs;
+    public GameObject[] rocketPrefabs;
+    public GameObject[] spaceDebrisPrefabs;
+
+    [Header("Trash Handler")]
+    public TrashHandler trashHandler;
+
+    [Header("Variables", order = 0)]
+
+    [Header("Earth", order = 1)]
+    public Vector3 earthLocation;
+    public float worldRadius;
+    public float earthRotation;
+
+    [Header("Base")]
+    //public int baseAmount;
+    public Vector3 baseLocation;
+
+    [Header("Satellite")]
+    public float satelliteRadius;
+    public float satelliteSpeed;
+
+    [Header("Laser")]
+    public KeyCode laserKey;
+    public float laserFireRate;
+    public float laserActiveLength;
+
+
+    [Header("Rocket")]
+    public float rocketLaunchHeight;
+    public float rocketLaunchHeightRand;
+    public float rocketLaunchSpeed;
+    public float rocketFlightSpeed;
+    public float rocketDestructTime;
+
+    [Header("Trash")]
+    public float trashRadius;
+    public float trashSpeed;
+    public int trashDropAmount;
+    public int trashDropRand;
+    public float trashGap;
+
+
+    GameObject earthObject;
+    GameObject satelliteObject;
+    GameObject baseObject;
+    GameObject[] trashObjects;
+
+    private GameManager()
+    {
+
+    }
+
+    public static GameManager Instance
+    {
+        get
+        {
+            return INSTANCE;
+        }
+    }
+
+    public void Start()
+    {
+        CreateEarth();
+        CreateBase();
+        CreateSatellite();
+    }
+
+    public void CreateEarth()
+    {
+        earthObject = Instantiate(earthPrefabs[(int)currentPhase], earthLocation, Quaternion.identity);
+    }
+
+    public void CreateBase()
+    {
+         int rand = Random.Range(0, 360);
+        baseObject = Instantiate(earthBasePrefabs[(int)currentPhase], Helper.CalcDegToPos(rand, worldRadius), Quaternion.Euler(0, 0, rand - 90));
+        baseObject.transform.parent = earthObject.transform;
+    }
+
+    public void CreateSatellite()
+    {
+        satelliteObject = Instantiate(satellitePrefabs[(int)currentPhase]);
+        satelliteObject.GetComponent<Orbit>().radius = satelliteRadius;
+        satelliteObject.GetComponent<Orbit>().orbitSpeed = satelliteSpeed;
+        satelliteObject.GetComponent<Satellite>().target = earthObject;
+        satelliteObject.GetComponent<Satellite>().lr = satelliteObject.GetComponent<LineRenderer>();
+        satelliteObject.GetComponent<Satellite>().laserRate = laserFireRate;
+        satelliteObject.GetComponent<Satellite>().laserKey = laserKey;
+        satelliteObject.GetComponent<Satellite>().laserDuration = laserActiveLength;
+        GetComponent<HitDetection>().satellite = satelliteObject;
+    }
 
     void Update()
     {
@@ -35,109 +115,35 @@ public class GameManager : MonoBehaviour
     }
 }
 
-enum Phase
+public enum Phase
 {
     Past,
     Present,
     Future
 }
 
+
 //**// GAME MANAGER INSPECTOR CODE //**//
 [CustomEditor(typeof(GameManager))]
 public class GameManagerEditor : Editor
 {
-    bool debris;
-    bool cloud;
-    bool showPastObjects;
-    bool showPresentObjects;
-    bool showFutureObjects;
-    bool showPrefabs;
-
-    public override void OnInspectorGUI(){
-        serializedObject.Update();
-        
+    public override void OnInspectorGUI()
+    {
+        //serializedObject.Update();
+        base.OnInspectorGUI();
         GameManager gm = (GameManager)target;
-        if(gm.trashRing==null){gm.trashRing = new TrashRing();}
-        TrashRing tr = gm.trashRing;
 
-//GameObjects
-
-        showPrefabs = EditorGUILayout.Foldout(showPrefabs, "Game Prefabs");
-        if (showPrefabs)
+        if(GUILayout.Button("Create World")){
+            gm.CreateEarth();
+        }
+        if(GUILayout.Button("Create Base"))
         {
-            gm.earth = (GameObject)EditorGUILayout.ObjectField("Earth", gm.earth, typeof(GameObject), true);
-            gm.satellite = (GameObject)EditorGUILayout.ObjectField("Satellite", gm.satellite, typeof(GameObject), true);
-            gm.earthBase = (GameObject)EditorGUILayout.ObjectField("Base", gm.earthBase, typeof(GameObject), true);
-            gm.rocket = (GameObject)EditorGUILayout.ObjectField("Rocket", gm.rocket, typeof(GameObject), true);
-            gm.spaceDebris = (GameObject)EditorGUILayout.ObjectField("Space Debris", gm.spaceDebris, typeof(GameObject), true);
+            gm.CreateBase();
+        }
+        if(GUILayout.Button("Create Satellite"))
+        {
+            gm.CreateSatellite();
         }
 
-        //if(!gm.init){gm.Init();}
-
-        //showPastObjects = EditorGUILayout.Foldout(showPastObjects, "Game Objects Past");
-        //if(showPastObjects)
-        //{
-        //    gm.earths[(int)Phase.Past] = (GameObject)EditorGUILayout.ObjectField("Earth", gm.earths[(int)Phase.Past], typeof(GameObject), true);
-        //    gm.satellites[(int)Phase.Past] = (GameObject)EditorGUILayout.ObjectField("Satellite", gm.satellites[(int)Phase.Past], typeof(GameObject), true);
-        //    gm.earthBases[(int)Phase.Past] = (GameObject)EditorGUILayout.ObjectField("Base", gm.earthBases[(int)Phase.Past], typeof(GameObject), true);
-        //    gm.rockets[(int)Phase.Past] = (GameObject)EditorGUILayout.ObjectField("Rocket", gm.rockets[(int)Phase.Past], typeof(GameObject), true);
-        //    gm.spaceDebris[(int)Phase.Past] = (GameObject)EditorGUILayout.ObjectField("Space Debris", gm.spaceDebris[(int)Phase.Past], typeof(GameObject), true);
-        //}
-        //showPresentObjects = EditorGUILayout.Foldout(showPresentObjects, "Game Objects Present");
-        //if(showPresentObjects)
-        //{
-        //    gm.earths[(int)Phase.Present] = (GameObject)EditorGUILayout.ObjectField("Earth", gm.earths[(int)Phase.Present], typeof(GameObject), true);
-        //    gm.satellites[(int)Phase.Present] = (GameObject)EditorGUILayout.ObjectField("Satellite", gm.satellites[(int)Phase.Present], typeof(GameObject), true);
-        //    gm.earthBases[(int)Phase.Present] = (GameObject)EditorGUILayout.ObjectField("Base", gm.earthBases[(int)Phase.Present], typeof(GameObject), true);
-        //    gm.rockets[(int)Phase.Present] = (GameObject)EditorGUILayout.ObjectField("Rocket", gm.rockets[(int)Phase.Present], typeof(GameObject), true);
-        //    gm.spaceDebris[(int)Phase.Present] = (GameObject)EditorGUILayout.ObjectField("Space Debris", gm.spaceDebris[(int)Phase.Present], typeof(GameObject), true);
-        //}
-        //showFutureObjects = EditorGUILayout.Foldout(showFutureObjects, "Game Objects Future");
-        //if(showFutureObjects)
-        //{
-        //    gm.earths[(int)Phase.Future] = (GameObject)EditorGUILayout.ObjectField("Earth", gm.earths[(int)Phase.Future], typeof(GameObject), true);
-        //    gm.satellites[(int)Phase.Future] = (GameObject)EditorGUILayout.ObjectField("Satellite", gm.satellites[(int)Phase.Future], typeof(GameObject), true);
-        //    gm.earthBases[(int)Phase.Future] = (GameObject)EditorGUILayout.ObjectField("Base", gm.earthBases[(int)Phase.Future], typeof(GameObject), true);
-        //    gm.rockets[(int)Phase.Future] = (GameObject)EditorGUILayout.ObjectField("Rocket", gm.rockets[(int)Phase.Future], typeof(GameObject), true);
-        //    gm.spaceDebris[(int)Phase.Future] = (GameObject)EditorGUILayout.ObjectField("Space Debris", gm.spaceDebris[(int)Phase.Future], typeof(GameObject), true);
-        //}
-
-
-        tr.pivotPoint = EditorGUILayout.Vector3Field("Pivot Point", tr.pivotPoint);
-        tr.debrisPrefab = (GameObject)EditorGUILayout.ObjectField(tr.debrisPrefab, typeof(GameObject), true);
-        tr.radius = EditorGUILayout.FloatField("Radius", tr.radius);
-        tr.amount = EditorGUILayout.IntField("Debris Amount", tr.amount);
-        
-        if(GUILayout.Button("Create Debris")){
-            tr.CreateDebris();
-            //(on)? !on : !on;
-            if(debris){debris=false;}else{debris=true;}
-        }
-//Create Inspector elements for each debris instance
-        if(tr.clouds==null){return;}
-        if(debris || tr.clouds.Length>0){
-            for(int i=0; i<tr.clouds.Length;++i){
-                EditorGUILayout.LabelField("Debris #" + (i+1));
-                gm.trashRing.clouds[i].locatDeg = EditorGUILayout.IntSlider("Relative Position ", gm.trashRing.clouds[i].locatDeg, 0,360);
-                gm.trashRing.clouds[i].debris.transform.position = Helper.CalculateDegPos(tr.clouds[i].locatDeg, tr.clouds[i].radius);
-                gm.trashRing.clouds[i].radius = EditorGUILayout.FloatField("Radius: ", tr.clouds[i].radius);
-                gm.trashRing.clouds[i].range = EditorGUILayout.IntSlider("Relative Range", tr.clouds[i].range, 0, 360);
-                gm.trashRing.clouds[i].relRange = new Vector2(tr.clouds[i].locatDeg - tr.clouds[i].range/2, tr.clouds[i].locatDeg + tr.clouds[i].range/2);
-                gm.trashRing.clouds[i].cloudSize = EditorGUILayout.IntField("Cloud Size", tr.clouds[i].cloudSize);
-                if(GUILayout.Button("Create Cloud")){
-                    tr.clouds[i].CreateDebrisCloud();
-                    //tr.InstantiateCloud();
-                    if(cloud){cloud=!cloud;}else{cloud=!cloud;}
-                }
-                if(GUILayout.Button("Destroy Cloud")){
-                    tr.clouds[i].DestroyDebrisCloud();
-                    if(cloud){cloud=!cloud;}else{cloud=!cloud;}
-                }
-                if(cloud || tr.clouds[i].debrisCloud!=null)
-                {
-                    tr.clouds[i].UpdatePos();
-                }
-            }
-        } 
     }
 }

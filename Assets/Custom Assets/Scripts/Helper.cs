@@ -15,13 +15,25 @@ public struct Helper
         return 360 / CalculateCirc(pRadius);
     }
 
-    static public Vector2 CalculateDegPos(float deg, float pRadius)
+    static public Vector2 CalcDegToPos(float deg, float pRadius)
     {
         float x = pRadius * Mathf.Cos(deg * Mathf.Deg2Rad);
         float y = x * Mathf.Tan(deg * Mathf.Deg2Rad);
         return new Vector2(x, y);
     }
 
+    static public float CalcPosToDeg(Vector2 pivotPos, Vector2 pos)
+    {
+        Vector2 diff = pos-pivotPos;
+        
+        return Mathf.Atan2(diff.y,diff.x) * Mathf.Rad2Deg;
+    }
+
+    static public float Degrees2Distance(float degree1, float degree2, float radius)
+    {
+        return (CalcDegToPos(degree1, radius) - CalcDegToPos(degree2, radius)).magnitude;
+    }
+    
     static public Transform GetObjectChild(GameObject gameObject, string name)
     {
         for (int i = 0; i < gameObject.transform.childCount - 1; i++)

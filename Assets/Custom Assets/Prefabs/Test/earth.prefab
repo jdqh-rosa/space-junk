@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 8621235244456290388}
   - component: {fileID: 8621235244456290389}
   - component: {fileID: 8621235244456290386}
+  - component: {fileID: 8368594546402631443}
   m_Layer: 0
   m_Name: earth
   m_TagString: Untagged
@@ -59,7 +60,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 953f9d810a95d3445a6daceb2a91c793, type: 2}
+  - {fileID: 2100000, guid: 648b1dc5b9a7d324f83549b225288ef4, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -93,3 +94,22 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &8368594546402631443
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8621235244456290387}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5be5077911491904d936db7dc91a95ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  orbitAxi: 2
+  pivotPoint: {x: 0, y: 0, z: 0}
+  pivotObject: {fileID: 0}
+  objectDistanceAsRadius: 0
+  radius: 0
+  orbitSpeed: 0
+  radiusSpeed: 1

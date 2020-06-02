@@ -10,12 +10,12 @@ public class Orbit : MonoBehaviour
     Y,
     Z
 };
-    public orbitAxis orbitAxi;
+    public orbitAxis orbitAxi = orbitAxis.Z;
     public Vector3 pivotPoint;
     public GameObject pivotObject;
     public bool objectDistanceAsRadius;
     public float radius = 10;
-    public float orbitSpeed = 80;
+    public float orbitSpeed = 0;
     public float radiusSpeed = 1;
     private Vector3 axis = Vector3.up;
 
@@ -37,6 +37,7 @@ public class Orbit : MonoBehaviour
     {
         ChangeAxis();
 
+        //if there's a pivotObject, use it as the pivot point
         if(pivotObject==null){
             OrbitAroundPoint(pivotPoint);
         }else{OrbitAroundPoint(pivotObject.transform.position);}

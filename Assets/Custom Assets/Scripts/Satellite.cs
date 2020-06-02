@@ -7,9 +7,12 @@ public class Satellite : MonoBehaviour
 {
     public float laserRate = 1;
     public float laserDuration = 0.1f;
+    public KeyCode laserKey;
     public GameObject target;
     public LineRenderer lr;
-    public Orbit orbit;
+
+    public RaycastHit rayCastHit;
+    public bool shootMe;
 
     void Start()
     {
@@ -31,7 +34,7 @@ public class Satellite : MonoBehaviour
         //COOLDOWN FOR THE LASER
         if (laserCountDown <= 0)
         {
-            if (Input.GetMouseButtonUp(0))
+            if (Input.GetKeyDown(laserKey))
             {
                 if (!lr.enabled) { lr.enabled = true; }
                 PewPew();
@@ -67,13 +70,15 @@ public class Satellite : MonoBehaviour
         lr.SetPosition(1, target.transform.position);
         if (Physics.Raycast(transform.position, Vector3.Normalize(target.gameObject.transform.position - transform.position), out hit))
         {
+            rayCastHit = hit;
             if (hit.collider)
             {
-                if (hit.collider.gameObject == target)
+                if (hit.collider.gameObject.tag == "Base")
                 {
                     print("hit target");
                     gameObject.GetComponent<Renderer>().material.color = Color.red;
                     lr.SetPosition(1, target.gameObject.transform.position);
+                    shootMe = true;
                 }
                 lr.SetPosition(1, hit.point);
                 //print("hit");
