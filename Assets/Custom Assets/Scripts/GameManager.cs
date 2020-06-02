@@ -135,9 +135,24 @@ public sealed class GameManager : MonoBehaviour
         GetComponent<HitDetection>().satellite = satelliteObject;
     }
 
+    float holdStreakTimer;
+    private void StreakHoldTimer()
+    {
+        holdStreakTimer+= Time.deltaTime;
+
+        if(holdStreakDuration >= holdStreakTimer)
+        {
+            holdStreak= true;
+        }
+        else
+        {
+            holdStreak = false;
+        }
+    }
+
     void Update()
     {
-
+        StreakHoldTimer();
     }
 }
 
