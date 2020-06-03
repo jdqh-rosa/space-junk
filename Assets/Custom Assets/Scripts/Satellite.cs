@@ -78,11 +78,12 @@ public class Satellite : MonoBehaviour
                     print("hit target");
                     gameObject.GetComponent<Renderer>().material.color = Color.red;
                     lr.SetPosition(1, target.gameObject.transform.position);
-                    shootMe = true;
+
                 }
                 lr.SetPosition(1, hit.point);
                 //print("hit");
             }
         }
+        shootMe = true;
     }
 }

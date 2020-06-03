@@ -16,18 +16,26 @@ public class HitDetection : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (satellite.GetComponent<Satellite>().rayCastHit.collider.gameObject != null)
+        if (satellite.GetComponent<Satellite>().rayCastHit.collider != null)
         {
-            if (satellite.GetComponent<Satellite>().rayCastHit.collider.gameObject.tag == "Base" && satellite.GetComponent<Satellite>().shootMe)
+            if (satellite.GetComponent<Satellite>().shootMe)
             {
-                satellite.GetComponent<Satellite>().rayCastHit.collider.gameObject.GetComponent<SpawnRocket>().Launch();
-                satellite.GetComponent<Satellite>().shootMe = false;
-
-                if (baseSwitch)
+                if (satellite.GetComponent<Satellite>().rayCastHit.collider.gameObject.tag == "Base")
                 {
-                    Destroy(satellite.GetComponent<Satellite>().rayCastHit.collider.gameObject);
-                    GameManager.Instance.CreateBase();
+                    satellite.GetComponent<Satellite>().rayCastHit.collider.gameObject.GetComponent<SpawnRocket>().Launch();
+                    
+                    GameManager.Instance.currentStreak += 1;
+                    if (baseSwitch)
+                    {
+                        Destroy(satellite.GetComponent<Satellite>().rayCastHit.collider.gameObject);
+                        GameManager.Instance.CreateBase();
+                    }
                 }
+                else
+                {
+                    if (!GameManager.Instance.holdStreak) GameManager.Instance.currentStreak = 0;
+                }
+                satellite.GetComponent<Satellite>().shootMe = false;
             }
         }
     }

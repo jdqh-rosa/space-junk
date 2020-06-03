@@ -633,7 +633,6 @@ MonoBehaviour:
   earthLocation: {x: 0, y: 0, z: 0}
   worldRadius: 5
   earthRotation: 0
-  baseAmount: 1
   baseLocation: {x: 3.2139382, y: 3.8302226, z: 0}
   satelliteRadius: 15
   satelliteSpeed: 50
@@ -650,7 +649,14 @@ MonoBehaviour:
   trashDropAmount: 5
   trashDropRand: 3
   trashGap: 5
-  init: 0
+  holdStreakDuration: 0
+  holdStreak: 0
+  slowSatDuration: 0
+  blackHoleChancePerMinute: 0
+  blackHoleRadius: 0
+  blackHoleDuration: 0
+  streak: 0
+  currentStreak: 0
 --- !u!4 &1301306965
 Transform:
   m_ObjectHideFlags: 0
@@ -679,8 +685,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   satellite: {fileID: 0}
   baseObject: {fileID: 0}
-  worldRadius: 0
-  baseSwitch: 0
+  worldRadius: 5
+  baseSwitch: 1
 --- !u!1 &1334591730
 GameObject:
   m_ObjectHideFlags: 0
