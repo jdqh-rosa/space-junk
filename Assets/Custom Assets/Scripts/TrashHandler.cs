@@ -5,7 +5,6 @@ using UnityEngine;
 public class TrashHandler : MonoBehaviour
 {
     public static int perc = 0;
-    static List<bool> occupadoList = new List<bool>();
     static List<GameObject> trashList = new List<GameObject>();
     static Transform trashHandlerTF;
 

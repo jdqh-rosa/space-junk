@@ -644,14 +644,15 @@ MonoBehaviour:
   rocketLaunchSpeed: 10
   rocketFlightSpeed: 5
   rocketDestructTime: 3
-  trashRadius: 0
   trashSpeed: -10
   trashDropAmount: 5
   trashDropRand: 3
-  trashGap: 5
+  trashGap: 1
   holdStreakDuration: 0
   holdStreak: 0
   slowSatDuration: 0
+  slowSatSpeed: 10
+  slowSatPercentage: 80
   blackHoleChancePerMinute: 0
   blackHoleRadius: 0
   blackHoleDuration: 0
@@ -943,7 +944,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2136963516}
   - component: {fileID: 2136963515}
-  - component: {fileID: 2136963517}
   m_Layer: 0
   m_Name: Trash Handler
   m_TagString: Untagged
@@ -963,7 +963,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0674df6ad6897a4aa249533829443d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minGapLength: 0.5
+  minGapLength: 1
   trashSpeed: -10
   trashSpeedRand: 2
 --- !u!4 &2136963516
@@ -980,25 +980,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2136963517
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2136963514}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5be5077911491904d936db7dc91a95ac, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  orbitAxi: 2
-  pivotPoint: {x: 0, y: 0, z: 0}
-  pivotObject: {fileID: 0}
-  objectDistanceAsRadius: 0
-  radius: 10
-  orbitSpeed: -10
-  radiusSpeed: 1
 --- !u!1001 &133941757006169766
 PrefabInstance:
   m_ObjectHideFlags: 0

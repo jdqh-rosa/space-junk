@@ -9,6 +9,8 @@ using UnityEditor;
 //[ExecuteInEditMode]
 public sealed class GameManager : MonoBehaviour
 {
+    static public float gameTime;
+    static public float gameDeltaTime;
     static public Phase currentPhase = Phase.Past;
 
     [Header("Prefabs")]
@@ -50,7 +52,6 @@ public sealed class GameManager : MonoBehaviour
     public float rocketDestructTime;
 
     [Header("Trash")]
-    public float trashRadius;
     public float trashSpeed;
     public int trashDropAmount;
     public int trashDropRand;
@@ -110,6 +111,7 @@ public sealed class GameManager : MonoBehaviour
         Instance.CreateEarth();
         Instance.CreateBase();
         Instance.CreateSatellite();
+        Instance.TrashHandlerVars();
     }
 
     public void CreateEarth()
@@ -141,6 +143,8 @@ public sealed class GameManager : MonoBehaviour
 
     void Update()
     {
+        gameTime +=Time.deltaTime;
+        gameDeltaTime = Time.deltaTime;
         StreakHoldTimer();
         SlowSatTimer();
     }
@@ -150,13 +154,9 @@ public sealed class GameManager : MonoBehaviour
     {
         holdStreakTimer+= Time.deltaTime;
 
-        if(holdStreakDuration >= holdStreakTimer)
+        if(holdStreak && holdStreakDuration >= holdStreakTimer)
         {
             holdStreak= true;
-        }
-        else
-        {
-            holdStreak = false;
         }
     }
 
@@ -173,6 +173,13 @@ public sealed class GameManager : MonoBehaviour
         {
             satelliteObject.GetComponent<Orbit>().orbitSpeed = satelliteSpeed;
         }
+    }
+
+    void TrashHandlerVars()
+    {
+
+        trashHandler.trashSpeedRand = trashDropRand;
+        trashHandler.minGapLength = trashGap;
     }
 
 }

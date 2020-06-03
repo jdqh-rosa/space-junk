@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 3838595715295648692}
   - component: {fileID: 3838595715295648695}
   - component: {fileID: 3838595715295648694}
-  - component: {fileID: 3838595715295648689}
   - component: {fileID: -2462664783658087521}
   m_Layer: 0
   m_Name: Base
@@ -95,25 +94,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &3838595715295648689
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3838595715295648688}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5be5077911491904d936db7dc91a95ac, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  orbitAxi: 2
-  pivotPoint: {x: 0, y: 0, z: 0}
-  pivotObject: {fileID: 0}
-  objectDistanceAsRadius: 1
-  radius: 0
-  orbitSpeed: 80
-  radiusSpeed: 1
 --- !u!114 &-2462664783658087521
 MonoBehaviour:
   m_ObjectHideFlags: 0

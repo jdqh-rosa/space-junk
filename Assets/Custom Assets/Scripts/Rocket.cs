@@ -12,6 +12,8 @@ public class Rocket : MonoBehaviour
     [Header("Flight")]
     public float movementSpeed;
     public float destructTime;
+    [Header("TrashHub")]
+    public GameObject trashHub;
 
     private Vector3 startPosition;
    // private Vector3 endPosition;
@@ -38,11 +40,10 @@ public class Rocket : MonoBehaviour
         destructTime -= Time.deltaTime;
     }
 
-    float t = 0;
+
     void RocketLaunch()
     {
-        //transform.position = Vector3.Slerp(startPosition, endPosition, t);
-        //t += Time.deltaTime * launchDuration/launchSpeed;
+
         transform.position += transform.up * launchSpeed * Time.deltaTime;
 
         if(launchDistance <= (transform.position-startPosition).magnitude)
@@ -57,7 +58,7 @@ public class Rocket : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("TrashJunk") || other.gameObject.CompareTag("TrashHub"))
+        if (other.gameObject.CompareTag("TrashJunk"))
         {
             Destroy(gameObject);
         }
@@ -65,6 +66,6 @@ public class Rocket : MonoBehaviour
 
     void DropJunk()
     {
-        GetComponent<JunkDrop>().Drop();
+        Instantiate(trashHub, transform.position, transform.rotation);
     }
 }
