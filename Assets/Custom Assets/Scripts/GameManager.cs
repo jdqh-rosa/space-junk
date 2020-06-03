@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
+using TMPro;
 
 //**// GAME MANAGER CODE //**//
 //**// NFI //**//
@@ -10,6 +11,11 @@ using UnityEditor;
 public sealed class GameManager : MonoBehaviour
 {
     static public Phase currentPhase = Phase.Past;
+
+    [Header("UI")]
+    public TextMeshProUGUI pointsText;
+    public TextMeshProUGUI rubblePercentageText;
+    public TextMeshProUGUI actProgressionText;
 
     [Header("Prefabs")]
     public GameObject[] earthPrefabs;
