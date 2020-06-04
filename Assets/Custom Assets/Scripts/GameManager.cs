@@ -19,6 +19,7 @@ public sealed class GameManager : MonoBehaviour
     public GameObject[] earthBasePrefabs;
     public GameObject[] rocketPrefabs;
     public GameObject[] spaceDebrisPrefabs;
+    public GameObject blackHole;
 
     [Header("Trash Handler")]
     public TrashHandler trashHandler;
@@ -30,9 +31,9 @@ public sealed class GameManager : MonoBehaviour
     public float worldRadius;
     public float earthRotation;
 
-    [Header("Base")]
+    //[Header("Base")]
     //public int baseAmount;
-    public Vector3 baseLocation;
+    //public Vector3 baseLocation;
 
     [Header("Satellite")]
     public float satelliteRadius;
@@ -46,7 +47,7 @@ public sealed class GameManager : MonoBehaviour
 
     [Header("Rocket")]
     public float rocketLaunchHeight;
-    public float rocketLaunchHeightRand;
+    public float rocketLaunchHeightDev;
     public float rocketLaunchSpeed;
     public float rocketFlightSpeed;
     public float rocketDestructTime;
@@ -58,7 +59,7 @@ public sealed class GameManager : MonoBehaviour
     public float trashGap;
 
     [Header("Skills", order = 0)]
-    
+
     [Header("Skill: Maintain Streak", order = 1)]
     public float holdStreakDuration;
     public bool holdStreak;
@@ -67,15 +68,16 @@ public sealed class GameManager : MonoBehaviour
     public float slowSatDuration;
     public float slowSatSpeed;
     public float slowSatPercentage;
+    public bool slowSatActive = false;
 
-    [Header("Events", order = 0 )]
+    [Header("Events", order = 0)]
 
-    [Header("Black Hole", order =1)]
+    [Header("Black Hole", order = 1)]
     public float blackHoleChancePerMinute;
     public float blackHoleRadius;
     public float blackHoleDuration;
 
-    [Header("GamePlay Blabla", order =0)]
+    [Header("GamePlay Blabla", order = 0)]
     public int streak;
     public int currentStreak;
 
@@ -96,7 +98,7 @@ public sealed class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        if(INSTANCE != null && INSTANCE != this)
+        if (INSTANCE != null && INSTANCE != this)
         {
             Destroy(this.gameObject);
         }
@@ -139,12 +141,13 @@ public sealed class GameManager : MonoBehaviour
         GetComponent<HitDetection>().satellite = satelliteObject;
     }
 
-    
+
 
     void Update()
     {
-        gameTime +=Time.deltaTime;
+        gameTime += Time.deltaTime;
         gameDeltaTime = Time.deltaTime;
+
         StreakHoldTimer();
         SlowSatTimer();
     }
@@ -152,26 +155,34 @@ public sealed class GameManager : MonoBehaviour
     float holdStreakTimer;
     private void StreakHoldTimer()
     {
-        holdStreakTimer+= Time.deltaTime;
-
-        if(holdStreak && holdStreakDuration >= holdStreakTimer)
+        if (holdStreak)
         {
-            holdStreak= true;
+            holdStreakTimer += GameManager.gameDeltaTime;
+
+            if (holdStreakDuration <= holdStreakTimer)
+            {
+                holdStreak= false;
+                holdStreakTimer=0;
+            }
         }
     }
 
     float slowSatTimer;
     private void SlowSatTimer()
     {
-        slowSatTimer+=Time.deltaTime;
-
-        if(slowSatDuration >= slowSatTimer)
+        if (slowSatActive)
         {
-            satelliteObject.GetComponent<Orbit>().orbitSpeed = slowSatSpeed;
-        }
-        else
-        {
-            satelliteObject.GetComponent<Orbit>().orbitSpeed = satelliteSpeed;
+            slowSatTimer += GameManager.gameDeltaTime;
+            if (slowSatDuration >= slowSatTimer)
+            {
+                satelliteObject.GetComponent<Orbit>().orbitSpeed = slowSatSpeed;
+            }
+            else
+            {
+                satelliteObject.GetComponent<Orbit>().orbitSpeed = satelliteSpeed;
+                slowSatActive = false;
+                slowSatTimer = 0;
+            }
         }
     }
 
@@ -180,6 +191,20 @@ public sealed class GameManager : MonoBehaviour
 
         trashHandler.trashSpeedRand = trashDropRand;
         trashHandler.minGapLength = trashGap;
+    }
+
+    float blackHoleTimer = 0;
+    void SpawnBlackHole()
+    {
+        blackHoleTimer += GameManager.gameDeltaTime;
+        if (blackHoleTimer >= 60)
+        {
+            if (Random.Range(0f, 1f) <= blackHoleChancePerMinute/100f)
+            {
+                Instantiate(blackHole);
+            }
+            blackHoleTimer = 0;
+        }
     }
 
 }
@@ -202,17 +227,10 @@ public class GameManagerEditor : Editor
         base.OnInspectorGUI();
         GameManager gm = (GameManager)target;
 
-        if (GUILayout.Button("Create World"))
+
+        if (GUILayout.Button("Create BlackHole"))
         {
-            gm.CreateEarth();
-        }
-        if (GUILayout.Button("Create Base"))
-        {
-            gm.CreateBase();
-        }
-        if (GUILayout.Button("Create Satellite"))
-        {
-            gm.CreateSatellite();
+            Instantiate(gm.blackHole);
         }
 
     }

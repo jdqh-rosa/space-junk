@@ -52,8 +52,8 @@ public class Satellite : MonoBehaviour
             }
         }
 
-        laserCountDown -= Time.deltaTime;
-        laserTimer -= Time.deltaTime;
+        laserCountDown -= GameManager.gameDeltaTime;
+        laserTimer -= GameManager.gameDeltaTime;
     }
 
     //CHECK IF THE LASER HITS THE TARGET AND SET THE DISTANCE TO RAYCAST HIT
@@ -73,6 +73,7 @@ public class Satellite : MonoBehaviour
             rayCastHit = hit;
             if (hit.collider)
             {
+                lr.SetPosition(1, hit.point);
                 if (hit.collider.gameObject.tag == "Base")
                 {
                     print("hit target");
@@ -80,7 +81,6 @@ public class Satellite : MonoBehaviour
                     lr.SetPosition(1, target.gameObject.transform.position);
 
                 }
-                lr.SetPosition(1, hit.point);
                 //print("hit");
             }
         }

@@ -629,18 +629,19 @@ MonoBehaviour:
   - {fileID: 133941756599076391, guid: 86be5e0b1e91d2d4791ae6f98342b576, type: 3}
   spaceDebrisPrefabs:
   - {fileID: 287584116993078101, guid: dc08398888827d447be1b72ed75e6470, type: 3}
+  blackHole: {fileID: 3648659889975131551, guid: a0e69c6145327c447aa24516a4f97943,
+    type: 3}
   trashHandler: {fileID: 2136963515}
   earthLocation: {x: 0, y: 0, z: 0}
   worldRadius: 5
   earthRotation: 0
-  baseLocation: {x: 3.2139382, y: 3.8302226, z: 0}
   satelliteRadius: 15
   satelliteSpeed: 50
   laserKey: 323
   laserFireRate: 1
-  laserActiveLength: 0.2
+  laserActiveLength: 0.1
   rocketLaunchHeight: 5
-  rocketLaunchHeightRand: 2
+  rocketLaunchHeightDev: 0
   rocketLaunchSpeed: 10
   rocketFlightSpeed: 5
   rocketDestructTime: 3
@@ -648,14 +649,15 @@ MonoBehaviour:
   trashDropAmount: 5
   trashDropRand: 3
   trashGap: 1
-  holdStreakDuration: 0
+  holdStreakDuration: 3
   holdStreak: 0
-  slowSatDuration: 0
+  slowSatDuration: 3
   slowSatSpeed: 10
   slowSatPercentage: 80
-  blackHoleChancePerMinute: 0
-  blackHoleRadius: 0
-  blackHoleDuration: 0
+  slowSatActive: 0
+  blackHoleChancePerMinute: 80
+  blackHoleRadius: 10
+  blackHoleDuration: 30
   streak: 0
   currentStreak: 0
 --- !u!4 &1301306965

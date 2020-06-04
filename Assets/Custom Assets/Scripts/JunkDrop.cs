@@ -7,14 +7,10 @@ public class JunkDrop : MonoBehaviour
     public GameObject trashPrefab;
     public int dropAmount;
     public int dropRand;
-    //public float dropRange;
     public float dropGap;
-    //public float spreadSpeed;
     public Vector3 pivotPoint;
     private float radius;
     private GameObject[] cluster;
-    private float locatDeg;
-    //Vector2 relRange;
     Vector3 dropLocation;
 
     public float trashSpeed;
@@ -23,16 +19,14 @@ public class JunkDrop : MonoBehaviour
 
     public void Start()
     {
-        dropLocation = transform.position;
         dropAmount = Random.Range(dropAmount - dropRand, dropAmount + dropRand + 1);
         cluster = new GameObject[dropAmount];
-        radius = (dropLocation - pivotPoint).magnitude;
-        locatDeg = Helper.CalcPosToDeg(pivotPoint, new Vector2(dropLocation.x, dropLocation.y));
-        //relRange = new Vector2(locatDeg - (dropAmount * dropGap) / 2, locatDeg + (dropGap * dropAmount) / 2);
-        //relRange = new Vector2(locatDeg - dropRange / 2, locatDeg + dropRange / 2);
+        radius = (transform.position - pivotPoint).magnitude;
+        dropLocation = Helper.CalcDegToPos(Helper.CalcPosToDeg(pivotPoint, transform.position), radius - 1);
+
         for (int i = 0; i < dropAmount; ++i)
         {
-            cluster[i] = Instantiate(trashPrefab, dropLocation * 0.9f, transform.rotation);
+            cluster[i] = Instantiate(trashPrefab, dropLocation, transform.rotation);
         }
         TrashHandler.AddToList(cluster[0]);
 
@@ -43,9 +37,14 @@ public class JunkDrop : MonoBehaviour
 
     void Update()
     {
-        for (int i = 1; i < dropAmount; ++i)
+        for (int i = 1; i < cluster.Length; ++i)
         {
-            if (cluster == null || cluster[i] == null) return;
+            if (cluster == null || cluster[i] == null){ continue; }
+
+            if (cluster[i - 1] == null)
+            {
+                Destroy(cluster[i]);
+            }
 
             if ((cluster[i].transform.position - cluster[i - 1].transform.position).magnitude >= 1)
             {
@@ -54,8 +53,12 @@ public class JunkDrop : MonoBehaviour
                 {
                     cluster[i].GetComponent<Orbit>().orbitSpeed = randomSpeed;
                 }
+                if (i == cluster.Length - 1)
+                {
+                    Destroy(this.gameObject);
+                }
             }
+
         }
-        //gameObject.GetComponent<Rocket>().destroy = destroy;
     }
 }

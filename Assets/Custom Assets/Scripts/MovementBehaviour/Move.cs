@@ -44,7 +44,7 @@ public class Move : MonoBehaviour
         }
         else
         {
-            transform.position = Vector3.MoveTowards(transform.position, target.transform.position, movementSpeed * Time.deltaTime);
+            transform.position = Vector3.MoveTowards(transform.position, target.transform.position, movementSpeed * GameManager.gameDeltaTime);
         }
     }
 
@@ -53,6 +53,6 @@ public class Move : MonoBehaviour
     {
         transform.position = Vector3.Slerp(transform.position, targetPosition, t);
 
-        t += Time.deltaTime / 100;
+        t += GameManager.gameDeltaTime / 100;
     }
 }

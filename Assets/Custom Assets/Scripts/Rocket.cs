@@ -8,7 +8,7 @@ public class Rocket : MonoBehaviour
     //public float launchDuration;
     public float launchSpeed;
     public float launchDistance;
-    public float launchRand;
+    public float launchDev;
     [Header("Flight")]
     public float movementSpeed;
     public float destructTime;
@@ -21,7 +21,15 @@ public class Rocket : MonoBehaviour
     public bool destroy;
     void Start()
     {
-        launchDistance = Random.Range(launchDistance - launchRand, launchDistance + launchRand+1);
+        if (Random.value > 0.5f)
+        {
+            launchDistance = launchDistance - launchDev;
+        }
+        else
+        {
+            launchDistance = launchDistance + launchDev;
+        }
+        
         startPosition = transform.position;
         //endPosition = transform.position + transform.up * launchDistance;
     }
@@ -36,15 +44,15 @@ public class Rocket : MonoBehaviour
         {
             RocketFlight();
         }
-        if (0 >= destructTime && destroy) Destroy(gameObject);
-        destructTime -= Time.deltaTime;
+        if (0 >= destructTime) Destroy(gameObject);
+        destructTime -= GameManager.gameDeltaTime;
     }
 
 
     void RocketLaunch()
     {
 
-        transform.position += transform.up * launchSpeed * Time.deltaTime;
+        transform.position += transform.up * launchSpeed * GameManager.gameDeltaTime;
 
         if(launchDistance <= (transform.position-startPosition).magnitude)
         {
@@ -54,7 +62,7 @@ public class Rocket : MonoBehaviour
 
     void RocketFlight()
     {
-        transform.position += transform.up * movementSpeed * Time.deltaTime;
+        transform.position += transform.up * movementSpeed * GameManager.gameDeltaTime;
     }
     private void OnTriggerEnter(Collider other)
     {

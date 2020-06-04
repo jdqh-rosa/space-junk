@@ -8,7 +8,7 @@ public class TrashHandler : MonoBehaviour
     static List<GameObject> trashList = new List<GameObject>();
     static Transform trashHandlerTF;
 
-    public float minGapLength=1;
+    public float minGapLength = 1;
     public float trashSpeed;
     public float trashSpeedRand;
 
@@ -30,13 +30,20 @@ public class TrashHandler : MonoBehaviour
 
     void TrashCollision()
     {
-        for(int i=0; i<trashList.Count; ++i)
+        for (int i = 0; i < trashList.Count; ++i)
         {
-            for(int j=i+1; j<trashList.Count; ++j)
+            if (trashList[i] == null) { trashList.RemoveAt(i); }
+            for (int j = i + 1; j < trashList.Count; ++j)
             {
-                if((trashList[i].transform.position - trashList[j].transform.position).magnitude <= minGapLength)
+                if (trashList[j] == null)
                 {
-                    trashList[j].SetActive(false);
+                    trashList.RemoveAt(j);
+                    if(j>trashList.Count-1) return;
+                }
+                if ((trashList[i].transform.position - trashList[j].transform.position).magnitude <= minGapLength)
+                {
+                    //trashList[j].SetActive(false);
+                    Destroy(trashList[j]);
                     trashList.RemoveAt(j);
                 }
             }
