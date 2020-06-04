@@ -11,7 +11,7 @@ public class HighscoreLoader : MonoBehaviour
     private float currentY = 0;
     void Start()
     {
-        //createTable("SELECT * FROM highscores ORDER BY Score DESC");
+        createTable("SELECT * FROM highscores ORDER BY Score DESC");
     }
 
     private void createTable(string query)

@@ -2333,7 +2333,7 @@ MonoBehaviour:
   currentMultiplier: 1
   multiplierIncrease: 0.1
   pointsPerRocket: 10
-  maxRubble: 50
+  maxRubble: 1
   earthLocation: {x: 0, y: 0, z: 0}
   worldRadius: 5
   earthRotation: 0

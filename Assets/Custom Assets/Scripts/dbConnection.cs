@@ -4,6 +4,7 @@ using System.Data;
 using UnityEngine;
 using Mono.Data.Sqlite;
 using System.IO;
+using System;
 
 /// <summary>
 /// Database helper class to easily read, modify and delete records from the database
@@ -64,6 +65,15 @@ public class dbConnection
 
     public void InsertHighscore(highscore pScore)
     {
+        command = connection.CreateCommand();
+        command.CommandText = String.Format("INSERT INTO highscores (Score, Name) VALUES ({0},'{1}')", pScore.Score, pScore.Name);
+        Debug.Log(command.CommandText);
+        command.ExecuteNonQuery();
+        command.Dispose();
+    }
 
+    public void Close()
+    {
+        connection.Close();
     }
 }

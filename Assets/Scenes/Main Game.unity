@@ -619,6 +619,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8169bec5d49170a4d8b9b879df27d7dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sceneManager: {fileID: 0}
+  pointsText: {fileID: 0}
+  rubblePercentageText: {fileID: 0}
+  actProgressionText: {fileID: 0}
+  actProgressionLabel: {fileID: 0}
+  multiplierText: {fileID: 0}
   earthPrefabs:
   - {fileID: 8621235244456290387, guid: 9cc4eca935fb1f44e8ba62e776ac71a5, type: 3}
   satellitePrefabs:
@@ -630,6 +636,14 @@ MonoBehaviour:
   spaceDebrisPrefabs:
   - {fileID: 287584116993078101, guid: dc08398888827d447be1b72ed75e6470, type: 3}
   trashHandler: {fileID: 2136963515}
+  score: 0
+  act: 1
+  actProgression: 0
+  actCompletion: 
+  currentMultiplier: 1
+  multiplierIncrease: 0.1
+  pointsPerRocket: 10
+  maxRubble: 1
   earthLocation: {x: 0, y: 0, z: 0}
   worldRadius: 5
   earthRotation: 0
@@ -649,9 +663,12 @@ MonoBehaviour:
   trashDropAmount: 5
   trashDropRand: 3
   trashGap: 5
+  currentRubble: 0
   holdStreakDuration: 0
   holdStreak: 0
   slowSatDuration: 0
+  slowSatSpeed: 0
+  slowSatPercentage: 0
   blackHoleChancePerMinute: 0
   blackHoleRadius: 0
   blackHoleDuration: 0

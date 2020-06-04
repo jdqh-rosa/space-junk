@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -7,6 +8,7 @@ public class ScreenKeyboard : MonoBehaviour
 {
     public TMP_InputField Input;
     public TextMeshProUGUI CountText;
+    public SceneManager sceneManager;
     public int MaxLength;
 
     private void Start()
@@ -27,7 +29,7 @@ public class ScreenKeyboard : MonoBehaviour
                     }
                     break;
                 case "enter":
-                    slideOut();
+                    showHighscores();
                     break;
                 default:
                     if(Input.text.Length < MaxLength)
@@ -42,6 +44,21 @@ public class ScreenKeyboard : MonoBehaviour
                 CountText.SetText(Input.text.Length + " / " + MaxLength);
             }
         }
+    }
+
+    private void showHighscores()
+    {
+        //slide out the keyboard
+        slideOut();
+
+        //Add the highscore to the database
+        dbConnection db = new dbConnection();
+        highscore score = new highscore(0, PlayerPrefs.GetInt("score"), DateTime.Now, Input.text);
+        db.InsertHighscore(score);
+        db.Close();
+
+        //Load the highscore screen
+        sceneManager.LoadLevel(3);
     }
 
     private void slideOut()
