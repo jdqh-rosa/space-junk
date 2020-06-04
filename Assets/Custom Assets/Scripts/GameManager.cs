@@ -16,6 +16,7 @@ public sealed class GameManager : MonoBehaviour
     public TextMeshProUGUI pointsText;
     public TextMeshProUGUI rubblePercentageText;
     public TextMeshProUGUI actProgressionText;
+    public TextMeshProUGUI multiplierText;
 
     [Header("Prefabs")]
     public GameObject[] earthPrefabs;
@@ -28,6 +29,13 @@ public sealed class GameManager : MonoBehaviour
     public TrashHandler trashHandler;
 
     [Header("Variables", order = 0)]
+    public int score = 0;
+    public int act = 1;
+    public float actProgression = 0;
+    public float currentMultiplier = 1f;
+    public float multiplierIncrease = 0.1f;
+    public int pointsPerRocket = 10;
+    public int maxRubble = 50;
 
     [Header("Earth", order = 1)]
     public Vector3 earthLocation;
@@ -116,6 +124,33 @@ public sealed class GameManager : MonoBehaviour
         Instance.CreateEarth();
         Instance.CreateBase();
         Instance.CreateSatellite();
+    }
+
+    /// <summary>
+    /// Add score based on the set variables and current streak multiplier
+    /// </summary>
+    public void BeamHit()
+    {
+        //Add score and add multiplier
+        score += (int)(pointsPerRocket * currentMultiplier);
+        currentMultiplier += multiplierIncrease;
+
+        //also update the UI
+        pointsText.SetText(""+score);
+        actProgressionText.SetText("" + actProgression);
+        multiplierText.SetText(currentMultiplier.ToString("0.0") + "x");
+    }
+
+    /// <summary>
+    /// Reset multiplier if keep streak skill is not active
+    /// </summary>
+    public void BeamMissed()
+    {
+        if(!holdStreak)
+        {
+            currentMultiplier = 1f;
+            multiplierText.SetText(currentMultiplier.ToString("0.0") + "x");
+        }
     }
 
     public void CreateEarth()
