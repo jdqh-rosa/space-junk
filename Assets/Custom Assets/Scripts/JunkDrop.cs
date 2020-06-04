@@ -23,6 +23,7 @@ public class JunkDrop : MonoBehaviour
     public void Drop()
     {
         dropAmount = Random.Range(dropAmount - dropRand, dropAmount + dropRand + 1);
+        GameManager.Instance.RubbleDropped(dropAmount);
         cluster = new GameObject[dropAmount];
         radius = (transform.position - pivotPoint).magnitude;
         locatDeg = Helper.CalcPosToDeg(pivotPoint, new Vector2(transform.position.x, transform.position.y));

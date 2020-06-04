@@ -11,11 +11,13 @@ using TMPro;
 public sealed class GameManager : MonoBehaviour
 {
     static public Phase currentPhase = Phase.Past;
+    public SceneManager sceneManager;
 
     [Header("UI")]
     public TextMeshProUGUI pointsText;
     public TextMeshProUGUI rubblePercentageText;
     public TextMeshProUGUI actProgressionText;
+    public TextMeshProUGUI actProgressionLabel;
     public TextMeshProUGUI multiplierText;
 
     [Header("Prefabs")]
@@ -29,9 +31,11 @@ public sealed class GameManager : MonoBehaviour
     public TrashHandler trashHandler;
 
     [Header("Variables", order = 0)]
+    [HideInInspector]
     public int score = 0;
     public int act = 1;
     public float actProgression = 0;
+    public int[] actCompletion;
     public float currentMultiplier = 1f;
     public float multiplierIncrease = 0.1f;
     public int pointsPerRocket = 10;
@@ -69,6 +73,9 @@ public sealed class GameManager : MonoBehaviour
     public int trashDropAmount;
     public int trashDropRand;
     public float trashGap;
+
+    [HideInInspector]
+    public int currentRubble = 0;
 
     [Header("Skills", order = 0)]
     
@@ -135,10 +142,38 @@ public sealed class GameManager : MonoBehaviour
         score += (int)(pointsPerRocket * currentMultiplier);
         currentMultiplier += multiplierIncrease;
 
+        //modify act progression
+        actProgression++;
+        if(actCompletion.Length > act-1)
+        {
+            float percentage = (float)actProgression / (float)actCompletion[act - 1];
+
+            if (actProgression >= actCompletion[act-1])
+            {
+                NextAct();
+            } else
+            {
+                actProgressionText.SetText(percentage.ToString("0%"));
+            }
+        } else
+        {
+            actProgressionText.SetText("∞");
+        }
+
         //also update the UI
         pointsText.SetText(""+score);
-        actProgressionText.SetText("" + actProgression);
         multiplierText.SetText(currentMultiplier.ToString("0.0") + "x");
+    }
+
+    /// <summary>
+    /// Progress onto the next age
+    /// </summary>
+    public void NextAct()
+    {
+        act++;
+        actProgression = 0;
+        actProgressionText.SetText(0f.ToString("0%"));
+        actProgressionLabel.SetText("ACT " + act);
     }
 
     /// <summary>
@@ -151,6 +186,31 @@ public sealed class GameManager : MonoBehaviour
             currentMultiplier = 1f;
             multiplierText.SetText(currentMultiplier.ToString("0.0") + "x");
         }
+    }
+
+    /// <summary>
+    /// Alter the rubble meter when rubble is dropped
+    /// </summary>
+    /// <param name="amount">amount of rubble blocks</param>
+    public void RubbleDropped(int amount)
+    {
+        currentRubble += amount;
+        float percentage = (float)currentRubble / (float)maxRubble;
+        rubblePercentageText.SetText(percentage.ToString("0%"));
+
+        if(currentRubble >= maxRubble)
+        {
+            GameOver();
+        }
+    }
+
+    /// <summary>
+    /// Transition to the end screen and show the results
+    /// </summary>
+    public void GameOver()
+    {
+        PlayerPrefs.SetInt("score", score);
+        sceneManager.LoadLevel(2);
     }
 
     public void CreateEarth()

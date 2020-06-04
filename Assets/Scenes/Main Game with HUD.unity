@@ -2267,6 +2267,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c996fa62d3156834bbd57604b257274f, type: 3}
+--- !u!114 &1256958961 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6691219829013386841, guid: c996fa62d3156834bbd57604b257274f,
+    type: 3}
+  m_PrefabInstance: {fileID: 1206182771}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 112c95a42d490d9459042e818c3ff59e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1301306963
 GameObject:
   m_ObjectHideFlags: 0
@@ -2297,9 +2309,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8169bec5d49170a4d8b9b879df27d7dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sceneManager: {fileID: 1256958961}
   pointsText: {fileID: 607358800}
   rubblePercentageText: {fileID: 2013102665}
   actProgressionText: {fileID: 645535317}
+  actProgressionLabel: {fileID: 1595671918}
   multiplierText: {fileID: 2062804097}
   earthPrefabs:
   - {fileID: 8621235244456290387, guid: 9cc4eca935fb1f44e8ba62e776ac71a5, type: 3}
@@ -2315,6 +2329,7 @@ MonoBehaviour:
   score: 0
   act: 1
   actProgression: 0
+  actCompletion: 0300000005000000
   currentMultiplier: 1
   multiplierIncrease: 0.1
   pointsPerRocket: 10
@@ -2338,6 +2353,7 @@ MonoBehaviour:
   trashDropAmount: 5
   trashDropRand: 3
   trashGap: 5
+  currentRubble: 0
   holdStreakDuration: 0
   holdStreak: 0
   slowSatDuration: 0
