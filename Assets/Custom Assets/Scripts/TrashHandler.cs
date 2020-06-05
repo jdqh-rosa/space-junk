@@ -13,6 +13,9 @@ public class TrashHandler : MonoBehaviour
     public float trashSpeedRand;
 
     static public bool speedChange = true;
+    
+    private List<float> degreeList = new List<float>();
+
     void Start()
     {
         trashHandlerTF = transform;
@@ -38,8 +41,9 @@ public class TrashHandler : MonoBehaviour
                 if (trashList[j] == null)
                 {
                     trashList.RemoveAt(j);
-                    if(j>trashList.Count-1) return;
+                    if(j>trashList.Count-1) continue;
                 }
+
                 if ((trashList[i].transform.position - trashList[j].transform.position).magnitude <= minGapLength)
                 {
                     //trashList[j].SetActive(false);
@@ -47,6 +51,7 @@ public class TrashHandler : MonoBehaviour
                     trashList.RemoveAt(j);
                 }
             }
+            degreeList.Add(Helper.CalcPosToDeg(Vector3.zero, trashList[i].transform.position));
         }
     }
 

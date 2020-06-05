@@ -34,6 +34,7 @@ public sealed class GameManager : MonoBehaviour
     public TrashHandler trashHandler;
 
     [Header("Variables", order = 0)]
+
     [HideInInspector]
     public int score = 0;
     public int act = 1;

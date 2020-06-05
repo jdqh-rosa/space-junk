@@ -12,6 +12,7 @@ public class Satellite : MonoBehaviour
     public LineRenderer lr;
 
     public RaycastHit rayCastHit;
+    public bool switchBase = true;
     public bool shootMe;
 
     void Start()
@@ -78,6 +79,9 @@ public class Satellite : MonoBehaviour
                 {
                     print("hit target");
                     gameObject.GetComponent<Renderer>().material.color = Color.red;
+                    hit.collider.gameObject.GetComponent<SpawnRocket>().Launch();
+                    Destroy(hit.collider.gameObject);
+                    GameManager.Instance.CreateBase();
                     lr.SetPosition(1, target.gameObject.transform.position);
 
                     GameManager.Instance.BeamHit();
