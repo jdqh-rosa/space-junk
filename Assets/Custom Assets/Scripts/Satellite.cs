@@ -80,6 +80,11 @@ public class Satellite : MonoBehaviour
                     gameObject.GetComponent<Renderer>().material.color = Color.red;
                     lr.SetPosition(1, target.gameObject.transform.position);
 
+                    GameManager.Instance.BeamHit();
+                }
+                else
+                {
+                    GameManager.Instance.BeamMissed();
                 }
                 //print("hit");
             }
