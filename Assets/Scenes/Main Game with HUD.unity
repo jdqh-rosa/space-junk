@@ -2289,7 +2289,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1301306965}
   - component: {fileID: 1301306964}
-  - component: {fileID: 1301306966}
   m_Layer: 0
   m_Name: Game Manager
   m_TagString: Untagged
@@ -2335,7 +2334,7 @@ MonoBehaviour:
   currentMultiplier: 1
   multiplierIncrease: 0.1
   pointsPerRocket: 10
-  maxRubble: 1
+  maxRubble: 50
   earthLocation: {x: 0, y: 0, z: 0}
   worldRadius: 5
   earthRotation: 0
@@ -2360,7 +2359,7 @@ MonoBehaviour:
   slowSatSpeed: 10
   slowSatPercentage: 80
   slowSatActive: 0
-  blackHoleChancePerMinute: 80
+  blackHoleChancePerMinute: 50
   blackHoleRadius: 10
   blackHoleDuration: 30
   streak: 0
@@ -2379,22 +2378,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1301306966
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1301306963}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f0d6e3955073718489b6860fe52d8aa2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  satellite: {fileID: 0}
-  baseObject: {fileID: 0}
-  worldRadius: 5
-  baseSwitch: 1
 --- !u!1 &1334591730
 GameObject:
   m_ObjectHideFlags: 0

@@ -252,6 +252,7 @@ public sealed class GameManager : MonoBehaviour
 
         StreakHoldTimer();
         SlowSatTimer();
+        SpawnBlackHole();
     }
 
     float holdStreakTimer;
@@ -316,24 +317,4 @@ public enum Phase
     Past,
     Present,
     Future
-}
-
-
-//**// GAME MANAGER INSPECTOR CODE //**//
-[CustomEditor(typeof(GameManager))]
-public class GameManagerEditor : Editor
-{
-    public override void OnInspectorGUI()
-    {
-        //serializedObject.Update();
-        base.OnInspectorGUI();
-        GameManager gm = (GameManager)target;
-
-
-        if (GUILayout.Button("Create BlackHole"))
-        {
-            Instantiate(gm.blackHole);
-        }
-
-    }
 }
