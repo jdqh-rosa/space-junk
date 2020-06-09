@@ -389,4 +389,23 @@ public sealed class GameManager : MonoBehaviour
             blackHoleTimer = 0;
         }
     }
+
+
+    //**// Methods to switch skill bools//**//
+    public void ActivateHoldStreak()
+    {
+        holdStreak = true;
+    }
+    public void ActivateNothingButNet()
+    {
+        netActive = true;
+    }
+    public void ActivateSlowSat()
+    {
+        slowSatActive = true;
+    }
+    public void ActivateBreakThrough()
+    {
+        breakThroughActive = true;
+    }
 }
