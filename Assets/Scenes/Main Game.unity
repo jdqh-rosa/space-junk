@@ -635,6 +635,8 @@ MonoBehaviour:
   - {fileID: 133941756599076391, guid: 86be5e0b1e91d2d4791ae6f98342b576, type: 3}
   spaceDebrisPrefabs:
   - {fileID: 287584116993078101, guid: dc08398888827d447be1b72ed75e6470, type: 3}
+  blackHole: {fileID: 3648659889975131551, guid: a0e69c6145327c447aa24516a4f97943,
+    type: 3}
   trashHandler: {fileID: 2136963515}
   score: 0
   act: 1
@@ -647,31 +649,29 @@ MonoBehaviour:
   earthLocation: {x: 0, y: 0, z: 0}
   worldRadius: 5
   earthRotation: 0
-  baseLocation: {x: 3.2139382, y: 3.8302226, z: 0}
   satelliteRadius: 15
   satelliteSpeed: 50
   laserKey: 323
   laserFireRate: 1
-  laserActiveLength: 0.2
+  laserActiveLength: 0.1
   rocketLaunchHeight: 5
-  rocketLaunchHeightRand: 2
+  rocketLaunchHeightDev: 0
   rocketLaunchSpeed: 10
   rocketFlightSpeed: 5
   rocketDestructTime: 3
-  trashRadius: 0
   trashSpeed: -10
   trashDropAmount: 5
   trashDropRand: 3
-  trashGap: 5
-  currentRubble: 0
-  holdStreakDuration: 0
+  trashGap: 1
+  holdStreakDuration: 3
   holdStreak: 0
-  slowSatDuration: 0
-  slowSatSpeed: 0
-  slowSatPercentage: 0
-  blackHoleChancePerMinute: 0
-  blackHoleRadius: 0
-  blackHoleDuration: 0
+  slowSatDuration: 3
+  slowSatSpeed: 10
+  slowSatPercentage: 80
+  slowSatActive: 0
+  blackHoleChancePerMinute: 80
+  blackHoleRadius: 10
+  blackHoleDuration: 30
   streak: 0
   currentStreak: 0
 --- !u!4 &1301306965
@@ -960,7 +960,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2136963516}
   - component: {fileID: 2136963515}
-  - component: {fileID: 2136963517}
   m_Layer: 0
   m_Name: Trash Handler
   m_TagString: Untagged
@@ -980,7 +979,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0674df6ad6897a4aa249533829443d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minGapLength: 0.5
+  minGapLength: 1
   trashSpeed: -10
   trashSpeedRand: 2
 --- !u!4 &2136963516
@@ -997,25 +996,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2136963517
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2136963514}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5be5077911491904d936db7dc91a95ac, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  orbitAxi: 2
-  pivotPoint: {x: 0, y: 0, z: 0}
-  pivotObject: {fileID: 0}
-  objectDistanceAsRadius: 0
-  radius: 10
-  orbitSpeed: -10
-  radiusSpeed: 1
 --- !u!1001 &133941757006169766
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -7,31 +7,27 @@ public class JunkDrop : MonoBehaviour
     public GameObject trashPrefab;
     public int dropAmount;
     public int dropRand;
-    //public float dropRange;
     public float dropGap;
-    //public float spreadSpeed;
     public Vector3 pivotPoint;
     private float radius;
     private GameObject[] cluster;
-    private float locatDeg;
-    //Vector2 relRange;
+    Vector3 dropLocation;
 
     public float trashSpeed;
     public float trashSpeedRand;
     private float randomSpeed;
 
-    public void Drop()
+    public void Start()
     {
         dropAmount = Random.Range(dropAmount - dropRand, dropAmount + dropRand + 1);
         GameManager.Instance.RubbleDropped(dropAmount);
         cluster = new GameObject[dropAmount];
         radius = (transform.position - pivotPoint).magnitude;
-        locatDeg = Helper.CalcPosToDeg(pivotPoint, new Vector2(transform.position.x, transform.position.y));
-        //relRange = new Vector2(locatDeg - (dropAmount * dropGap) / 2, locatDeg + (dropGap * dropAmount) / 2);
-        //relRange = new Vector2(locatDeg - dropRange / 2, locatDeg + dropRange / 2);
+        dropLocation = Helper.CalcDegToPos(Helper.CalcPosToDeg(pivotPoint, transform.position), radius - 1);
+
         for (int i = 0; i < dropAmount; ++i)
         {
-            cluster[i] = Instantiate(trashPrefab, transform.position, transform.rotation);
+            cluster[i] = Instantiate(trashPrefab, dropLocation, transform.rotation);
         }
         TrashHandler.AddToList(cluster[0]);
 
@@ -40,27 +36,30 @@ public class JunkDrop : MonoBehaviour
         cluster[0].GetComponent<Orbit>().orbitSpeed = randomSpeed;
     }
 
-    bool destroy;
     void Update()
     {
-        for (int i = 1; i < dropAmount; ++i)
+        for (int i = 1; i < cluster.Length; ++i)
         {
-            if (cluster == null || cluster[i] == null) return;
+            if (cluster == null || cluster[i] == null){ continue; }
 
-            if ((cluster[i].transform.position - cluster[i - 1].transform.position).magnitude >= Helper.Degrees2Distance(locatDeg, locatDeg - dropGap, radius))
+            if (cluster[i - 1] == null)
+            {
+                Destroy(cluster[i]);
+            }
+
+            if ((cluster[i].transform.position - cluster[i - 1].transform.position).magnitude >= 1)
             {
                 TrashHandler.AddToList(cluster[i]);
                 if (TrashHandler.speedChange)
                 {
                     cluster[i].GetComponent<Orbit>().orbitSpeed = randomSpeed;
                 }
-                destroy = true;
+                if (i == cluster.Length - 1)
+                {
+                    Destroy(this.gameObject);
+                }
             }
-            else
-            {
-                destroy = false;
-            }
+
         }
-        gameObject.GetComponent<Rocket>().destroy = destroy;
     }
 }

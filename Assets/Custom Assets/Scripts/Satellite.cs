@@ -12,6 +12,7 @@ public class Satellite : MonoBehaviour
     public LineRenderer lr;
 
     public RaycastHit rayCastHit;
+    public bool switchBase = true;
     public bool shootMe;
 
     void Start()
@@ -52,8 +53,8 @@ public class Satellite : MonoBehaviour
             }
         }
 
-        laserCountDown -= Time.deltaTime;
-        laserTimer -= Time.deltaTime;
+        laserCountDown -= GameManager.gameDeltaTime;
+        laserTimer -= GameManager.gameDeltaTime;
     }
 
     //CHECK IF THE LASER HITS THE TARGET AND SET THE DISTANCE TO RAYCAST HIT
@@ -73,10 +74,14 @@ public class Satellite : MonoBehaviour
             rayCastHit = hit;
             if (hit.collider)
             {
+                lr.SetPosition(1, hit.point);
                 if (hit.collider.gameObject.tag == "Base")
                 {
                     print("hit target");
                     gameObject.GetComponent<Renderer>().material.color = Color.red;
+                    hit.collider.gameObject.GetComponent<SpawnRocket>().Launch();
+                    Destroy(hit.collider.gameObject);
+                    GameManager.Instance.CreateBase();
                     lr.SetPosition(1, target.gameObject.transform.position);
 
                     GameManager.Instance.BeamHit();
@@ -85,7 +90,6 @@ public class Satellite : MonoBehaviour
                 {
                     GameManager.Instance.BeamMissed();
                 }
-                lr.SetPosition(1, hit.point);
                 //print("hit");
             }
         }

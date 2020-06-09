@@ -22,9 +22,10 @@ public class HitDetection : MonoBehaviour
             {
                 if (satellite.GetComponent<Satellite>().rayCastHit.collider.gameObject.tag == "Base")
                 {
-                    satellite.GetComponent<Satellite>().rayCastHit.collider.gameObject.GetComponent<SpawnRocket>().Launch();
+                    //satellite.GetComponent<Satellite>().rayCastHit.collider.gameObject.GetComponent<SpawnRocket>().Launch();
                     
                     GameManager.Instance.currentStreak += 1;
+                    print(GameManager.Instance.currentStreak);
                     if (baseSwitch)
                     {
                         Destroy(satellite.GetComponent<Satellite>().rayCastHit.collider.gameObject);

@@ -45,9 +45,9 @@ public class Orbit : MonoBehaviour
 
     private void OrbitAroundPoint(Vector3 pPoint)
     {
-        transform.RotateAround(pPoint, axis, orbitSpeed * Time.deltaTime);
+        transform.RotateAround(pPoint, axis, orbitSpeed * GameManager.gameDeltaTime);
         Vector3 goToPosition = (transform.position - pPoint).normalized * radius+pPoint;
-        transform.position = Vector3.MoveTowards(transform.position, goToPosition, Time.deltaTime * radiusSpeed);
+        transform.position = Vector3.MoveTowards(transform.position, goToPosition, GameManager.gameDeltaTime * radiusSpeed);
     }
 
     void ChangeAxis()
