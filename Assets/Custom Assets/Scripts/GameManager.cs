@@ -99,12 +99,19 @@ public sealed class GameManager : MonoBehaviour
     public float netDuration;
     public bool netActive;
 
+    [Header("Skill: Break Through")]
+    public bool breakThroughActive;
+
     [Header("Events", order = 0)]
 
     [Header("Black Hole", order = 1)]
     public float blackHoleChancePerMinute;
     public float blackHoleRadius;
     public float blackHoleDuration;
+
+    [Header("Garbage Truck")]
+    public float garbageTruckChancePerMinute;
+    public float garbageTruckSpeed;
 
     [Header("GamePlay Blabla", order = 0)]
     public int streak;

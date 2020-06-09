@@ -8,6 +8,7 @@ TagManager:
   - TrashHub
   - TrashJunk
   - Base
+  - click
   layers:
   - Default
   - TransparentFX

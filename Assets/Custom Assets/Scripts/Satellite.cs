@@ -35,12 +35,25 @@ public class Satellite : MonoBehaviour
         //COOLDOWN FOR THE LASER
         if (laserCountDown <= 0)
         {
+
             if (Input.GetKeyDown(laserKey))
             {
-                if (!lr.enabled) { lr.enabled = true; }
-                PewPew();
-                laserCountDown = 1 / laserRate;
-                laserTimer = laserDuration;
+                var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                RaycastHit hit;
+                if (Physics.Raycast(ray, out hit))
+                {
+                    if (hit.collider.tag == "click"){
+                        if (!lr.enabled) { lr.enabled = true; }
+                        PewPew();
+                        laserCountDown = 1 / laserRate;
+                        laserTimer = laserDuration;
+                    }
+                }
+
+                //if (!lr.enabled) { lr.enabled = true; }
+                //PewPew();
+                //laserCountDown = 1 / laserRate;
+                //laserTimer = laserDuration;
             }
         }
         //HOW LONG THE LASER STAYS ON
