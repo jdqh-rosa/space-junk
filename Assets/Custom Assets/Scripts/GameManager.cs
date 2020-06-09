@@ -28,6 +28,7 @@ public sealed class GameManager : MonoBehaviour
     public GameObject[] rocketPrefabs;
     public GameObject[] spaceDebrisPrefabs;
     public GameObject blackHole;
+    public GameObject netObject;
     public GameObject trashHub;
 
     [Header("Trash Handler")]
@@ -91,6 +92,12 @@ public sealed class GameManager : MonoBehaviour
     public float slowSatSpeed;
     public float slowSatPercentage;
     public bool slowSatActive = false;
+
+    [Header("Skill: Net")]
+    public float netSpeed;
+    public float netSize;
+    public float netDuration;
+    public bool netActive;
 
     [Header("Events", order = 0)]
 
@@ -181,6 +188,8 @@ public sealed class GameManager : MonoBehaviour
         actProgression = 0;
         actProgressionText.SetText(0f.ToString("0%"));
         actProgressionLabel.SetText("ACT " + act);
+
+        NewSatellite();
     }
 
     /// <summary>
@@ -202,7 +211,7 @@ public sealed class GameManager : MonoBehaviour
     public void RubbleDropped(int amount)
     {
         currentRubble += amount;
-        float percentage = (float)currentRubble / (float)maxRubble;
+        float percentage = (float)TrashHandler.ListCount() / (float)maxRubble;
         rubblePercentageText.SetText(percentage.ToString("0%"));
 
         if (currentRubble >= maxRubble)
@@ -229,18 +238,18 @@ public sealed class GameManager : MonoBehaviour
         int rand = Random.Range(0, 360);
         baseObject = Instantiate(earthBasePrefabs[act - 1], Helper.CalcDegToPos(rand, worldRadius), Quaternion.Euler(0, 0, rand - 90));
 
-        if(baseObject.GetComponent<SpawnRocket>()==null){baseObject.AddComponent<SpawnRocket>();}
+        if (baseObject.GetComponent<SpawnRocket>() == null) { baseObject.AddComponent<SpawnRocket>(); }
         baseObject.GetComponent<SpawnRocket>().rocketPrefab = rocketPrefabs[act - 1];
 
-        if(baseObject.GetComponent<SpawnRocket>().rocketPrefab.GetComponent<Rocket>()==null){baseObject.GetComponent<SpawnRocket>().rocketPrefab.AddComponent<Rocket>();}
+        if (baseObject.GetComponent<SpawnRocket>().rocketPrefab.GetComponent<Rocket>() == null) { baseObject.GetComponent<SpawnRocket>().rocketPrefab.AddComponent<Rocket>(); }
         baseObject.GetComponent<SpawnRocket>().rocketPrefab.GetComponent<Rocket>().launchDistance = rocketLaunchHeight;
         baseObject.GetComponent<SpawnRocket>().rocketPrefab.GetComponent<Rocket>().launchDev = rocketLaunchHeightDev;
         baseObject.GetComponent<SpawnRocket>().rocketPrefab.GetComponent<Rocket>().launchSpeed = rocketLaunchSpeed;
         baseObject.GetComponent<SpawnRocket>().rocketPrefab.GetComponent<Rocket>().movementSpeed = rocketFlightSpeed;
         baseObject.GetComponent<SpawnRocket>().rocketPrefab.GetComponent<Rocket>().destructTime = rocketDestructTime;
 
-        if(baseObject.GetComponent<SpawnRocket>().rocketPrefab.GetComponent<Rocket>().trashHub==null){baseObject.GetComponent<SpawnRocket>().rocketPrefab.GetComponent<Rocket>().trashHub = trashHub;}
-        baseObject.GetComponent<SpawnRocket>().rocketPrefab.GetComponent<Rocket>().trashHub.GetComponent<JunkDrop>().trashPrefab = spaceDebrisPrefabs[act-1];
+        if (baseObject.GetComponent<SpawnRocket>().rocketPrefab.GetComponent<Rocket>().trashHub == null) { baseObject.GetComponent<SpawnRocket>().rocketPrefab.GetComponent<Rocket>().trashHub = trashHub; }
+        baseObject.GetComponent<SpawnRocket>().rocketPrefab.GetComponent<Rocket>().trashHub.GetComponent<JunkDrop>().trashPrefab = spaceDebrisPrefabs[act - 1];
 
         baseObject.transform.parent = earthObject.transform;
     }
@@ -249,21 +258,39 @@ public sealed class GameManager : MonoBehaviour
     {
         satelliteObject = Instantiate(satellitePrefabs[act - 1]);
 
-        if(satelliteObject.GetComponent<Orbit>()==null){satelliteObject.AddComponent<Orbit>();}
+        if (satelliteObject.GetComponent<Orbit>() == null) { satelliteObject.AddComponent<Orbit>(); }
         satelliteObject.GetComponent<Orbit>().radius = satelliteRadius;
         satelliteObject.GetComponent<Orbit>().orbitSpeed = satelliteSpeed;
 
-        if(satelliteObject.GetComponent<Satellite>()==null){satelliteObject.AddComponent<Satellite>();}
+        if (satelliteObject.GetComponent<Satellite>() == null) { satelliteObject.AddComponent<Satellite>(); }
         satelliteObject.GetComponent<Satellite>().target = earthObject;
         satelliteObject.GetComponent<Satellite>().laserRate = laserFireRate;
         satelliteObject.GetComponent<Satellite>().laserKey = laserKey;
         satelliteObject.GetComponent<Satellite>().laserDuration = laserActiveLength;
 
-        if(satelliteObject.GetComponent<LineRenderer>()==null){satelliteObject.AddComponent<LineRenderer>();}
+        if (satelliteObject.GetComponent<LineRenderer>() == null) { satelliteObject.AddComponent<LineRenderer>(); }
         satelliteObject.GetComponent<Satellite>().lr = satelliteObject.GetComponent<LineRenderer>();
     }
 
+    public void NewSatellite()
+    {
+        GameObject tempSat = satellitePrefabs[act - 1];
+        if (tempSat.GetComponent<Orbit>() == null) { tempSat.AddComponent<Orbit>(); }
+        tempSat.GetComponent<Orbit>().radius = satelliteObject.GetComponent<Orbit>().radius;
+        tempSat.GetComponent<Orbit>().orbitSpeed = satelliteObject.GetComponent<Orbit>().orbitSpeed;
 
+        if (tempSat.GetComponent<Satellite>() == null) { tempSat.AddComponent<Satellite>(); }
+        tempSat.GetComponent<Satellite>().target = satelliteObject.GetComponent<Satellite>().target;
+        tempSat.GetComponent<Satellite>().laserRate = satelliteObject.GetComponent<Satellite>().laserRate;
+        tempSat.GetComponent<Satellite>().laserKey = satelliteObject.GetComponent<Satellite>().laserKey;
+        tempSat.GetComponent<Satellite>().laserDuration = satelliteObject.GetComponent<Satellite>().laserDuration;
+
+        if (tempSat.GetComponent<LineRenderer>() == null) { tempSat.AddComponent<LineRenderer>(); }
+        tempSat.GetComponent<Satellite>().lr = tempSat.GetComponent<LineRenderer>();
+
+        Destroy(satelliteObject);
+        satelliteObject = Instantiate(tempSat);
+    }
 
     void Update()
     {
@@ -273,6 +300,7 @@ public sealed class GameManager : MonoBehaviour
         StreakHoldTimer();
         SlowSatTimer();
         SpawnBlackHole();
+        NothingButNet();
     }
 
     /// <summary>
@@ -315,6 +343,23 @@ public sealed class GameManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// activates the skill when activated
+    /// </summary>
+    private void NothingButNet()
+    {
+        if (netActive)
+        {
+            GameObject net = Instantiate(netObject, satelliteObject.transform.position, satelliteObject.transform.rotation);
+            if (net.GetComponent<Net>() == null) { net.AddComponent<Net>(); }
+            net.GetComponent<Net>().duration = netDuration;
+            net.GetComponent<Net>().movementSpeed = netSpeed;
+            net.GetComponent<Net>().startSize = netSize;
+
+            netActive = false;
+        }
+    }
+
     void TrashHandlerVars()
     {
         trashHandler.trashSpeedRand = trashDropRand;
@@ -337,5 +382,4 @@ public sealed class GameManager : MonoBehaviour
             blackHoleTimer = 0;
         }
     }
-
 }

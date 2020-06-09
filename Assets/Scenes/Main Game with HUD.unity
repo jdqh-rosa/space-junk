@@ -2205,6 +2205,8 @@ MonoBehaviour:
   - {fileID: 7335301162820838586, guid: c8ecb9126ae83074fbf53ed193c61b8a, type: 3}
   blackHole: {fileID: 3648659889975131551, guid: a0e69c6145327c447aa24516a4f97943,
     type: 3}
+  netObject: {fileID: 3899303858004280026, guid: 55e469908d2ccbe45bc739e6e4fc5a47,
+    type: 3}
   trashHub: {fileID: 6182501256707505823, guid: cc351f664748f764a9dfb0557636af93,
     type: 3}
   trashHandler: {fileID: 2136963515}
@@ -2240,6 +2242,10 @@ MonoBehaviour:
   slowSatSpeed: 10
   slowSatPercentage: 80
   slowSatActive: 0
+  netSpeed: 0.1
+  netSize: 2
+  netDuration: 5
+  netActive: 0
   blackHoleChancePerMinute: 50
   blackHoleRadius: 10
   blackHoleDuration: 30

@@ -4,17 +4,40 @@ using UnityEngine;
 
 public class Net : MonoBehaviour
 {
-    Vector3 startPosition;
-    float movementSpeed;
-    float startSize;
+    public float movementSpeed;
+    public float startSize;
+    public float duration;
+
+    private List<GameObject> objectList = new List<GameObject>();
+
+
     void Start()
     {
-        
+        transform.localScale = new Vector3(startSize, 0.10f, startSize);
     }
 
-    // Update is called once per frame
+    float timer;
     void Update()
     {
-        
+        timer += GameManager.gameDeltaTime;
+
+        if (timer <= duration && transform.localScale.x >= 0)
+        {
+            transform.localScale -= new Vector3(0.01f, 0, 0.01f);
+            transform.position -= transform.up * movementSpeed;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
+
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.tag == "TrashJunk")
+        {
+            Destroy(other.gameObject);
+        }
     }
 }

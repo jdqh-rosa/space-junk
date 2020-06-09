@@ -21,6 +21,10 @@ public class TrashHandler : MonoBehaviour
         trashHandlerTF = transform;
     }
 
+    public static int ListCount()
+    {
+        return trashList.Count;
+    }
     public static void AddToList(GameObject gameObj)
     {
         if (!trashList.Contains(gameObj))
