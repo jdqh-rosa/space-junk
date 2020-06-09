@@ -13,7 +13,6 @@ public class Satellite : MonoBehaviour
 
     public RaycastHit rayCastHit;
     public bool switchBase = true;
-    public bool shootMe;
 
     void Start()
     {
@@ -35,6 +34,15 @@ public class Satellite : MonoBehaviour
         //COOLDOWN FOR THE LASER
         if (laserCountDown <= 0)
         {
+            if (GameManager.breakThroughActive)
+            {
+                if (Input.GetKeyDown(laserKey))
+                {
+                    if (!lr.enabled) { lr.enabled = true; }
+                    BreakThroughShot();
+                    GameManager.breakThroughActive = false;
+                }
+            }
 
             if (Input.GetKeyDown(laserKey))
             {
@@ -42,7 +50,8 @@ public class Satellite : MonoBehaviour
                 RaycastHit hit;
                 if (Physics.Raycast(ray, out hit))
                 {
-                    if (hit.collider.tag == "click"){
+                    if (hit.collider.tag == "click")
+                    {
                         if (!lr.enabled) { lr.enabled = true; }
                         PewPew();
                         laserCountDown = 1 / laserRate;
@@ -87,7 +96,7 @@ public class Satellite : MonoBehaviour
             rayCastHit = hit;
             if (hit.collider)
             {
-                lr.SetPosition(1, hit.point);
+                //lr.SetPosition(1, hit.point);
                 if (hit.collider.gameObject.tag == "Base")
                 {
                     print("hit target");
@@ -103,9 +112,35 @@ public class Satellite : MonoBehaviour
                 {
                     GameManager.Instance.BeamMissed();
                 }
+            }
+        }
+    }
+
+    void BreakThroughShot()
+    {
+        if (target == null)
+        {
+            if (lr.enabled) { lr.enabled = false; }
+            return;
+        }
+
+        RaycastHit hit;
+
+        lr.SetPosition(1, target.transform.position);
+        if (Physics.Raycast(transform.position, Vector3.Normalize(target.gameObject.transform.position - transform.position), out hit))
+        {
+            rayCastHit = hit;
+            if (hit.collider)
+            {
+                lr.SetPosition(1, hit.point);
+                if (hit.collider.gameObject.tag == "TrashJunk")
+                {
+                    print("BREEEEEEAAAAAAK THROOOOOOOOUUUUUUGGGGHHHH!!!!!!!!!!");
+                    gameObject.GetComponent<Renderer>().material.color = Color.magenta;
+                    Destroy(hit.collider.gameObject);
+                }
                 //print("hit");
             }
         }
-        shootMe = true;
     }
 }

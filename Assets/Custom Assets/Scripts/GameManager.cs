@@ -37,7 +37,7 @@ public sealed class GameManager : MonoBehaviour
     [Header("Variables", order = 0)]
 
     [HideInInspector]
-    public int score = 0;
+    static public int score = 0;
     public int act = 1;
     public float actProgression = 0;
     public int[] actCompletion;
@@ -100,7 +100,7 @@ public sealed class GameManager : MonoBehaviour
     public bool netActive;
 
     [Header("Skill: Break Through")]
-    public bool breakThroughActive;
+    public static bool breakThroughActive;
 
     [Header("Events", order = 0)]
 
