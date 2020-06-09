@@ -95,14 +95,15 @@ public class BlackHole : MonoBehaviour
     {
         foreach (GameObject g in objectList)
         {
+            if ((g.transform.position-transform.position).magnitude <= 0.1f || g==null)
+            {
+                objectList.Remove(g);
+            }
             g.GetComponent<Orbit>().enabled = false;
             Vector3 direction = (transform.position - g.transform.position).normalized;
             g.transform.position += direction * suckSpeed;
-            if ((g.transform.position-transform.position).magnitude <= 0.1f)
-            {
-                objectList.Remove(g);
-                Destroy(g);
-            }
+            g.transform.localScale-= Vector3.one*0.1f;
+            Destroy(g, 2);
         }
     }
 }

@@ -12,7 +12,6 @@ public sealed class GameManager : MonoBehaviour
 {
     static public float gameTime;
     static public float gameDeltaTime;
-    static public Phase currentPhase = Phase.Past;
     public SceneManager sceneManager;
 
     [Header("UI")]
@@ -29,6 +28,7 @@ public sealed class GameManager : MonoBehaviour
     public GameObject[] rocketPrefabs;
     public GameObject[] spaceDebrisPrefabs;
     public GameObject blackHole;
+    public GameObject trashHub;
 
     [Header("Trash Handler")]
     public TrashHandler trashHandler;
@@ -149,24 +149,26 @@ public sealed class GameManager : MonoBehaviour
 
         //modify act progression
         actProgression++;
-        if(actCompletion.Length > act-1)
+        if (actCompletion.Length > act - 1)
         {
             float percentage = (float)actProgression / (float)actCompletion[act - 1];
 
-            if (actProgression >= actCompletion[act-1])
+            if (actProgression >= actCompletion[act - 1])
             {
                 NextAct();
-            } else
+            }
+            else
             {
                 actProgressionText.SetText(percentage.ToString("0%"));
             }
-        } else
+        }
+        else
         {
             actProgressionText.SetText("∞");
         }
 
         //also update the UI
-        pointsText.SetText(""+score);
+        pointsText.SetText("" + score);
         multiplierText.SetText(currentMultiplier.ToString("0.0") + "x");
     }
 
@@ -186,7 +188,7 @@ public sealed class GameManager : MonoBehaviour
     /// </summary>
     public void BeamMissed()
     {
-        if(!holdStreak)
+        if (!holdStreak)
         {
             currentMultiplier = 1f;
             multiplierText.SetText(currentMultiplier.ToString("0.0") + "x");
@@ -203,7 +205,7 @@ public sealed class GameManager : MonoBehaviour
         float percentage = (float)currentRubble / (float)maxRubble;
         rubblePercentageText.SetText(percentage.ToString("0%"));
 
-        if(currentRubble >= maxRubble)
+        if (currentRubble >= maxRubble)
         {
             GameOver();
         }
@@ -220,27 +222,45 @@ public sealed class GameManager : MonoBehaviour
 
     public void CreateEarth()
     {
-        earthObject = Instantiate(earthPrefabs[(int)currentPhase], earthLocation, Quaternion.identity);
+        earthObject = Instantiate(earthPrefabs[act - 1], earthLocation, Quaternion.identity);
     }
-
     public void CreateBase()
     {
         int rand = Random.Range(0, 360);
-        baseObject = Instantiate(earthBasePrefabs[(int)currentPhase], Helper.CalcDegToPos(rand, worldRadius), Quaternion.Euler(0, 0, rand - 90));
+        baseObject = Instantiate(earthBasePrefabs[act - 1], Helper.CalcDegToPos(rand, worldRadius), Quaternion.Euler(0, 0, rand - 90));
+
+        if(baseObject.GetComponent<SpawnRocket>()==null){baseObject.AddComponent<SpawnRocket>();}
+        baseObject.GetComponent<SpawnRocket>().rocketPrefab = rocketPrefabs[act - 1];
+
+        if(baseObject.GetComponent<SpawnRocket>().rocketPrefab.GetComponent<Rocket>()==null){baseObject.GetComponent<SpawnRocket>().rocketPrefab.AddComponent<Rocket>();}
+        baseObject.GetComponent<SpawnRocket>().rocketPrefab.GetComponent<Rocket>().launchDistance = rocketLaunchHeight;
+        baseObject.GetComponent<SpawnRocket>().rocketPrefab.GetComponent<Rocket>().launchDev = rocketLaunchHeightDev;
+        baseObject.GetComponent<SpawnRocket>().rocketPrefab.GetComponent<Rocket>().launchSpeed = rocketLaunchSpeed;
+        baseObject.GetComponent<SpawnRocket>().rocketPrefab.GetComponent<Rocket>().movementSpeed = rocketFlightSpeed;
+        baseObject.GetComponent<SpawnRocket>().rocketPrefab.GetComponent<Rocket>().destructTime = rocketDestructTime;
+
+        if(baseObject.GetComponent<SpawnRocket>().rocketPrefab.GetComponent<Rocket>().trashHub==null){baseObject.GetComponent<SpawnRocket>().rocketPrefab.GetComponent<Rocket>().trashHub = trashHub;}
+        baseObject.GetComponent<SpawnRocket>().rocketPrefab.GetComponent<Rocket>().trashHub.GetComponent<JunkDrop>().trashPrefab = spaceDebrisPrefabs[act-1];
+
         baseObject.transform.parent = earthObject.transform;
     }
 
     public void CreateSatellite()
     {
-        satelliteObject = Instantiate(satellitePrefabs[(int)currentPhase]);
+        satelliteObject = Instantiate(satellitePrefabs[act - 1]);
+
+        if(satelliteObject.GetComponent<Orbit>()==null){satelliteObject.AddComponent<Orbit>();}
         satelliteObject.GetComponent<Orbit>().radius = satelliteRadius;
         satelliteObject.GetComponent<Orbit>().orbitSpeed = satelliteSpeed;
+
+        if(satelliteObject.GetComponent<Satellite>()==null){satelliteObject.AddComponent<Satellite>();}
         satelliteObject.GetComponent<Satellite>().target = earthObject;
-        satelliteObject.GetComponent<Satellite>().lr = satelliteObject.GetComponent<LineRenderer>();
         satelliteObject.GetComponent<Satellite>().laserRate = laserFireRate;
         satelliteObject.GetComponent<Satellite>().laserKey = laserKey;
         satelliteObject.GetComponent<Satellite>().laserDuration = laserActiveLength;
-        GetComponent<HitDetection>().satellite = satelliteObject;
+
+        if(satelliteObject.GetComponent<LineRenderer>()==null){satelliteObject.AddComponent<LineRenderer>();}
+        satelliteObject.GetComponent<Satellite>().lr = satelliteObject.GetComponent<LineRenderer>();
     }
 
 
@@ -255,6 +275,9 @@ public sealed class GameManager : MonoBehaviour
         SpawnBlackHole();
     }
 
+    /// <summary>
+    /// turns the skill off once a certain amount of time has been reached
+    /// </summary>
     float holdStreakTimer;
     private void StreakHoldTimer()
     {
@@ -264,12 +287,15 @@ public sealed class GameManager : MonoBehaviour
 
             if (holdStreakDuration <= holdStreakTimer)
             {
-                holdStreak= false;
-                holdStreakTimer=0;
+                holdStreak = false;
+                holdStreakTimer = 0;
             }
         }
     }
 
+    /// <summary>
+    /// turns the skill off once a certain amount of time has been reached
+    /// </summary>
     float slowSatTimer;
     private void SlowSatTimer()
     {
@@ -291,18 +317,20 @@ public sealed class GameManager : MonoBehaviour
 
     void TrashHandlerVars()
     {
-
         trashHandler.trashSpeedRand = trashDropRand;
         trashHandler.minGapLength = trashGap;
     }
 
+    /// <summary>
+    /// has a chance of spawning a black hole every minute
+    /// </summary>
     float blackHoleTimer = 0;
     void SpawnBlackHole()
     {
         blackHoleTimer += GameManager.gameDeltaTime;
         if (blackHoleTimer >= 60)
         {
-            if (Random.Range(0f, 1f) <= blackHoleChancePerMinute/100f)
+            if (Random.Range(0f, 1f) <= blackHoleChancePerMinute / 100f)
             {
                 Instantiate(blackHole);
             }
@@ -310,11 +338,4 @@ public sealed class GameManager : MonoBehaviour
         }
     }
 
-}
-
-public enum Phase
-{
-    Past,
-    Present,
-    Future
 }
