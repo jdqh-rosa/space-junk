@@ -10,4 +10,10 @@ public class SpawnRocket : MonoBehaviour
     {
         Instantiate(rocketPrefab, transform.position, transform.rotation);
     }
+
+    public void ImperviousLaunch()
+    {
+        GameObject impRocket = Instantiate(rocketPrefab, transform.position, transform.rotation);
+        impRocket.GetComponent<BoxCollider>().enabled= false;
+    }
 }

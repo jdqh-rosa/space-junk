@@ -101,7 +101,9 @@ public class Satellite : MonoBehaviour
                 {
                     print("hit target");
                     gameObject.GetComponent<Renderer>().material.color = Color.red;
+                    if(!GameManager.breakThroughActive){
                     hit.collider.gameObject.GetComponent<SpawnRocket>().Launch();
+                    }else { hit.collider.gameObject.GetComponent<SpawnRocket>().ImperviousLaunch(); }
                     Destroy(hit.collider.gameObject);
                     GameManager.Instance.CreateBase();
                     lr.SetPosition(1, target.gameObject.transform.position);
@@ -139,7 +141,7 @@ public class Satellite : MonoBehaviour
                     gameObject.GetComponent<Renderer>().material.color = Color.magenta;
                     Destroy(hit.collider.gameObject);
                 }
-                //print("hit");
+                PewPew();
             }
         }
     }

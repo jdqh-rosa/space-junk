@@ -282,9 +282,11 @@ public sealed class GameManager : MonoBehaviour
     public void NewSatellite()
     {
         GameObject tempSat = satellitePrefabs[act - 1];
+        
         if (tempSat.GetComponent<Orbit>() == null) { tempSat.AddComponent<Orbit>(); }
         tempSat.GetComponent<Orbit>().radius = satelliteObject.GetComponent<Orbit>().radius;
         tempSat.GetComponent<Orbit>().orbitSpeed = satelliteObject.GetComponent<Orbit>().orbitSpeed;
+        tempSat.GetComponent<Orbit>().objectDistanceAsRadius = true;
 
         if (tempSat.GetComponent<Satellite>() == null) { tempSat.AddComponent<Satellite>(); }
         tempSat.GetComponent<Satellite>().target = satelliteObject.GetComponent<Satellite>().target;
@@ -294,6 +296,9 @@ public sealed class GameManager : MonoBehaviour
 
         if (tempSat.GetComponent<LineRenderer>() == null) { tempSat.AddComponent<LineRenderer>(); }
         tempSat.GetComponent<Satellite>().lr = tempSat.GetComponent<LineRenderer>();
+
+        tempSat.transform.position = satelliteObject.transform.position;
+        tempSat.transform.rotation = satelliteObject.transform.rotation;
 
         Destroy(satelliteObject);
         satelliteObject = Instantiate(tempSat);
