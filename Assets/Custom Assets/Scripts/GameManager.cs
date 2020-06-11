@@ -34,10 +34,13 @@ public sealed class GameManager : MonoBehaviour
     [Header("Trash Handler")]
     public TrashHandler trashHandler;
 
-    [Header("Variables", order = 0)]
+    [Space(10, order = 0)]
 
-    [HideInInspector]
-    static public int score = 0;
+    [Header("Variables", order = 1)]
+
+    [HideInInspector] public int score = 0;
+    [HideInInspector] public int points = 0;
+
     public int act = 1;
     public float actProgression = 0;
     public int[] actCompletion;
@@ -84,22 +87,26 @@ public sealed class GameManager : MonoBehaviour
     [Header("Skills", order = 0)]
 
     [Header("Skill: Maintain Streak", order = 1)]
+    public int holdStreakPointCost;
     public float holdStreakDuration;
     public bool holdStreak;
 
     [Header("Skill: Slow Satellite")]
+    public int slowSatPointCost;
     public float slowSatDuration;
     public float slowSatSpeed;
     public float slowSatPercentage;
     public bool slowSatActive = false;
 
     [Header("Skill: Net")]
+    public int netPointCost;
     public float netSpeed;
     public float netSize;
     public float netDuration;
     public bool netActive;
 
     [Header("Skill: Break Through")]
+    public int breakThroughPointCost;
     public static bool breakThroughActive;
 
     [Header("Events", order = 0)]
@@ -159,6 +166,7 @@ public sealed class GameManager : MonoBehaviour
     {
         //Add score and add multiplier
         score += (int)(pointsPerRocket * currentMultiplier);
+        points += (int)(pointsPerRocket * currentMultiplier);
         currentMultiplier += multiplierIncrease;
 
         //modify act progression
@@ -217,8 +225,8 @@ public sealed class GameManager : MonoBehaviour
     /// <param name="amount">amount of rubble blocks</param>
     public void RubbleDropped(int amount)
     {
-        currentRubble += amount;
-        float percentage = (float)TrashHandler.ListCount() / (float)maxRubble;
+        currentRubble = TrashHandler.ListCount();
+        float percentage = (float)currentRubble / (float)maxRubble;
         rubblePercentageText.SetText(percentage.ToString("0%"));
 
         if (currentRubble >= maxRubble)
@@ -282,7 +290,7 @@ public sealed class GameManager : MonoBehaviour
     public void NewSatellite()
     {
         GameObject tempSat = satellitePrefabs[act - 1];
-        
+
         if (tempSat.GetComponent<Orbit>() == null) { tempSat.AddComponent<Orbit>(); }
         tempSat.GetComponent<Orbit>().radius = satelliteObject.GetComponent<Orbit>().radius;
         tempSat.GetComponent<Orbit>().orbitSpeed = satelliteObject.GetComponent<Orbit>().orbitSpeed;
@@ -400,17 +408,21 @@ public sealed class GameManager : MonoBehaviour
     public void ActivateHoldStreak()
     {
         holdStreak = true;
+        points -= holdStreakPointCost;
     }
     public void ActivateNothingButNet()
     {
         netActive = true;
+        points -= netPointCost;
     }
     public void ActivateSlowSat()
     {
         slowSatActive = true;
+        points -= slowSatPointCost;
     }
     public void ActivateBreakThrough()
     {
         breakThroughActive = true;
+        points -= breakThroughPointCost;
     }
 }

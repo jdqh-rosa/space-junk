@@ -23,16 +23,17 @@ public class DeactivateButtons : MonoBehaviour
 
     void Update()
     {
-        if (GameManager.score > streakScore) { holdSteak.interactable = true; }
+        int points = GameManager.Instance.points;
+        if (points > GameManager.Instance.holdStreakPointCost) { holdSteak.interactable = true; }
         else { holdSteak.interactable = false; }
 
-        if (GameManager.score > slowScore) { slowSatellite.interactable = true;  }
+        if (points > GameManager.Instance.slowSatPointCost) { slowSatellite.interactable = true;  }
         else { slowSatellite.interactable = false; }
 
-        if (GameManager.score > netScore) { netThrow.interactable = true; }
+        if (points > GameManager.Instance.netPointCost) { netThrow.interactable = true; }
         else { netThrow.interactable = false; }
 
-        if (GameManager.score > breakScore) { breakShot.interactable = true; }
+        if (points > GameManager.Instance.breakThroughPointCost) { breakShot.interactable = true; }
         else { breakShot.interactable = false; }
     }
 }
