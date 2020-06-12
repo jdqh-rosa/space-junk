@@ -112,6 +112,7 @@ public class Satellite : MonoBehaviour
                 }
                 else
                 {
+                    lr.SetPosition(1, hit.collider.gameObject.transform.position);
                     GameManager.Instance.BeamMissed();
                 }
             }

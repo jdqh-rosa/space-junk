@@ -25,11 +25,15 @@ public sealed class GameManager : MonoBehaviour
     public GameObject[] earthPrefabs;
     public GameObject[] satellitePrefabs;
     public GameObject[] earthBasePrefabs;
-    public GameObject[] rocketPrefabs;
+    public GameObject[] act1RocketPrefabs;
+    public GameObject[] act2RocketPrefabs;
+    public GameObject[] act3RocketPrefabs;
     public GameObject[] spaceDebrisPrefabs;
     public GameObject blackHole;
     public GameObject netObject;
     public GameObject trashHub;
+
+    public GameObject[][] rockets = new GameObject[3][];
 
     [Header("Trash Handler")]
     public TrashHandler trashHandler;
@@ -153,6 +157,9 @@ public sealed class GameManager : MonoBehaviour
 
     public void Start()
     {
+        rockets[0] = act1RocketPrefabs ;
+        rockets[1] = act2RocketPrefabs;
+        rockets[2] = act3RocketPrefabs;
         Instance.CreateEarth();
         Instance.CreateBase();
         Instance.CreateSatellite();
@@ -254,17 +261,17 @@ public sealed class GameManager : MonoBehaviour
         baseObject = Instantiate(earthBasePrefabs[act - 1], Helper.CalcDegToPos(rand, worldRadius), Quaternion.Euler(0, 0, rand - 90));
 
         if (baseObject.GetComponent<SpawnRocket>() == null) { baseObject.AddComponent<SpawnRocket>(); }
-        baseObject.GetComponent<SpawnRocket>().rocketPrefab = rocketPrefabs[act - 1];
+        //baseObject.GetComponent<SpawnRocket>().rocketPrefab = act1RocketPrefabs[act - 1];
+        //
+        //if (baseObject.GetComponent<SpawnRocket>().rocketPrefab.GetComponent<Rocket>() == null) { baseObject.GetComponent<SpawnRocket>().rocketPrefab.AddComponent<Rocket>(); }
+        //baseObject.GetComponent<SpawnRocket>().rocketPrefab.GetComponent<Rocket>().launchDistance = rocketLaunchHeight;
+        //baseObject.GetComponent<SpawnRocket>().rocketPrefab.GetComponent<Rocket>().launchDev = rocketLaunchHeightDev;
+        //baseObject.GetComponent<SpawnRocket>().rocketPrefab.GetComponent<Rocket>().launchSpeed = rocketLaunchSpeed;
+        //baseObject.GetComponent<SpawnRocket>().rocketPrefab.GetComponent<Rocket>().movementSpeed = rocketFlightSpeed;
+        //baseObject.GetComponent<SpawnRocket>().rocketPrefab.GetComponent<Rocket>().destructTime = rocketDestructTime;
 
-        if (baseObject.GetComponent<SpawnRocket>().rocketPrefab.GetComponent<Rocket>() == null) { baseObject.GetComponent<SpawnRocket>().rocketPrefab.AddComponent<Rocket>(); }
-        baseObject.GetComponent<SpawnRocket>().rocketPrefab.GetComponent<Rocket>().launchDistance = rocketLaunchHeight;
-        baseObject.GetComponent<SpawnRocket>().rocketPrefab.GetComponent<Rocket>().launchDev = rocketLaunchHeightDev;
-        baseObject.GetComponent<SpawnRocket>().rocketPrefab.GetComponent<Rocket>().launchSpeed = rocketLaunchSpeed;
-        baseObject.GetComponent<SpawnRocket>().rocketPrefab.GetComponent<Rocket>().movementSpeed = rocketFlightSpeed;
-        baseObject.GetComponent<SpawnRocket>().rocketPrefab.GetComponent<Rocket>().destructTime = rocketDestructTime;
-
-        if (baseObject.GetComponent<SpawnRocket>().rocketPrefab.GetComponent<Rocket>().trashHub == null) { baseObject.GetComponent<SpawnRocket>().rocketPrefab.GetComponent<Rocket>().trashHub = trashHub; }
-        baseObject.GetComponent<SpawnRocket>().rocketPrefab.GetComponent<Rocket>().trashHub.GetComponent<JunkDrop>().trashPrefab = spaceDebrisPrefabs[act - 1];
+        //if (baseObject.GetComponent<SpawnRocket>().rocketPrefab.GetComponent<Rocket>().trashHub == null) { baseObject.GetComponent<SpawnRocket>().rocketPrefab.GetComponent<Rocket>().trashHub = trashHub; }
+        //baseObject.GetComponent<SpawnRocket>().rocketPrefab.GetComponent<Rocket>().trashHub.GetComponent<JunkDrop>().trashPrefab = spaceDebrisPrefabs[act - 1];
 
         baseObject.transform.parent = earthObject.transform;
     }
