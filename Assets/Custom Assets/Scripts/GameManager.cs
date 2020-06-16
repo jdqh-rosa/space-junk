@@ -17,7 +17,7 @@ public sealed class GameManager : MonoBehaviour
 
     [Header("UI")]
     public TextMeshProUGUI pointsText;
-    public TextMeshProUGUI rubblePercentageText;
+    public CustomSlider rubbleMeter;
     public CustomSlider actSlider;
     public TextMeshProUGUI multiplierText;
     public CustomSlider HoldStreakBtn;
@@ -250,7 +250,8 @@ public sealed class GameManager : MonoBehaviour
     {
         currentRubble = TrashHandler.ListCount();
         float percentage = (float)currentRubble / (float)maxRubble;
-        rubblePercentageText.SetText(percentage.ToString("0%"));
+        rubbleMeter.text = percentage.ToString("0%");
+        rubbleMeter.value = percentage;
 
         if (currentRubble >= maxRubble)
         {
