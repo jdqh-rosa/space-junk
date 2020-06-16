@@ -56,8 +56,6 @@ public class TrashHandler : MonoBehaviour
                 if ((trashList[i].transform.position - trashList[j].transform.position).magnitude <= minGapLength)
                 {
                     trashList[i].GetComponent<Orbit>().orbitSpeed = trashList[j].GetComponent<Orbit>().orbitSpeed;
-                    //Destroy(trashList[j]);
-                    //trashList.RemoveAt(j);
                 }
             }
             degreeList.Add(Helper.CalcPosToDeg(Vector3.zero, trashList[i].transform.position));

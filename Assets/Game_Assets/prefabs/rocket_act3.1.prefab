@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 6985394470209655243}
   - component: {fileID: 2137553948727061501}
   - component: {fileID: 5662876957572323076}
-  - component: {fileID: 1641232127020830686}
-  - component: {fileID: -8344933520989677270}
+  - component: {fileID: 4873864772096035528}
+  - component: {fileID: 6338255467490518513}
   m_Layer: 0
   m_Name: rocket_act3.1
   m_TagString: Untagged
@@ -27,13 +27,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6244877063623664600}
-  m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
+  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &2137553948727061501
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -81,7 +81,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!65 &1641232127020830686
+--- !u!65 &4873864772096035528
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -94,7 +94,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 2.032412, y: 0.35871673, z: 2.4450831}
   m_Center: {x: 0, y: -0.000000007450581, z: 0}
---- !u!54 &-8344933520989677270
+--- !u!54 &6338255467490518513
 Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

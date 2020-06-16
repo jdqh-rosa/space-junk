@@ -11,9 +11,8 @@ GameObject:
   - component: {fileID: 2590451875764546902}
   - component: {fileID: 6820742311148754784}
   - component: {fileID: 978597877942348697}
-  - component: {fileID: 5770106405245044253}
-  - component: {fileID: -27017510275302080}
-  - component: {fileID: 1728805061505870052}
+  - component: {fileID: 4378456403478884687}
+  - component: {fileID: -4467569090572636767}
   m_Layer: 0
   m_Name: rocket_act1.1
   m_TagString: Untagged
@@ -82,27 +81,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!114 &5770106405245044253
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1560633169976647493}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 30085c9a47c8dd34aa8ab2eef4c8a76c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  launchSpeed: 10
-  launchDistance: 5
-  launchDev: 0
-  movementSpeed: 5
-  destructTime: 3
-  trashHub: {fileID: 6182501256707505823, guid: cc351f664748f764a9dfb0557636af93,
-    type: 3}
-  destroy: 0
---- !u!65 &-27017510275302080
+--- !u!65 &4378456403478884687
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -110,12 +89,12 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1560633169976647493}
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 0.66110075, y: 2.2263246, z: 0.6497152}
   m_Center: {x: -0.00000010430813, y: 0, z: 0}
---- !u!54 &1728805061505870052
+--- !u!54 &-4467569090572636767
 Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

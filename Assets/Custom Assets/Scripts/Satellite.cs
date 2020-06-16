@@ -58,11 +58,6 @@ public class Satellite : MonoBehaviour
                         laserTimer = laserDuration;
                     }
                 }
-
-                //if (!lr.enabled) { lr.enabled = true; }
-                //PewPew();
-                //laserCountDown = 1 / laserRate;
-                //laserTimer = laserDuration;
             }
         }
         //HOW LONG THE LASER STAYS ON

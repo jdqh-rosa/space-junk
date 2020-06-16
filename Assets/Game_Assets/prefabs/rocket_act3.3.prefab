@@ -11,9 +11,8 @@ GameObject:
   - component: {fileID: 6323853364760289702}
   - component: {fileID: 3069715099124833168}
   - component: {fileID: 8765510059308803945}
-  - component: {fileID: 4373002442259953764}
-  - component: {fileID: 3844257072096402008}
-  - component: {fileID: 1944297381934832439}
+  - component: {fileID: -1699674983270628978}
+  - component: {fileID: -8107470474098683820}
   m_Layer: 0
   m_Name: rocket_act3.3
   m_TagString: Untagged
@@ -82,7 +81,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!65 &4373002442259953764
+--- !u!65 &-1699674983270628978
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -90,12 +89,12 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7032809495992783797}
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 0.8074668, y: 2.4193053, z: 0.81969005}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!54 &3844257072096402008
+--- !u!54 &-8107470474098683820
 Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -111,23 +110,3 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &1944297381934832439
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7032809495992783797}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 30085c9a47c8dd34aa8ab2eef4c8a76c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  launchSpeed: 10
-  launchDistance: 6
-  launchDev: 1
-  movementSpeed: 5
-  destructTime: 3
-  trashHub: {fileID: 6182501256707505823, guid: cc351f664748f764a9dfb0557636af93,
-    type: 3}
-  destroy: 0
