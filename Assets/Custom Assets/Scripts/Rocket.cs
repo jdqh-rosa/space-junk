@@ -16,7 +16,7 @@ public class Rocket : MonoBehaviour
     public GameObject trashHub;
 
     private Vector3 startPosition;
-   // private Vector3 endPosition;
+    private Vector3 endPosition;
 
     public bool destroy;
     void Start()
@@ -31,12 +31,12 @@ public class Rocket : MonoBehaviour
         }
         
         startPosition = transform.position;
-        //endPosition = transform.position + transform.up * launchDistance;
+        endPosition = transform.position + transform.up * launchDistance;
     }
 
     void Update()
     {
-        if (launchDistance >= (transform.position-startPosition).magnitude)
+        if (launchDistance+1 >= (transform.position-startPosition).magnitude)
         {
             RocketLaunch();
         }
@@ -54,7 +54,8 @@ public class Rocket : MonoBehaviour
 
         transform.position += transform.up * launchSpeed * GameManager.gameDeltaTime;
 
-        if(launchDistance <= (transform.position-startPosition).magnitude)
+
+        if(launchDistance+1 <= (transform.position-startPosition).magnitude)
         {
             DropJunk();
         }
@@ -74,6 +75,6 @@ public class Rocket : MonoBehaviour
 
     void DropJunk()
     {
-        Instantiate(trashHub, transform.position, transform.rotation);
+        Instantiate(trashHub, endPosition, transform.rotation);
     }
 }

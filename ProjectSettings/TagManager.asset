@@ -8,6 +8,7 @@ TagManager:
   - TrashHub
   - TrashJunk
   - Base
+  - click
   layers:
   - Default
   - TransparentFX
@@ -17,7 +18,7 @@ TagManager:
   - UI
   - 
   - 
-  - 
+  - bg
   - 
   - 
   - 
@@ -42,6 +43,9 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: bg
+    uniqueID: 2683660639
+    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0

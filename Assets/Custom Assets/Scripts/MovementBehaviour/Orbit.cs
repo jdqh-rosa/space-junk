@@ -5,11 +5,12 @@ using UnityEngine;
 //**// SIMPLE CLASS TO CONTROL ORBIT OF AN OBJECT //**//
 public class Orbit : MonoBehaviour
 {
-    public enum orbitAxis{
-    X,
-    Y,
-    Z
-};
+    public enum orbitAxis
+    {
+        X,
+        Y,
+        Z
+    };
     public orbitAxis orbitAxi = orbitAxis.Z;
     public Vector3 pivotPoint;
     public GameObject pivotObject;
@@ -23,13 +24,17 @@ public class Orbit : MonoBehaviour
     {
         ChangeAxis();
         Vector3 center;
-        if(pivotObject==null){
+        if (pivotObject == null)
+        {
             center = pivotPoint;
-        }else{
+        }
+        else
+        {
             center = pivotObject.transform.position;
         }
 
-        if(objectDistanceAsRadius){ radius = (transform.position-center).magnitude; }
+        if (objectDistanceAsRadius) { radius = (transform.position - center).magnitude; }
+        else { transform.position = new Vector3(center.x, center.y + radius, center.z); }
 
         transform.position = (transform.position - center).normalized * radius + center;
     }
@@ -38,27 +43,33 @@ public class Orbit : MonoBehaviour
         ChangeAxis();
 
         //if there's a pivotObject, use it as the pivot point
-        if(pivotObject==null){
+        if (pivotObject == null)
+        {
             OrbitAroundPoint(pivotPoint);
-        }else{OrbitAroundPoint(pivotObject.transform.position);}
+        }
+        else { OrbitAroundPoint(pivotObject.transform.position); }
     }
 
     private void OrbitAroundPoint(Vector3 pPoint)
     {
         transform.RotateAround(pPoint, axis, orbitSpeed * GameManager.gameDeltaTime);
-        Vector3 goToPosition = (transform.position - pPoint).normalized * radius+pPoint;
+        Vector3 goToPosition = (transform.position - pPoint).normalized * radius + pPoint;
         transform.position = Vector3.MoveTowards(transform.position, goToPosition, GameManager.gameDeltaTime * radiusSpeed);
     }
 
     void ChangeAxis()
     {
-        switch(orbitAxi){
-            case orbitAxis.X: axis = Vector3.right;
-            break;
-            case orbitAxis.Y: axis = Vector3.up;
-            break;
-            case orbitAxis.Z: axis = Vector3.forward;
-            break;
+        switch (orbitAxi)
+        {
+            case orbitAxis.X:
+                axis = Vector3.right;
+                break;
+            case orbitAxis.Y:
+                axis = Vector3.up;
+                break;
+            case orbitAxis.Z:
+                axis = Vector3.forward;
+                break;
         }
     }
 

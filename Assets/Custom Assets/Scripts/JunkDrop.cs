@@ -27,7 +27,7 @@ public class JunkDrop : MonoBehaviour
 
         for (int i = 0; i < dropAmount; ++i)
         {
-            cluster[i] = Instantiate(trashPrefab, dropLocation, transform.rotation);
+            cluster[i] = Instantiate(trashPrefab, dropLocation, Quaternion.Euler(new Vector3(transform.rotation.x, transform.rotation.y, Random.Range(transform.rotation.z-90, transform.rotation.z+90))));
         }
         TrashHandler.AddToList(cluster[0]);
 
@@ -38,9 +38,10 @@ public class JunkDrop : MonoBehaviour
 
     void Update()
     {
+        if (cluster == null){Destroy(gameObject);}
         for (int i = 1; i < cluster.Length; ++i)
         {
-            if (cluster == null || cluster[i] == null){ continue; }
+            if (cluster[i] == null){ continue; }
 
             if (cluster[i - 1] == null)
             {
@@ -56,7 +57,7 @@ public class JunkDrop : MonoBehaviour
                 }
                 if (i == cluster.Length - 1)
                 {
-                    Destroy(this.gameObject);
+                    Destroy(gameObject);
                 }
             }
 

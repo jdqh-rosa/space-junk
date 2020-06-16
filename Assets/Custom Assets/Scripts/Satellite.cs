@@ -13,7 +13,6 @@ public class Satellite : MonoBehaviour
 
     public RaycastHit rayCastHit;
     public bool switchBase = true;
-    public bool shootMe;
 
     void Start()
     {
@@ -35,12 +34,35 @@ public class Satellite : MonoBehaviour
         //COOLDOWN FOR THE LASER
         if (laserCountDown <= 0)
         {
+            if (GameManager.breakThroughActive)
+            {
+                if (Input.GetKeyDown(laserKey))
+                {
+                    if (!lr.enabled) { lr.enabled = true; }
+                    BreakThroughShot();
+                    GameManager.breakThroughActive = false;
+                }
+            }
+
             if (Input.GetKeyDown(laserKey))
             {
-                if (!lr.enabled) { lr.enabled = true; }
-                PewPew();
-                laserCountDown = 1 / laserRate;
-                laserTimer = laserDuration;
+                var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                RaycastHit hit;
+                if (Physics.Raycast(ray, out hit))
+                {
+                    if (hit.collider.tag == "click")
+                    {
+                        if (!lr.enabled) { lr.enabled = true; }
+                        PewPew();
+                        laserCountDown = 1 / laserRate;
+                        laserTimer = laserDuration;
+                    }
+                }
+
+                //if (!lr.enabled) { lr.enabled = true; }
+                //PewPew();
+                //laserCountDown = 1 / laserRate;
+                //laserTimer = laserDuration;
             }
         }
         //HOW LONG THE LASER STAYS ON
@@ -74,12 +96,14 @@ public class Satellite : MonoBehaviour
             rayCastHit = hit;
             if (hit.collider)
             {
-                lr.SetPosition(1, hit.point);
+                //lr.SetPosition(1, hit.point);
                 if (hit.collider.gameObject.tag == "Base")
                 {
                     print("hit target");
                     gameObject.GetComponent<Renderer>().material.color = Color.red;
+                    if(!GameManager.breakThroughActive){
                     hit.collider.gameObject.GetComponent<SpawnRocket>().Launch();
+                    }else { hit.collider.gameObject.GetComponent<SpawnRocket>().ImperviousLaunch(); }
                     Destroy(hit.collider.gameObject);
                     GameManager.Instance.CreateBase();
                     lr.SetPosition(1, target.gameObject.transform.position);
@@ -88,11 +112,38 @@ public class Satellite : MonoBehaviour
                 }
                 else
                 {
+                    lr.SetPosition(1, hit.collider.gameObject.transform.position);
                     GameManager.Instance.BeamMissed();
                 }
-                //print("hit");
             }
         }
-        shootMe = true;
+    }
+
+    void BreakThroughShot()
+    {
+        if (target == null)
+        {
+            if (lr.enabled) { lr.enabled = false; }
+            return;
+        }
+
+        RaycastHit hit;
+
+        lr.SetPosition(1, target.transform.position);
+        if (Physics.Raycast(transform.position, Vector3.Normalize(target.gameObject.transform.position - transform.position), out hit))
+        {
+            rayCastHit = hit;
+            if (hit.collider)
+            {
+                lr.SetPosition(1, hit.point);
+                if (hit.collider.gameObject.tag == "TrashJunk")
+                {
+                    print("BREEEEEEAAAAAAK THROOOOOOOOUUUUUUGGGGHHHH!!!!!!!!!!");
+                    gameObject.GetComponent<Renderer>().material.color = Color.magenta;
+                    Destroy(hit.collider.gameObject);
+                }
+                PewPew();
+            }
+        }
     }
 }

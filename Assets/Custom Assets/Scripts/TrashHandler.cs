@@ -13,7 +13,7 @@ public class TrashHandler : MonoBehaviour
     public float trashSpeedRand;
 
     static public bool speedChange = true;
-    
+
     private List<float> degreeList = new List<float>();
 
     void Start()
@@ -21,11 +21,20 @@ public class TrashHandler : MonoBehaviour
         trashHandlerTF = transform;
     }
 
+    public static int ListCount()
+    {
+        return trashList.Count;
+    }
     public static void AddToList(GameObject gameObj)
     {
         if (!trashList.Contains(gameObj))
         {
             trashList.Add(gameObj);
+            if (gameObj.GetComponent<Orbit>() == null)
+            {
+                gameObj.AddComponent<Orbit>();
+                gameObj.GetComponent<Orbit>().objectDistanceAsRadius = true;
+            }
             gameObj.transform.parent = trashHandlerTF;
             ++perc;
         }
@@ -41,14 +50,14 @@ public class TrashHandler : MonoBehaviour
                 if (trashList[j] == null)
                 {
                     trashList.RemoveAt(j);
-                    if(j>trashList.Count-1) continue;
+                    if (j > trashList.Count - 1) continue;
                 }
 
                 if ((trashList[i].transform.position - trashList[j].transform.position).magnitude <= minGapLength)
                 {
-                    //trashList[j].SetActive(false);
-                    Destroy(trashList[j]);
-                    trashList.RemoveAt(j);
+                    trashList[i].GetComponent<Orbit>().orbitSpeed = trashList[j].GetComponent<Orbit>().orbitSpeed;
+                    //Destroy(trashList[j]);
+                    //trashList.RemoveAt(j);
                 }
             }
             degreeList.Add(Helper.CalcPosToDeg(Vector3.zero, trashList[i].transform.position));

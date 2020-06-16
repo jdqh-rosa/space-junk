@@ -84,10 +84,10 @@ public class BlackHole : MonoBehaviour
     {
         if (other.gameObject.tag == "TrashJunk")
         {
-            if (!objectList.Contains(other.gameObject))
-            {
+            //if (!objectList.Contains(other.gameObject))
+            //{
                 objectList.Add(other.gameObject);
-            }
+            //}
         }
     }
 
@@ -95,14 +95,23 @@ public class BlackHole : MonoBehaviour
     {
         foreach (GameObject g in objectList)
         {
+            if(g == null)
+            {
+                objectList.Remove(g);
+                continue;
+            }
+            if ((g.transform.position - transform.position).magnitude <= 0.1f)
+            {
+                objectList.Remove(g);
+            }
             g.GetComponent<Orbit>().enabled = false;
             Vector3 direction = (transform.position - g.transform.position).normalized;
             g.transform.position += direction * suckSpeed;
-            if ((g.transform.position-transform.position).magnitude <= 0.1f)
+            if (g.transform.localScale.y > 0)
             {
-                objectList.Remove(g);
-                Destroy(g);
+                g.transform.localScale -= Vector3.one * 0.1f;
             }
+            Destroy(g, 2);
         }
     }
 }
