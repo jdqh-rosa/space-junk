@@ -2718,7 +2718,7 @@ MonoBehaviour:
   earthLocation: {x: 0, y: 0, z: 0}
   worldRadius: 8.6
   earthRotation: 0
-  satelliteRadius: 18
+  satelliteRadius: 17.5
   satelliteSpeed: 50
   laserKey: 323
   laserFireRate: 1
