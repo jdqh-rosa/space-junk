@@ -41,6 +41,7 @@ public class Satellite : MonoBehaviour
                     if (!lr.enabled) { lr.enabled = true; }
                     BreakThroughShot();
                     GameManager.breakThroughActive = false;
+                    GameManager.Instance.breakTroughCurrentCooldown = GameManager.Instance.breakTroughCooldown;
                 }
             }
 

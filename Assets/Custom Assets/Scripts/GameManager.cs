@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 using TMPro;
+using UnityEngine.UI;
 
 //**// GAME MANAGER CODE //**//
 //**// NFI //**//
@@ -17,9 +18,12 @@ public sealed class GameManager : MonoBehaviour
     [Header("UI")]
     public TextMeshProUGUI pointsText;
     public TextMeshProUGUI rubblePercentageText;
-    public TextMeshProUGUI actProgressionText;
-    public TextMeshProUGUI actProgressionLabel;
+    public CustomSlider actSlider;
     public TextMeshProUGUI multiplierText;
+    public CustomSlider HoldStreakBtn;
+    public CustomSlider SlowSatBtn;
+    public CustomSlider BreakTroughBtn;
+    public CustomSlider NetBtn;
 
     [Header("Prefabs")]
     public GameObject[] earthPrefabs;
@@ -94,6 +98,9 @@ public sealed class GameManager : MonoBehaviour
     public int holdStreakPointCost;
     public float holdStreakDuration;
     public bool holdStreak;
+    public float holdStreakCooldown;
+    [HideInInspector]
+    public float holdStreakCurrentCooldown;
 
     [Header("Skill: Slow Satellite")]
     public int slowSatPointCost;
@@ -101,6 +108,9 @@ public sealed class GameManager : MonoBehaviour
     public float slowSatSpeed;
     public float slowSatPercentage;
     public bool slowSatActive = false;
+    public float slowSatCooldown;
+    [HideInInspector]
+    public float slowSatCurrentCooldown;
 
     [Header("Skill: Net")]
     public int netPointCost;
@@ -108,10 +118,16 @@ public sealed class GameManager : MonoBehaviour
     public float netSize;
     public float netDuration;
     public bool netActive;
+    public float netCooldown;
+    [HideInInspector]
+    public float netCurrentCooldown;
 
     [Header("Skill: Break Through")]
     public int breakThroughPointCost;
     public static bool breakThroughActive;
+    public float breakTroughCooldown;
+    [HideInInspector]
+    public float breakTroughCurrentCooldown;
 
     [Header("Events", order = 0)]
 
@@ -188,12 +204,12 @@ public sealed class GameManager : MonoBehaviour
             }
             else
             {
-                actProgressionText.SetText(percentage.ToString("0%"));
+                actSlider.value = percentage;
             }
         }
         else
         {
-            actProgressionText.SetText("∞");
+            actSlider.value = 1f;
         }
 
         //also update the UI
@@ -208,8 +224,8 @@ public sealed class GameManager : MonoBehaviour
     {
         act++;
         actProgression = 0;
-        actProgressionText.SetText(0f.ToString("0%"));
-        actProgressionLabel.SetText("ACT " + act);
+        actSlider.value = 0f;
+        actSlider.text = "ACT " + act;
 
         NewSatellite();
     }
@@ -328,6 +344,53 @@ public sealed class GameManager : MonoBehaviour
         SlowSatTimer();
         SpawnBlackHole();
         NothingButNet();
+        manageCooldowns();
+    }
+
+    private void manageCooldowns()
+    {
+        if(holdStreakCurrentCooldown > 0f)
+        {
+            holdStreakCurrentCooldown -= gameDeltaTime;
+            HoldStreakBtn.gameObject.GetComponent<Button>().interactable = false;
+        } else
+        {
+            HoldStreakBtn.gameObject.GetComponent<Button>().interactable = true;
+        }
+
+        if(slowSatCurrentCooldown > 0f)
+        {
+            slowSatCurrentCooldown -= gameDeltaTime;
+            SlowSatBtn.gameObject.GetComponent<Button>().interactable = false;
+        } else
+        {
+            SlowSatBtn.gameObject.GetComponent<Button>().interactable = true;
+        }
+
+        if(netCurrentCooldown > 0f)
+        {
+            netCurrentCooldown -= gameDeltaTime;
+            NetBtn.gameObject.GetComponent<Button>().interactable = false;
+        } else
+        {
+            NetBtn.gameObject.GetComponent<Button>().interactable = true;
+        }
+
+        if(breakTroughCurrentCooldown > 0f)
+        {
+            breakTroughCurrentCooldown -= gameDeltaTime;
+            BreakTroughBtn.gameObject.GetComponent<Button>().interactable = false;
+        } else
+        {
+            BreakTroughBtn.gameObject.GetComponent<Button>().interactable = true;
+        }
+
+        //Calculate percentages
+        HoldStreakBtn.value = (holdStreakCooldown - holdStreakCurrentCooldown) / holdStreakCooldown;
+        SlowSatBtn.value = (slowSatCooldown - slowSatCurrentCooldown) / slowSatCooldown;
+        NetBtn.value = (netCooldown - netCurrentCooldown) / netCooldown;
+        BreakTroughBtn.value = (breakTroughCooldown - breakTroughCurrentCooldown) / breakTroughCooldown;
+        //Debug.Log(holdStreakCurrentCooldown);
     }
 
     /// <summary>
@@ -338,6 +401,7 @@ public sealed class GameManager : MonoBehaviour
     {
         if (holdStreak)
         {
+            holdStreakCurrentCooldown = holdStreakCooldown;
             holdStreakTimer += GameManager.gameDeltaTime;
 
             if (holdStreakDuration <= holdStreakTimer)
@@ -356,6 +420,7 @@ public sealed class GameManager : MonoBehaviour
     {
         if (slowSatActive)
         {
+            slowSatCurrentCooldown = slowSatCooldown;
             slowSatTimer += GameManager.gameDeltaTime;
             if (slowSatDuration >= slowSatTimer)
             {
@@ -377,6 +442,7 @@ public sealed class GameManager : MonoBehaviour
     {
         if (netActive)
         {
+            netCurrentCooldown = netCooldown;
             GameObject net = Instantiate(netObject, satelliteObject.transform.position, satelliteObject.transform.rotation);
             if (net.GetComponent<Net>() == null) { net.AddComponent<Net>(); }
             net.GetComponent<Net>().duration = netDuration;
@@ -415,21 +481,17 @@ public sealed class GameManager : MonoBehaviour
     public void ActivateHoldStreak()
     {
         holdStreak = true;
-        points -= holdStreakPointCost;
     }
     public void ActivateNothingButNet()
     {
         netActive = true;
-        points -= netPointCost;
     }
     public void ActivateSlowSat()
     {
         slowSatActive = true;
-        points -= slowSatPointCost;
     }
     public void ActivateBreakThrough()
     {
         breakThroughActive = true;
-        points -= breakThroughPointCost;
     }
 }

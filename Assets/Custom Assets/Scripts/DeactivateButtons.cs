@@ -15,25 +15,25 @@ public class DeactivateButtons : MonoBehaviour
 
     private void Start()
     {
-        holdSteak.interactable=false;
-        slowSatellite.interactable=false;
-        netThrow.interactable=false;
-        breakShot.interactable=false;
+        //holdSteak.interactable=false;
+        //slowSatellite.interactable=false;
+        //netThrow.interactable=false;
+        //breakShot.interactable=false;
     }
 
     void Update()
     {
-        int points = GameManager.Instance.points;
-        if (points > GameManager.Instance.holdStreakPointCost) { holdSteak.interactable = true; }
-        else { holdSteak.interactable = false; }
+        //int points = GameManager.Instance.points;
+        //if (points > GameManager.Instance.holdStreakPointCost) { holdSteak.interactable = true; }
+        //else { holdSteak.interactable = false; }
 
-        if (points > GameManager.Instance.slowSatPointCost) { slowSatellite.interactable = true;  }
-        else { slowSatellite.interactable = false; }
+        //if (points > GameManager.Instance.slowSatPointCost) { slowSatellite.interactable = true;  }
+        //else { slowSatellite.interactable = false; }
 
-        if (points > GameManager.Instance.netPointCost) { netThrow.interactable = true; }
-        else { netThrow.interactable = false; }
+        //if (points > GameManager.Instance.netPointCost) { netThrow.interactable = true; }
+        //else { netThrow.interactable = false; }
 
-        if (points > GameManager.Instance.breakThroughPointCost) { breakShot.interactable = true; }
-        else { breakShot.interactable = false; }
+        //if (points > GameManager.Instance.breakThroughPointCost) { breakShot.interactable = true; }
+        //else { breakShot.interactable = false; }
     }
 }
