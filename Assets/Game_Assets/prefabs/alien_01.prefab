@@ -11,7 +11,9 @@ GameObject:
   - component: {fileID: 5622005605491512429}
   - component: {fileID: 3701509128319708763}
   - component: {fileID: 6945377026951303842}
-  - component: {fileID: -6651871430314011904}
+  - component: {fileID: -4675854312037662636}
+  - component: {fileID: 251770492213650959}
+  - component: {fileID: 2350605774638291665}
   m_Layer: 0
   m_Name: alien_01
   m_TagString: Untagged
@@ -80,8 +82,38 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!65 &-6651871430314011904
-BoxCollider:
+--- !u!114 &-4675854312037662636
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8673433253853881982}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd31726869aaec245a170e3066261352, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveDirection: 1
+  height: 18
+  movementSpeed: 0
+  amplitude: 1
+  waveLength: 5
+  frequency: 1
+--- !u!114 &251770492213650959
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8673433253853881982}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 73ce37a570e6d4a41b9d3037ef62617f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!136 &2350605774638291665
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -90,6 +122,7 @@ BoxCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 3.3411152, y: 0.87086666, z: 3.3411157}
+  m_Radius: 5
+  m_Height: 0.87086666
+  m_Direction: 1
   m_Center: {x: 0.00000023841858, y: -0.000000074505806, z: 0}

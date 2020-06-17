@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 6999532517932278560}
   - component: {fileID: 2051480900401174806}
   - component: {fileID: 5711930372844086767}
-  - component: {fileID: -2015269884211679196}
-  - component: {fileID: -304960506063161217}
+  - component: {fileID: 5234923994880098176}
+  - component: {fileID: 1607994893388286290}
   m_Layer: 0
   m_Name: nasa_junk
   m_TagString: TrashJunk
@@ -81,8 +81,8 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!136 &-2015269884211679196
-CapsuleCollider:
+--- !u!65 &5234923994880098176
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -91,11 +91,10 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
-  m_Radius: 0.23138088
-  m_Height: 1.2377253
-  m_Direction: 1
+  serializedVersion: 2
+  m_Size: {x: 0.4624746, y: 1.2377253, z: 0.46276176}
   m_Center: {x: 0, y: 0.000000059604645, z: 0.000019788742}
---- !u!54 &-304960506063161217
+--- !u!54 &1607994893388286290
 Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
