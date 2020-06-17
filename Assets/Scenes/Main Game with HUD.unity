@@ -231,7 +231,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 40.3291, y: -96.73511}
-  m_SizeDelta: {x: 176.96188, y: 82.91214}
+  m_SizeDelta: {x: 230.51303, y: 108.0025}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &80192446
 MonoBehaviour:
@@ -1669,8 +1669,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 961036991}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -6.4, y: 10.67, z: 10}
-  m_LocalScale: {x: 62.347363, y: 17.400639, z: 0.1}
+  m_LocalPosition: {x: -6.4, y: 12.67, z: 10}
+  m_LocalScale: {x: 62.347363, y: 13.401089, z: 0.1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 12
@@ -1975,7 +1975,7 @@ RectTransform:
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
   m_AnchoredPosition: {x: -167.11, y: 34}
-  m_SizeDelta: {x: 90, y: 436.3}
+  m_SizeDelta: {x: 129.56595, y: 628.1069}
   m_Pivot: {x: 1, y: 0}
 --- !u!1 &1157151541
 GameObject:
@@ -2855,7 +2855,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -48.48001, y: -270}
+  m_AnchoredPosition: {x: -73.531, y: -288}
   m_SizeDelta: {x: 229.24988, y: 41.821167}
   m_Pivot: {x: 1, y: 1}
 --- !u!114 &1821390891
@@ -3955,7 +3955,7 @@ RectTransform:
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: -49, y: -45}
-  m_SizeDelta: {x: 326.21387, y: 325.73273}
+  m_SizeDelta: {x: 376.31268, y: 375.75763}
   m_Pivot: {x: 1, y: 1}
 --- !u!114 &1330389870109835051
 MonoBehaviour:
@@ -4036,7 +4036,7 @@ MonoBehaviour:
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
-  m_FillAmount: 0.0000009746533
+  m_FillAmount: 3.2414318e-10
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
@@ -4291,17 +4291,17 @@ PrefabInstance:
     - target: {fileID: 1854366431925140167, guid: 31ed25b0b38d6db49a743e7d1c57a2bc,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -211.8999
+      value: -246.8
       objectReference: {fileID: 0}
     - target: {fileID: 1854366431925140167, guid: 31ed25b0b38d6db49a743e7d1c57a2bc,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: 176.96188
+      value: 230.51303
       objectReference: {fileID: 0}
     - target: {fileID: 1854366431925140167, guid: 31ed25b0b38d6db49a743e7d1c57a2bc,
         type: 3}
       propertyPath: m_SizeDelta.y
-      value: 82.91214
+      value: 108.0025
       objectReference: {fileID: 0}
     - target: {fileID: 1854366431925140167, guid: 31ed25b0b38d6db49a743e7d1c57a2bc,
         type: 3}
