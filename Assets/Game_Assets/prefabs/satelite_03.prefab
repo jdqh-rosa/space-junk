@@ -11,10 +11,10 @@ GameObject:
   - component: {fileID: 6677640366097521939}
   - component: {fileID: 2445657146470328101}
   - component: {fileID: 8272040890487905244}
-  - component: {fileID: 173640132362747518}
-  - component: {fileID: -627104023497717970}
-  - component: {fileID: -6691791096932357732}
-  - component: {fileID: 2975546277242900245}
+  - component: {fileID: -6901216361975547332}
+  - component: {fileID: 653476255937144681}
+  - component: {fileID: -37925971913774698}
+  - component: {fileID: 6103326900454765841}
   m_Layer: 0
   m_Name: satelite_03
   m_TagString: Untagged
@@ -29,8 +29,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7705913294969351936}
-  m_LocalRotation: {x: -0, y: -0, z: 0.32173082, w: 0.9468312}
-  m_LocalPosition: {x: -9.138789, y: 11.894643, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: 0.80960214, w: 0.5869791}
+  m_LocalPosition: {x: -17.107838, y: -5.5965934, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -83,7 +83,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!65 &173640132362747518
+--- !u!65 &-6901216361975547332
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -96,7 +96,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 2.3211842, y: 3.3567843, z: 1.7537705}
   m_Center: {x: 0, y: 0, z: -0.012912393}
---- !u!114 &-627104023497717970
+--- !u!114 &653476255937144681
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -112,10 +112,10 @@ MonoBehaviour:
   pivotPoint: {x: 0, y: 0, z: 0}
   pivotObject: {fileID: 0}
   objectDistanceAsRadius: 1
-  radius: 15
+  radius: 18
   orbitSpeed: 50
   radiusSpeed: 1
---- !u!114 &-6691791096932357732
+--- !u!114 &-37925971913774698
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -131,9 +131,9 @@ MonoBehaviour:
   laserDuration: 0.1
   laserKey: 323
   target: {fileID: 0}
-  lr: {fileID: 2975546277242900245}
+  lr: {fileID: 6103326900454765841}
   switchBase: 1
---- !u!120 &2975546277242900245
+--- !u!120 &6103326900454765841
 LineRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

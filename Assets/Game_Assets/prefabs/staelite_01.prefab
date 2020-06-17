@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4306841059437266116}
   - component: {fileID: 5089067170589867762}
   - component: {fileID: 1559220512966017547}
-  - component: {fileID: -2485473264853634717}
+  - component: {fileID: 6508004747606668219}
   m_Layer: 0
   m_Name: staelite_01
   m_TagString: Untagged
@@ -80,7 +80,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!65 &-2485473264853634717
+--- !u!65 &6508004747606668219
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
