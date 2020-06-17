@@ -247,6 +247,8 @@ public sealed class GameManager : MonoBehaviour
     /// Alter the rubble meter when rubble is dropped
     /// </summary>
     /// <param name="amount">amount of rubble blocks</param>
+    /// 
+    float percentage;
     public void RubbleDropped(int amount)
     {
         currentRubble = TrashHandler.ListCount();
@@ -330,6 +332,10 @@ public sealed class GameManager : MonoBehaviour
     {
         gameTime += Time.deltaTime;
         gameDeltaTime = Time.deltaTime;
+
+        percentage = (float)TrashHandler.ListCount()/(float)maxRubble;
+        rubbleMeter.text = percentage.ToString("0%");
+        rubbleMeter.value = percentage;
 
         StreakHoldTimer();
         SlowSatTimer();
