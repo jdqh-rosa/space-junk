@@ -29,6 +29,6 @@ public class SpawnRocket : MonoBehaviour
         rocket.GetComponent<Rocket>().destructTime = GameManager.Instance.rocketDestructTime;
 
         if (rocket.GetComponent<Rocket>().trashHub == null) { rocket.GetComponent<Rocket>().trashHub = GameManager.Instance.trashHub; }
-        rocket.GetComponent<Rocket>().trashHub.GetComponent<JunkDrop>().trashPrefab = GameManager.Instance.spaceDebrisPrefabs[GameManager.Instance.act - 1];
+        //rocket.GetComponent<Rocket>().trashHub.GetComponent<JunkDrop>().trashPrefab = GameManager.Instance.spaceDebrisPrefabs[Random.Range(0, GameManager.Instance.spaceDebrisPrefabs.Length-1)];
     }
 }

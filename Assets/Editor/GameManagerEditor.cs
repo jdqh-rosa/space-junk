@@ -18,6 +18,9 @@ public class GameManagerEditor : Editor
         {
             Instantiate(gm.blackHole);
         }
-
+        if (GUILayout.Button("Spawn Alien"))
+        {
+            Instantiate(gm.aliens[0]);
+        }
     }
 }
