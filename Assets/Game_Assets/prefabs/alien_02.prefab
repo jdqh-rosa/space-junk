@@ -11,8 +11,6 @@ GameObject:
   - component: {fileID: 4071459619634923267}
   - component: {fileID: 5033824046599437621}
   - component: {fileID: 1650346232283595212}
-  - component: {fileID: -690157098934383836}
-  - component: {fileID: 1898553053558744362}
   m_Layer: 0
   m_Name: alien_02
   m_TagString: Untagged
@@ -81,33 +79,3 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!114 &-690157098934383836
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1070699111163442448}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cd31726869aaec245a170e3066261352, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  moveDirection: 1
-  height: 18
-  movementSpeed: 0
-  amplitude: 1
-  waveLength: 5
-  frequency: 1
---- !u!114 &1898553053558744362
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1070699111163442448}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 73ce37a570e6d4a41b9d3037ef62617f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

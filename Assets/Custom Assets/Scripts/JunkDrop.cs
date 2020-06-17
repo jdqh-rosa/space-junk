@@ -27,7 +27,7 @@ public class JunkDrop : MonoBehaviour
 
         for (int i = 0; i < dropAmount; ++i)
         {
-            cluster[i] = Instantiate(GameManager.Instance.spaceDebrisPrefabs[Random.Range(0, GameManager.Instance.spaceDebrisPrefabs.Length-1)], dropLocation, Quaternion.Euler(new Vector3(transform.rotation.x, transform.rotation.y, Random.Range(transform.rotation.z-90, transform.rotation.z+90))));
+            cluster[i] = Instantiate(trashPrefab, dropLocation, Quaternion.Euler(new Vector3(transform.rotation.x, transform.rotation.y, Random.Range(transform.rotation.z-90, transform.rotation.z+90))));
         }
         TrashHandler.AddToList(cluster[0]);
 

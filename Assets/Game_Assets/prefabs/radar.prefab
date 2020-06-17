@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 6023388939684206249}
   - component: {fileID: 3372183388469062815}
   - component: {fileID: 9075016614799216742}
-  - component: {fileID: 323451407522535704}
-  - component: {fileID: -2008512294734462929}
+  - component: {fileID: 3721047272766051900}
+  - component: {fileID: -5441057931892100208}
   m_Layer: 0
   m_Name: radar
   m_TagString: TrashJunk
@@ -81,7 +81,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!65 &323451407522535704
+--- !u!65 &3721047272766051900
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -92,9 +92,9 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.4108614, y: 1.3148904, z: 0.77993244}
+  m_Size: {x: 1.4, y: 1.3, z: 0.7}
   m_Center: {x: 0.0005290508, y: -0.0008920133, z: 0.00007227063}
---- !u!54 &-2008512294734462929
+--- !u!54 &-5441057931892100208
 Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
