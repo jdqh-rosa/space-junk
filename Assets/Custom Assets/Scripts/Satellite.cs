@@ -11,52 +11,48 @@ public class Satellite : MonoBehaviour
     public GameObject target;
     public LineRenderer lr;
 
-    public RaycastHit rayCastHit;
+    RaycastHit hit;
     public bool switchBase = true;
+    public bool targetAcquired;
+
+    AudioSource audioSource;
 
     void Start()
     {
+        audioSource = GetComponent<AudioSource>();
         lr.enabled = false;
         lr.SetWidth(.2f, .2f);
+
+        audioSource.clip = GameManager.Instance.shootSound;
+
     }
     void Update()
     {
-        ShootLaser();
+        CheckTarget();
     }
 
     float laserCountDown = 0;
     float laserTimer = 0;
-    void ShootLaser()
+    void CheckTarget()
     {
+        audioSource.clip = GameManager.Instance.shootSound;
 
         lr.SetPosition(0, transform.position);
 
         //COOLDOWN FOR THE LASER
         if (laserCountDown <= 0)
         {
-            if (GameManager.breakThroughActive)
+            if (Physics.Raycast(transform.position, Vector3.Normalize(target.gameObject.transform.position - transform.position), out hit))
             {
-                if (Input.GetKeyDown(laserKey))
+                if (hit.collider)
                 {
-                    if (!lr.enabled) { lr.enabled = true; }
-                    BreakThroughShot();
-                    GameManager.breakThroughActive = false;
-                    GameManager.Instance.breakTroughCurrentCooldown = GameManager.Instance.breakTroughCooldown;
-                }
-            }
-
-            if (Input.GetKeyDown(laserKey))
-            {
-                var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-                RaycastHit hit;
-                if (Physics.Raycast(ray, out hit))
-                {
-                    if (hit.collider.tag == "click")
+                    if (hit.collider.gameObject.tag == "Base")
                     {
-                        if (!lr.enabled) { lr.enabled = true; }
-                        PewPew();
-                        laserCountDown = 1 / laserRate;
-                        laserTimer = laserDuration;
+                        print("hit target");
+                        if (Input.GetKeyDown(laserKey))
+                        {
+                            PewPew();
+                        }
                     }
                 }
             }
@@ -84,22 +80,24 @@ public class Satellite : MonoBehaviour
             return;
         }
 
-        RaycastHit hit;
+        audioSource.Play();
 
         lr.SetPosition(1, target.transform.position);
         if (Physics.Raycast(transform.position, Vector3.Normalize(target.gameObject.transform.position - transform.position), out hit))
         {
-            rayCastHit = hit;
             if (hit.collider)
             {
                 //lr.SetPosition(1, hit.point);
                 if (hit.collider.gameObject.tag == "Base")
                 {
                     print("hit target");
+
                     gameObject.GetComponent<Renderer>().material.color = Color.red;
-                    if(!GameManager.breakThroughActive){
-                    hit.collider.gameObject.GetComponent<SpawnRocket>().Launch();
-                    }else { hit.collider.gameObject.GetComponent<SpawnRocket>().ImperviousLaunch(); }
+                    if (!GameManager.breakThroughActive)
+                    {
+                        hit.collider.gameObject.GetComponent<SpawnRocket>().Launch();
+                    }
+                    else { hit.collider.gameObject.GetComponent<SpawnRocket>().ImperviousLaunch(); }
                     Destroy(hit.collider.gameObject);
                     GameManager.Instance.CreateBase();
                     lr.SetPosition(1, target.gameObject.transform.position);
@@ -108,9 +106,12 @@ public class Satellite : MonoBehaviour
                 }
                 else
                 {
+                    audioSource.clip = GameManager.Instance.missSound;
+                    audioSource.Play();
                     lr.SetPosition(1, hit.collider.gameObject.transform.position);
                     GameManager.Instance.BeamMissed();
                 }
+
             }
         }
     }
@@ -128,7 +129,6 @@ public class Satellite : MonoBehaviour
         lr.SetPosition(1, target.transform.position);
         if (Physics.Raycast(transform.position, Vector3.Normalize(target.gameObject.transform.position - transform.position), out hit))
         {
-            rayCastHit = hit;
             if (hit.collider)
             {
                 lr.SetPosition(1, hit.point);
@@ -143,3 +143,31 @@ public class Satellite : MonoBehaviour
         }
     }
 }
+
+
+//if (GameManager.breakThroughActive)
+//                    {
+//                        if (Input.GetKeyDown(laserKey))
+//                        {
+//                            if (!lr.enabled) { lr.enabled = true; }
+//                            BreakThroughShot();
+//                            GameManager.breakThroughActive = false;
+//                            GameManager.Instance.breakTroughCurrentCooldown = GameManager.Instance.breakTroughCooldown;
+//                        }
+//                    }
+
+//                    if (Input.GetKeyDown(laserKey))
+//                    {
+//                        var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+//                        RaycastHit hit;
+//                        if (Physics.Raycast(ray, out hit))
+//                        {
+//                            if (hit.collider.tag == "click")
+//                            {
+//                                if (!lr.enabled) { lr.enabled = true; }
+//                                PewPew();
+//                                laserCountDown = 1 / laserRate;
+//                                laserTimer = laserDuration;
+//                            }
+//                        }
+//                    }

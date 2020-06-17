@@ -13,6 +13,7 @@ public sealed class GameManager : MonoBehaviour
 {
     static public float gameTime;
     static public float gameDeltaTime;
+    static public float gameTimeScale = 1;
     public SceneManager sceneManager;
 
     [Header("UI")]
@@ -70,6 +71,9 @@ public sealed class GameManager : MonoBehaviour
     [Header("Satellite")]
     public float satelliteRadius;
     public float satelliteSpeed;
+    public AudioClip hitSound;
+    public AudioClip missSound;
+    public AudioClip shootSound;
 
     [Header("Laser")]
     public KeyCode laserKey;
@@ -148,7 +152,8 @@ public sealed class GameManager : MonoBehaviour
     private static GameManager INSTANCE = new GameManager();
 
     GameObject earthObject;
-    GameObject satelliteObject;
+    [HideInInspector]
+    public GameObject satelliteObject;
     GameObject baseObject;
     GameObject[] trashObjects;
 
@@ -174,7 +179,7 @@ public sealed class GameManager : MonoBehaviour
 
     public void Start()
     {
-        rockets[0] = act1RocketPrefabs ;
+        rockets[0] = act1RocketPrefabs;
         rockets[1] = act2RocketPrefabs;
         rockets[2] = act3RocketPrefabs;
         Instance.CreateEarth();
@@ -228,6 +233,10 @@ public sealed class GameManager : MonoBehaviour
         actSlider.value = 0f;
         actSlider.text = "ACT " + act;
 
+        if (act == 3)
+        {
+            earthObject.GetComponent<Orbit>().orbitSpeed = -5;
+        }
         NewSatellite();
     }
 
@@ -330,10 +339,12 @@ public sealed class GameManager : MonoBehaviour
 
     void Update()
     {
-        gameTime += Time.deltaTime;
-        gameDeltaTime = Time.deltaTime;
+        gameDeltaTime = Time.deltaTime * gameTimeScale;
+        gameTime += gameDeltaTime;
 
-        percentage = (float)TrashHandler.ListCount()/(float)maxRubble;
+
+
+        percentage = (float)TrashHandler.ListCount() / (float)maxRubble;
         rubbleMeter.text = percentage.ToString("0%");
         rubbleMeter.value = percentage;
 
@@ -346,38 +357,42 @@ public sealed class GameManager : MonoBehaviour
 
     private void manageCooldowns()
     {
-        if(holdStreakCurrentCooldown > 0f)
+        if (holdStreakCurrentCooldown > 0f)
         {
             holdStreakCurrentCooldown -= gameDeltaTime;
             HoldStreakBtn.gameObject.GetComponent<Button>().interactable = false;
-        } else
+        }
+        else
         {
             HoldStreakBtn.gameObject.GetComponent<Button>().interactable = true;
         }
 
-        if(slowSatCurrentCooldown > 0f)
+        if (slowSatCurrentCooldown > 0f)
         {
             slowSatCurrentCooldown -= gameDeltaTime;
             SlowSatBtn.gameObject.GetComponent<Button>().interactable = false;
-        } else
+        }
+        else
         {
             SlowSatBtn.gameObject.GetComponent<Button>().interactable = true;
         }
 
-        if(netCurrentCooldown > 0f)
+        if (netCurrentCooldown > 0f)
         {
             netCurrentCooldown -= gameDeltaTime;
             NetBtn.gameObject.GetComponent<Button>().interactable = false;
-        } else
+        }
+        else
         {
             NetBtn.gameObject.GetComponent<Button>().interactable = true;
         }
 
-        if(breakTroughCurrentCooldown > 0f)
+        if (breakTroughCurrentCooldown > 0f)
         {
             breakTroughCurrentCooldown -= gameDeltaTime;
             BreakTroughBtn.gameObject.GetComponent<Button>().interactable = false;
-        } else
+        }
+        else
         {
             BreakTroughBtn.gameObject.GetComponent<Button>().interactable = true;
         }
@@ -422,6 +437,7 @@ public sealed class GameManager : MonoBehaviour
             if (slowSatDuration >= slowSatTimer)
             {
                 satelliteObject.GetComponent<Orbit>().orbitSpeed = slowSatSpeed;
+                GameManager.gameTimeScale = 0;
             }
             else
             {
@@ -484,7 +500,7 @@ public sealed class GameManager : MonoBehaviour
         {
             if (Random.Range(0f, 1f) <= garbageTruckChancePerMinute / 100f)
             {
-                Instantiate(aliens[act-1]);
+                Instantiate(aliens[act - 1]);
             }
             truckTimer = 0;
         }

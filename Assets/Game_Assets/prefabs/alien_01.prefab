@@ -95,8 +95,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveDirection: 1
-  height: 18
-  movementSpeed: 0
+  height: 15
+  movementSpeed: 5
   amplitude: 1
   waveLength: 5
   frequency: 1
@@ -112,6 +112,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73ce37a570e6d4a41b9d3037ef62617f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  suckSpeed: 0
 --- !u!136 &2350605774638291665
 CapsuleCollider:
   m_ObjectHideFlags: 0
