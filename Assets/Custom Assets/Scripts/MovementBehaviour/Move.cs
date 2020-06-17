@@ -34,11 +34,7 @@ public class Move : MonoBehaviour
     }
     void Update()
     {
-        if (transform.position.y < 10)
-        {
-            Tween(transform.position + transform.up * 10);
-        }
-        else if (!target)
+        if (!target)
         {
             transform.position += direction * movementSpeed;
         }

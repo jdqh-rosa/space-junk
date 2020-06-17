@@ -34,6 +34,7 @@ public sealed class GameManager : MonoBehaviour
     public GameObject[] act3RocketPrefabs;
     public GameObject[] spaceDebrisPrefabs;
     public GameObject blackHole;
+    public GameObject[] aliens;
     public GameObject netObject;
     public GameObject trashHub;
 
@@ -246,6 +247,8 @@ public sealed class GameManager : MonoBehaviour
     /// Alter the rubble meter when rubble is dropped
     /// </summary>
     /// <param name="amount">amount of rubble blocks</param>
+    /// 
+    float percentage;
     public void RubbleDropped(int amount)
     {
         currentRubble = TrashHandler.ListCount();
@@ -278,17 +281,6 @@ public sealed class GameManager : MonoBehaviour
         baseObject = Instantiate(earthBasePrefabs[act - 1], Helper.CalcDegToPos(rand, worldRadius), Quaternion.Euler(0, 0, rand - 90));
 
         if (baseObject.GetComponent<SpawnRocket>() == null) { baseObject.AddComponent<SpawnRocket>(); }
-        //baseObject.GetComponent<SpawnRocket>().rocketPrefab = act1RocketPrefabs[act - 1];
-        //
-        //if (baseObject.GetComponent<SpawnRocket>().rocketPrefab.GetComponent<Rocket>() == null) { baseObject.GetComponent<SpawnRocket>().rocketPrefab.AddComponent<Rocket>(); }
-        //baseObject.GetComponent<SpawnRocket>().rocketPrefab.GetComponent<Rocket>().launchDistance = rocketLaunchHeight;
-        //baseObject.GetComponent<SpawnRocket>().rocketPrefab.GetComponent<Rocket>().launchDev = rocketLaunchHeightDev;
-        //baseObject.GetComponent<SpawnRocket>().rocketPrefab.GetComponent<Rocket>().launchSpeed = rocketLaunchSpeed;
-        //baseObject.GetComponent<SpawnRocket>().rocketPrefab.GetComponent<Rocket>().movementSpeed = rocketFlightSpeed;
-        //baseObject.GetComponent<SpawnRocket>().rocketPrefab.GetComponent<Rocket>().destructTime = rocketDestructTime;
-
-        //if (baseObject.GetComponent<SpawnRocket>().rocketPrefab.GetComponent<Rocket>().trashHub == null) { baseObject.GetComponent<SpawnRocket>().rocketPrefab.GetComponent<Rocket>().trashHub = trashHub; }
-        //baseObject.GetComponent<SpawnRocket>().rocketPrefab.GetComponent<Rocket>().trashHub.GetComponent<JunkDrop>().trashPrefab = spaceDebrisPrefabs[act - 1];
 
         baseObject.transform.parent = earthObject.transform;
     }
@@ -340,6 +332,10 @@ public sealed class GameManager : MonoBehaviour
     {
         gameTime += Time.deltaTime;
         gameDeltaTime = Time.deltaTime;
+
+        percentage = (float)TrashHandler.ListCount()/(float)maxRubble;
+        rubbleMeter.text = percentage.ToString("0%");
+        rubbleMeter.value = percentage;
 
         StreakHoldTimer();
         SlowSatTimer();
@@ -474,6 +470,23 @@ public sealed class GameManager : MonoBehaviour
                 Instantiate(blackHole);
             }
             blackHoleTimer = 0;
+        }
+    }
+
+    /// <summary>
+    /// has a chance of spawning an alien every minute
+    /// </summary>
+    float truckTimer = 0;
+    void SpawnTruck()
+    {
+        truckTimer += GameManager.gameDeltaTime;
+        if (truckTimer >= 60)
+        {
+            if (Random.Range(0f, 1f) <= garbageTruckChancePerMinute / 100f)
+            {
+                Instantiate(aliens[act-1]);
+            }
+            truckTimer = 0;
         }
     }
 
