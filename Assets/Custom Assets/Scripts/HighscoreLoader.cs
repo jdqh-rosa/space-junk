@@ -5,13 +5,16 @@ using TMPro;
 
 public class HighscoreLoader : MonoBehaviour
 {
+    public GameObject FirstRowPrefab;
+    public GameObject SecondRowPrefab;
     public GameObject RowPrefab;
+    public GameObject FirstContainer;
 
     private float rowheight;
     private float currentY = 0;
     void Start()
     {
-        createTable("SELECT * FROM highscores ORDER BY Score DESC");
+        Daily();
     }
 
     private void createTable(string query)
@@ -21,7 +24,13 @@ public class HighscoreLoader : MonoBehaviour
         {
             Destroy(child.gameObject);
         }
-        currentY = 0;
+
+        foreach (Transform child in FirstContainer.transform)
+        {
+            Destroy(child.gameObject);
+        }
+
+        currentY = -5;
 
         //Set rowheight to calculate height of other objects
         rowheight = RowPrefab.GetComponent<RectTransform>().sizeDelta.y;
@@ -39,7 +48,7 @@ public class HighscoreLoader : MonoBehaviour
         }
 
         //Set the size of the content
-        GetComponent<RectTransform>().sizeDelta = new Vector2(GetComponent<RectTransform>().sizeDelta.x, rowheight * scores.Count);
+        GetComponent<RectTransform>().sizeDelta = new Vector2(GetComponent<RectTransform>().sizeDelta.x, rowheight * (scores.Count-1)+50);
     }
 
     /// <summary>
@@ -49,10 +58,23 @@ public class HighscoreLoader : MonoBehaviour
     /// <param name="position">position value</param>
     private void createRow(highscore pScore, int position)
     {
-        //Set position values
-        GameObject row = Instantiate(RowPrefab, transform, false);
-        row.GetComponent<RectTransform>().localPosition = new Vector3(0,currentY,0);
-        currentY -= rowheight;
+        GameObject row;
+        //Decide what prefab to use
+        if(position == 1)
+        {
+            row = Instantiate(FirstRowPrefab, FirstContainer.transform, false);
+            row.GetComponent<RectTransform>().localPosition = new Vector3(0, 0, 0);
+        } else if(position == 2)
+        {
+            row = Instantiate(SecondRowPrefab, transform, false);
+            row.GetComponent<RectTransform>().localPosition = new Vector3(0, currentY, 0);
+            currentY -= rowheight;
+        } else
+        {
+            row = Instantiate(RowPrefab, transform, false);
+            row.GetComponent<RectTransform>().localPosition = new Vector3(0, currentY, 0);
+            currentY -= rowheight;
+        }
 
         //Set property values
         row.transform.GetChild(0).GetComponent<TextMeshProUGUI>().SetText("#"+position);
