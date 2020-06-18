@@ -18,7 +18,7 @@ public class Rocket : MonoBehaviour
     private Vector3 startPosition;
     private Vector3 endPosition;
 
-    public bool destroy;
+    public bool faulty;
     void Start()
     {
         if (Random.value > 0.5f)
@@ -29,16 +29,20 @@ public class Rocket : MonoBehaviour
         {
             launchDistance = launchDistance + launchDev;
         }
-        
+
         startPosition = transform.position;
         endPosition = transform.position + transform.up * launchDistance;
     }
 
     void Update()
     {
-        if (launchDistance+1 >= (transform.position-startPosition).magnitude)
+        if (launchDistance + 1 >= (transform.position - startPosition).magnitude)
         {
             RocketLaunch();
+        }
+        else if (faulty)
+        {
+            FaultyLaunch();
         }
         else
         {
@@ -55,9 +59,22 @@ public class Rocket : MonoBehaviour
         transform.position += transform.up * launchSpeed * GameManager.gameDeltaTime;
 
 
-        if(launchDistance+1 <= (transform.position-startPosition).magnitude)
+        if (launchDistance + 1 <= (transform.position - startPosition).magnitude)
         {
             DropJunk();
+        }
+    }
+
+    void FaultyLaunch()
+    {
+        transform.position += transform.up * launchSpeed * GameManager.gameDeltaTime;
+
+
+        if (launchDistance + 1 <= (transform.position - startPosition).magnitude)
+        {
+            GameObject hub = Instantiate(trashHub, endPosition, transform.rotation);
+            hub.GetComponent<JunkDrop>().dropAmount = (int)(hub.GetComponent<JunkDrop>().dropAmount * 1.2);
+            Destroy(gameObject);
         }
     }
 

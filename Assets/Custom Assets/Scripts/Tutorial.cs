@@ -6,6 +6,7 @@ public class Tutorial : MonoBehaviour
 {
     // Start is called before the first frame update
     public GameObject canvas;
+    bool off;
     void Start()
     {
         PauseGame();
@@ -17,25 +18,28 @@ public class Tutorial : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             StartGame();
+            if (off) { gameObject.SetActive(false); }
         }
 
-        if (GameManager.Instance.satelliteObject.GetComponent<Satellite>().targetAcquired)
+        if (GameManager.Instance.targetAcquired)
         {
+             if (off) { return; }
             PauseGame();
-            GameManager.Instance.satelliteObject.GetComponent<Satellite>().targetAcquired = false;
+            GameManager.Instance.targetAcquired = false;
+            off = true;
         }
     }
-    
+
 
     void PauseGame()
     {
-        GameManager.gameTimeScale =0;
+        GameManager.gameTimeScale = 0;
         canvas.SetActive(true);
     }
 
     void StartGame()
     {
-        GameManager.gameTimeScale=1;
+        GameManager.gameTimeScale = 1;
         canvas.SetActive(false);
     }
 }

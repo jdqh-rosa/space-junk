@@ -74,6 +74,7 @@ public sealed class GameManager : MonoBehaviour
     public AudioClip hitSound;
     public AudioClip missSound;
     public AudioClip shootSound;
+    public bool targetAcquired;
 
     [Header("Laser")]
     public KeyCode laserKey;
