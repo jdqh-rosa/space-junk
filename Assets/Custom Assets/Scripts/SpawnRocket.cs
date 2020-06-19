@@ -41,7 +41,9 @@ public class SpawnRocket : MonoBehaviour
     public void ImperviousLaunch()
     {
         Launch();
+        Instantiate(GameManager.Instance.breakThroughEffect, transform.position , transform.rotation);
         rocketObject.GetComponent<BoxCollider>().enabled = false;
+        GameManager.breakThroughActive = false;
     }
 
     void SetRocketParams(GameObject rocket)

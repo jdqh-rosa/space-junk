@@ -92,6 +92,9 @@ public class Satellite : MonoBehaviour
 
         audioSource.Play();
 
+        Instantiate(GameManager.Instance.laserEffect, transform.position, transform.rotation);
+
+
         lr.SetPosition(1, target.transform.position);
         if (Physics.Raycast(transform.position, Vector3.Normalize(target.gameObject.transform.position - transform.position), out hit))
         {

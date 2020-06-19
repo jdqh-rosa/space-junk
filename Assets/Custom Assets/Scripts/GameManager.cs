@@ -100,6 +100,7 @@ public sealed class GameManager : MonoBehaviour
     [Header("Trash")]
     public float trashSpeed;
     public int trashDropAmount;
+    public int failedDropAmount;
     public int trashDropRand;
     public float trashGap;
 
