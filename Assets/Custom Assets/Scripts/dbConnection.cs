@@ -63,11 +63,55 @@ public class dbConnection
         return highScores;
     }
 
+    /// <summary>
+    /// Select function to select highscores
+    /// </summary>
+    /// <param name="Query">Query to be executed by sqlite</param>
+    /// <returns>A list of highscores returned by the query</returns>
+    public List<int[]> SelectFeedback(string pQuery)
+    {
+        //Create the list
+        List<int[]> feedback = new List<int[]>();
+
+        //Create the sql command
+        command = connection.CreateCommand();
+        //Set command text
+        command.CommandText = pQuery;
+        //Execute the sql command
+        IDataReader reader = command.ExecuteReader();
+
+        //This while loops over all found entries (1 loop for each found entry)
+        while (reader.Read())
+        {
+            //Get the entry values from the reader
+            int fun = reader.GetInt32(0);
+            int education = reader.GetInt32(1);
+
+            //Add the entry to the output list
+            feedback.Add(new int[] {fun,education });
+        }
+
+        //Close the reader
+        reader.Close();
+        //Dispose the command
+        command.Dispose();
+
+        //Return the result(s)
+        return feedback;
+    }
+
     public void InsertHighscore(highscore pScore)
     {
         command = connection.CreateCommand();
         command.CommandText = String.Format("INSERT INTO highscores (Score, Name) VALUES ({0},'{1}')", pScore.Score, pScore.Name);
-        Debug.Log(command.CommandText);
+        command.ExecuteNonQuery();
+        command.Dispose();
+    }
+
+    public void InsertFeedback(int[] scores)
+    {
+        command = connection.CreateCommand();
+        command.CommandText = String.Format("INSERT INTO feedback (fun, education) VALUES ({0},{1})", scores[0], scores[1]);
         command.ExecuteNonQuery();
         command.Dispose();
     }
