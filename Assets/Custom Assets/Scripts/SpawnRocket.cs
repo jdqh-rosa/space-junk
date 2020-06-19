@@ -7,21 +7,21 @@ public class SpawnRocket : MonoBehaviour
     GameObject rocketObject;
     private void Update()
     {
-        if (Input.GetKeyDown(GameManager.Instance.laserKey))
-        {
-            if (GameManager.breakThroughActive)
-            {
-                ImperviousLaunch();
-            }
-            else if (GameManager.Instance.targetAcquired)
-            {
-                Launch();
-            }
-            else
-            {
-                FaultyLaunch();
-            }
-        }
+        //if (Input.GetKeyDown(GameManager.Instance.laserKey))
+        //{
+        //    if (GameManager.breakThroughActive)
+        //    {
+        //        ImperviousLaunch();
+        //    }
+        //    else if (GameManager.Instance.targetAcquired)
+        //    {
+        //        Launch();
+        //    }
+        //    else
+        //    {
+        //        FaultyLaunch();
+        //    }
+        //}
     }
 
     public void Launch()
