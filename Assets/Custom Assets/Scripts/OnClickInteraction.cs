@@ -16,6 +16,8 @@ public class OnClickInteraction : MonoBehaviour
     {
         if (Input.GetKeyDown(GameManager.Instance.laserKey))
         {
+            //Instantiate(GameManager.Instance.rippleEffect, Input.mousePosition, Quaternion.identity);
+
             var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
             if (Physics.Raycast(ray, out hit))
@@ -40,7 +42,6 @@ public class OnClickInteraction : MonoBehaviour
                     }
                 }
             }
-
         }
         laserCountdown -= GameManager.gameDeltaTime;
     }

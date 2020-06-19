@@ -39,6 +39,14 @@ public sealed class GameManager : MonoBehaviour
     public GameObject netObject;
     public GameObject trashHub;
 
+    [Header("Effects")]
+    public GameObject beamEffect;
+    public GameObject explosionEffect;
+    public GameObject laserEffect;
+    public GameObject shieldEffect;
+    public GameObject rippleEffect;
+    public GameObject breakThroughEffect;
+
     public GameObject[][] rockets = new GameObject[3][];
 
     [Header("Trash Handler")]
@@ -409,6 +417,10 @@ public sealed class GameManager : MonoBehaviour
     {
         if (holdStreak)
         {
+            if (holdStreakTimer == 0)
+            {
+                Instantiate(shieldEffect, satelliteObject.transform);
+            }
             holdStreakCurrentCooldown = holdStreakCooldown;
             holdStreakTimer += GameManager.gameDeltaTime;
 
