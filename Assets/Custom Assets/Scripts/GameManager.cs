@@ -340,7 +340,6 @@ public sealed class GameManager : MonoBehaviour
         {
             GameOver();
         }
-
         StreakHoldTimer();
         SlowSatTimer();
         SpawnBlackHole();
