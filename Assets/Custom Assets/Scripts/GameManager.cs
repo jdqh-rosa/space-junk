@@ -259,18 +259,6 @@ public sealed class GameManager : MonoBehaviour
     /// <param name="amount">amount of rubble blocks</param>
     /// 
     float percentage;
-    public void RubbleDropped(int amount)
-    {
-        currentRubble = TrashHandler.ListCount();
-        float percentage = (float)currentRubble / (float)maxRubble;
-        rubbleMeter.text = percentage.ToString("0%");
-        rubbleMeter.value = percentage;
-
-        if (currentRubble >= maxRubble)
-        {
-            GameOver();
-        }
-    }
 
     /// <summary>
     /// Transition to the end screen and show the results
@@ -344,10 +332,14 @@ public sealed class GameManager : MonoBehaviour
         gameTime += gameDeltaTime;
 
 
-
+        // Game over check
         percentage = (float)TrashHandler.ListCount() / (float)maxRubble;
         rubbleMeter.text = percentage.ToString("0%");
         rubbleMeter.value = percentage;
+        if (percentage >= 1f)
+        {
+            GameOver();
+        }
 
         StreakHoldTimer();
         SlowSatTimer();
@@ -438,7 +430,7 @@ public sealed class GameManager : MonoBehaviour
             if (slowSatDuration >= slowSatTimer)
             {
                 satelliteObject.GetComponent<Orbit>().orbitSpeed = slowSatSpeed;
-                GameManager.gameTimeScale = 0;
+                GameManager.gameTimeScale = .5f;
             }
             else
             {
