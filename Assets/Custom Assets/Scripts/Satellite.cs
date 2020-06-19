@@ -53,18 +53,10 @@ public class Satellite : MonoBehaviour
 
                         if (Input.GetKeyDown(laserKey))
                         {
-                            var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-                            RaycastHit hit;
-                            if (Physics.Raycast(ray, out hit))
-                            {
-                                if (hit.collider.tag == "click")
-                                {
-                                    PewPew();
+                            PewPew();
 
-                                    laserCountDown = 1 / laserRate;
-                                    laserTimer = laserDuration;
-                                }
-                            }
+                            laserCountDown = 1 / laserRate;
+                            laserTimer = laserDuration;
                         }
                     }
                     else
@@ -80,7 +72,6 @@ public class Satellite : MonoBehaviour
             if (laserTimer <= 0)
             {
                 lr.enabled = false;
-                gameObject.GetComponent<Renderer>().material.color = Color.white;
             }
         }
 

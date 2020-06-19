@@ -16,22 +16,31 @@ public class OnClickInteraction : MonoBehaviour
     {
         if (Input.GetKeyDown(GameManager.Instance.laserKey))
         {
-            if (laserCountdown <= 0)
+            var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
+            if (Physics.Raycast(ray, out hit))
             {
-                if (GameManager.breakThroughActive)
+                if (hit.collider.tag == "click")
                 {
-                    GameManager.Instance.baseObject.GetComponent<SpawnRocket>().ImperviousLaunch();
+                    if (laserCountdown <= 0)
+                    {
+                        if (GameManager.breakThroughActive)
+                        {
+                            GameManager.Instance.baseObject.GetComponent<SpawnRocket>().ImperviousLaunch();
+                        }
+                        else if (GameManager.Instance.targetAcquired)
+                        {
+                            GameManager.Instance.baseObject.GetComponent<SpawnRocket>().Launch();
+                        }
+                        else
+                        {
+                            GameManager.Instance.baseObject.GetComponent<SpawnRocket>().FaultyLaunch();
+                        }
+                        laserCountdown = 1 / laserRate;
+                    }
                 }
-                else if (GameManager.Instance.targetAcquired)
-                {
-                    GameManager.Instance.baseObject.GetComponent<SpawnRocket>().Launch();
-                }
-                else
-                {
-                    GameManager.Instance.baseObject.GetComponent<SpawnRocket>().FaultyLaunch();
-                }
-                laserCountdown = 1 / laserRate;
             }
+
         }
         laserCountdown -= GameManager.gameDeltaTime;
     }
