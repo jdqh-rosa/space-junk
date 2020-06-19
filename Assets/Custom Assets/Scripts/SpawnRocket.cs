@@ -4,24 +4,49 @@ using UnityEngine;
 
 public class SpawnRocket : MonoBehaviour
 {
+    GameObject rocketObject;
+    private void Update()
+    {
+        if (Input.GetKeyDown(GameManager.Instance.laserKey))
+        {
+            if (GameManager.breakThroughActive)
+            {
+                ImperviousLaunch();
+            }
+            else if (GameManager.Instance.targetAcquired)
+            {
+                Launch();
+            }
+            else
+            {
+                FaultyLaunch();
+            }
+        }
+    }
+
     public void Launch()
     {
-        GameObject[] rockets = GameManager.Instance.rockets[GameManager.Instance.act-1];
-        GameObject rocketObject = Instantiate(rockets[Random.Range(0, rockets.Length-1)], transform.position, transform.rotation);
+        GameObject[] rockets = GameManager.Instance.rockets[GameManager.Instance.act - 1];
+        rocketObject = Instantiate(rockets[Random.Range(0, rockets.Length - 1)], transform.position, transform.rotation);
         SetRocketParams(rocketObject);
+        Destroy(gameObject);
+        GameManager.Instance.CreateBase();
+    }
+    public void FaultyLaunch()
+    {
+        Launch();
+        rocketObject.GetComponent<Rocket>().faulty = true;
     }
 
     public void ImperviousLaunch()
     {
-        GameObject[] rockets = GameManager.Instance.rockets[GameManager.Instance.act];
-        GameObject impRocket = Instantiate(rockets[Random.Range(0, rockets.Length-1)], transform.position, transform.rotation);
-        SetRocketParams(impRocket);
-        impRocket.GetComponent<BoxCollider>().enabled= false;
+        Launch();
+        rocketObject.GetComponent<BoxCollider>().enabled = false;
     }
 
     void SetRocketParams(GameObject rocket)
     {
-        if(rocket.GetComponent<Rocket>() == null) { rocket.AddComponent<Rocket>(); }
+        if (rocket.GetComponent<Rocket>() == null) { rocket.AddComponent<Rocket>(); }
         rocket.GetComponent<Rocket>().launchDistance = GameManager.Instance.rocketLaunchHeight;
         rocket.GetComponent<Rocket>().launchDev = GameManager.Instance.rocketLaunchHeightDev;
         rocket.GetComponent<Rocket>().launchSpeed = GameManager.Instance.rocketLaunchSpeed;

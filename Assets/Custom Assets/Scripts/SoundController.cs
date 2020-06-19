@@ -7,6 +7,7 @@ public class SoundController : MonoBehaviour
     AudioSource audioSource;
 
     public AudioClip[] mainMusic;
+    public AudioClip[] transitionSound;
 
     int previousAct=0;
     void Start()
