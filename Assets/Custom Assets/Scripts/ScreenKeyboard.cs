@@ -10,6 +10,7 @@ public class ScreenKeyboard : MonoBehaviour
     public TextMeshProUGUI CountText;
     public SceneManager sceneManager;
     public int MaxLength;
+    public Animator confirmAnimator;
 
     private void Start()
     {
@@ -51,6 +52,19 @@ public class ScreenKeyboard : MonoBehaviour
         //slide out the keyboard
         slideOut();
 
+        //Slide in popup screen
+        confirmAnimator.SetBool("Open", true);
+    }
+
+    private void slideOut()
+    {
+        GetComponent<Animator>().SetBool("Close", true);
+    }
+
+    public void ConfirmHighscore()
+    {
+        confirmAnimator.SetBool("Open", false);
+
         //Add the highscore to the database
         dbConnection db = new dbConnection();
         highscore score = new highscore(0, PlayerPrefs.GetInt("score"), DateTime.Now, Input.text);
@@ -61,8 +75,9 @@ public class ScreenKeyboard : MonoBehaviour
         sceneManager.LoadLevel(3);
     }
 
-    private void slideOut()
+    public void CancelHighscore()
     {
-        GetComponent<Animator>().SetBool("Close", true);
+        confirmAnimator.SetBool("Open", false);
+        GetComponent<Animator>().SetBool("Close", false);
     }
 }
