@@ -1943,7 +1943,7 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 2
+          m_IntArgument: 4
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -2600,6 +2600,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Scoretext: {fileID: 1503219694}
+  planetsexploredYou: {fileID: 897953191}
+  planetsexploredAverage: {fileID: 2051854405}
+  rocketslaunchedYou: {fileID: 2000969249}
+  rocketslaunchedAverage: {fileID: 390119159}
+  rubbleremovedYou: {fileID: 1923324220}
+  rubbleremovedAverage: {fileID: 1421849157}
 --- !u!1 &1393344978
 GameObject:
   m_ObjectHideFlags: 0
@@ -2672,7 +2678,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: PLANETS EXPLORED
+  m_text: ROCKETS LAUNCHED
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 758081a6d5b0d184bb795abd1efaa2ad, type: 2}
   m_sharedMaterial: {fileID: 6168629742976661040, guid: 758081a6d5b0d184bb795abd1efaa2ad,
@@ -3159,7 +3165,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: PLANETS EXPLORED
+  m_text: RUBBLE REMOVED
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 758081a6d5b0d184bb795abd1efaa2ad, type: 2}
   m_sharedMaterial: {fileID: 6168629742976661040, guid: 758081a6d5b0d184bb795abd1efaa2ad,
@@ -3229,7 +3235,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_textInfo:
     textComponent: {fileID: 1791684356}
-    characterCount: 16
+    characterCount: 14
     spriteCount: 0
     spaceCount: 1
     wordCount: 2

@@ -67,9 +67,13 @@ public class ScreenKeyboard : MonoBehaviour
 
         //Add the highscore to the database
         dbConnection db = new dbConnection();
-        highscore score = new highscore(0, PlayerPrefs.GetInt("score"), DateTime.Now, Input.text);
+        highscore score = new highscore(0, PlayerPrefs.GetInt("score"), DateTime.Now, Input.text,PlayerPrefs.GetInt("planetsexplored"), PlayerPrefs.GetInt("rocketslaunched"), PlayerPrefs.GetInt("rubblecleared"));
         db.InsertHighscore(score);
         db.Close();
+
+        //Export the highscore file
+        CsvExport exporter = new CsvExport();
+        exporter.Export();
 
         //Load the highscore screen
         sceneManager.LoadLevel(3);

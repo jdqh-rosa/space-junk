@@ -58,6 +58,9 @@ public sealed class GameManager : MonoBehaviour
 
     [HideInInspector] public int score = 0;
     [HideInInspector] public int points = 0;
+    [HideInInspector] public int planetsexplored = 0;
+    [HideInInspector] public int rocketslaunched = 0;
+    [HideInInspector] public int rubbleremoved = 0;
 
     public int act = 1;
     public float actProgression = 0;
@@ -212,6 +215,7 @@ public sealed class GameManager : MonoBehaviour
         score += (int)(pointsPerRocket * currentMultiplier);
         points += (int)(pointsPerRocket * currentMultiplier);
         currentMultiplier += multiplierIncrease;
+        rocketslaunched++;
 
         //modify act progression
         actProgression++;
@@ -282,7 +286,10 @@ public sealed class GameManager : MonoBehaviour
     public void GameOver()
     {
         PlayerPrefs.SetInt("score", score);
-        sceneManager.LoadLevel(2);
+        PlayerPrefs.SetInt("rocketslaunched", rocketslaunched);
+        PlayerPrefs.SetInt("planetsexplored", planetsexplored);
+        PlayerPrefs.SetInt("rubbleremoved", rubbleremoved);
+        sceneManager.LoadLevel(5);
     }
 
     public void CreateEarth()

@@ -12,7 +12,7 @@ public class CsvExport : MonoBehaviour
 
         //Add the date to the file
         string[] rowDataTemp = new string[1];
-        rowDataTemp[0] = "Highscores van mei 2020";
+        rowDataTemp[0] = "Highscores overzicht";
         rowData.Add(rowDataTemp);
 
         // Create the row headers
@@ -56,7 +56,7 @@ public class CsvExport : MonoBehaviour
             sb.AppendLine(string.Join(delimiter, output[index]));
 
 
-        string filePath = Application.dataPath + "/highscore_export.csv";
+        string filePath = Application.dataPath + "/StreamingAssets/highscore_export.csv";
 
         StreamWriter outStream = File.CreateText(filePath);
         outStream.WriteLine("sep=|");
@@ -110,7 +110,7 @@ public class CsvExport : MonoBehaviour
             sb.AppendLine(string.Join(delimiter, output[index]));
 
 
-        string filePath = Application.dataPath + "/feedback_export.csv";
+        string filePath = Application.dataPath + "/StreamingAssets/feedback_export.csv";
 
         StreamWriter outStream = File.CreateText(filePath);
         outStream.WriteLine("sep=|");
