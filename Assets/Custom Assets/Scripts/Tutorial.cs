@@ -36,7 +36,7 @@ public class Tutorial : MonoBehaviour
                 FailedTut();
                 break;
             case 2:
-                MeterTut()
+                MeterTut();
                 break;
             case 3:
                 CorrectTut();
