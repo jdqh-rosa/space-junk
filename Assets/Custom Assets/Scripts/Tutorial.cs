@@ -7,6 +7,7 @@ public class Tutorial : MonoBehaviour
     // Start is called before the first frame update
     public GameObject canvas;
     public GameObject[] panels;
+    public GameObject[] buttonPanels;
     bool off;
     int step = 1;
     void Start()
@@ -17,12 +18,6 @@ public class Tutorial : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetMouseButtonDown(0))
-        {
-            StartGame();
-            if (off) { gameObject.SetActive(false); }
-        }
-
         switch (step)
         {
             case 1:
@@ -94,7 +89,30 @@ public class Tutorial : MonoBehaviour
     {
         GameManager.gameTimeScale = 0;
         canvas.SetActive(true);
-        Helper.BowTo(panels, step-1);
+
+        if (step == 1 || step == 3)
+        {
+            Helper.BowTo(panels, step - 1);
+        }
+        else
+        {
+            if (step == 2)
+            {
+                Helper.BowTo(panels, -1);
+                Helper.ToBow(buttonPanels, 0);
+            }
+            else
+            {
+                Helper.BowTo(panels, -1);
+                Helper.ToBow(buttonPanels, step - 3);
+            }
+        }
+
+        if (Input.GetMouseButtonDown(0))
+        {
+            StartGame();
+            if (off) { gameObject.SetActive(false); }
+        }
     }
 
     void StartGame()

@@ -3485,7 +3485,7 @@ GameObject:
   - component: {fileID: 1733354457}
   - component: {fileID: 1733354456}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: Tut
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3508,6 +3508,12 @@ MonoBehaviour:
   - {fileID: 1484468665}
   - {fileID: 70168892}
   - {fileID: 1531477044}
+  - {fileID: 294379912}
+  - {fileID: 565746397}
+  - {fileID: 1115290072}
+  - {fileID: 1873443701}
+  buttonPanels:
+  - {fileID: 70168892}
   - {fileID: 294379912}
   - {fileID: 565746397}
   - {fileID: 1115290072}

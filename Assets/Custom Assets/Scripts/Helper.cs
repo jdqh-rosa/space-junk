@@ -60,6 +60,14 @@ public struct Helper
             else { array[i].SetActive(false); }
         }
     }
+    static public void ToBow(GameObject[] array, int index)
+    {
+        for (int i = 0; i < array.Length; ++i)
+        {
+            if (i == index) { array[i].SetActive(false); }
+            else { array[i].SetActive(true); }
+        }
+    }
 
     // public static bool operator !=(bool left, bool right){
     //     if(left == right){
