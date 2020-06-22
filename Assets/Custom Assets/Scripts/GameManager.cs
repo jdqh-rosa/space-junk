@@ -283,7 +283,7 @@ public sealed class GameManager : MonoBehaviour
         PlayerPrefs.SetInt("rocketslaunched", rocketslaunched);
         PlayerPrefs.SetInt("planetsexplored", planetsexplored);
         PlayerPrefs.SetInt("rubbleremoved", rubbleremoved);
-        sceneManager.LoadLevel(2);
+        sceneManager.LoadLevel(5);
     }
 
     public void CreateEarth()
