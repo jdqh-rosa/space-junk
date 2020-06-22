@@ -16,6 +16,5 @@ public class FeedbackScreen : MonoBehaviour
         dbConnection db = new dbConnection();
         int[] scores = new int[] { funscore, educationscore };
         db.InsertFeedback(scores);
-        sceneManager.LoadLevel(0);
     }
 }
