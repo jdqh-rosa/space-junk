@@ -85,21 +85,21 @@ public class HighscoreLoader : MonoBehaviour
 
     public void Daily()
     {
-        createTable("SELECT * FROM highscores WHERE DATE(Date) = DATE('now') ORDER BY Score DESC");
+        createTable("SELECT * FROM highscores WHERE DATE(Date) = DATE('now') ORDER BY Score DESC LIMIT 50");
     }
 
     public void Weekly()
     {
-        createTable("SELECT * FROM highscores WHERE DATE(Date) >= DATE('now', 'weekday 0', '-7 days') ORDER BY Score DESC");
+        createTable("SELECT * FROM highscores WHERE DATE(Date) >= DATE('now', 'weekday 0', '-7 days') ORDER BY Score DESC LIMIT 50");
     }
 
     public void Monthly()
     {
-        createTable("SELECT * FROM highscores WHERE strftime('%m', Date) = strftime('%m', DATE('now')) ORDER BY Score DESC");
+        createTable("SELECT * FROM highscores WHERE strftime('%m', Date) = strftime('%m', DATE('now')) ORDER BY Score DESC LIMIT 50");
     }
 
     public void Alltime()
     {
-        createTable("SELECT * FROM highscores ORDER BY Score DESC");
+        createTable("SELECT * FROM highscores ORDER BY Score DESC LIMIT 50");
     }
 }

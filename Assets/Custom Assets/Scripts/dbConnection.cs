@@ -130,7 +130,7 @@ public class dbConnection
     public void InsertHighscore(highscore pScore)
     {
         command = connection.CreateCommand();
-        command.CommandText = String.Format("INSERT INTO highscores (Score, Name) VALUES ({0},'{1}')", pScore.Score, pScore.Name);
+        command.CommandText = String.Format("INSERT INTO highscores (Score, Name, PlanetsExplored, RocketsLaunched, RubbleCleared) VALUES ({0},'{1}',{2},{3},{4})", pScore.Score, pScore.Name,pScore.PlanetsExplored,pScore.RocketsLaunched,pScore.RubbleCleared);
         command.ExecuteNonQuery();
         command.Dispose();
     }
