@@ -29,6 +29,16 @@ public class Satellite : MonoBehaviour
     void Update()
     {
         CheckTarget();
+        if (GameManager.Instance.targetAcquired)
+        {
+            if (Input.GetKeyDown(laserKey))
+            {
+                PewPew();
+
+                laserCountDown = 1 / laserRate;
+                laserTimer = laserDuration;
+            }
+        }
     }
 
     float laserCountDown = 0;
@@ -55,14 +65,6 @@ public class Satellite : MonoBehaviour
                     {
                         GameManager.Instance.targetAcquired = false;
                     }
-
-                     if (Input.GetKeyDown(laserKey))
-                        {
-                            PewPew();
-
-                            laserCountDown = 1 / laserRate;
-                            laserTimer = laserDuration;
-                        }
                 }
             }
         }
@@ -74,8 +76,6 @@ public class Satellite : MonoBehaviour
                 lr.enabled = false;
             }
         }
-
-
 
         laserCountDown -= GameManager.gameDeltaTime;
         laserTimer -= GameManager.gameDeltaTime;

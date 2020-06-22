@@ -24,16 +24,16 @@ public struct Helper
 
     static public float CalcPosToDeg(Vector2 pivotPos, Vector2 pos)
     {
-        Vector2 diff = pos-pivotPos;
-        
-        return Mathf.Atan2(diff.y,diff.x) * Mathf.Rad2Deg;
+        Vector2 diff = pos - pivotPos;
+
+        return Mathf.Atan2(diff.y, diff.x) * Mathf.Rad2Deg;
     }
 
     static public float Degrees2Distance(float degree1, float degree2, float radius)
     {
         return (CalcDegToPos(degree1, radius) - CalcDegToPos(degree2, radius)).magnitude;
     }
-    
+
     static public Transform GetObjectChild(GameObject gameObject, string name)
     {
         for (int i = 0; i < gameObject.transform.childCount - 1; i++)
@@ -50,6 +50,15 @@ public struct Helper
     {
         if (pBool) { pBool = !pBool; } else { pBool = !pBool; };
         return pBool;
+    }
+
+    static public void BowTo(GameObject[] array, int index)
+    {
+        for (int i = 0; i < array.Length; ++i)
+        {
+            if (i == index) { array[i].SetActive(true); }
+            else { array[i].SetActive(false); }
+        }
     }
 
     // public static bool operator !=(bool left, bool right){
