@@ -17,14 +17,17 @@ public class ResultScreenLoader : MonoBehaviour
     void Start()
     {
         Scoretext.SetText("" + PlayerPrefs.GetInt("score"));
-        planetsexploredYou.SetText("" + PlayerPrefs.GetInt("planetsexplored"));
-        rocketslaunchedYou.SetText("" + PlayerPrefs.GetInt("rocketslaunched"));
-        rubbleremovedYou.SetText("" + PlayerPrefs.GetInt("rubbleremoved"));
+        if(planetsexploredYou != null)
+        {
+            planetsexploredYou.SetText("" + PlayerPrefs.GetInt("planetsexplored"));
+            rocketslaunchedYou.SetText("" + PlayerPrefs.GetInt("rocketslaunched"));
+            rubbleremovedYou.SetText("" + PlayerPrefs.GetInt("rubbleremoved"));
 
-        //Calculate average scores
-        dbConnection db = new dbConnection();
-        planetsexploredAverage.SetText("" + db.GetAverage("PlanetsExplored"));
-        rocketslaunchedAverage.SetText("" + db.GetAverage("RocketsLaunched"));
-        rubbleremovedAverage.SetText("" + db.GetAverage("RubbleCleared"));
+            //Calculate average scores
+            dbConnection db = new dbConnection();
+            planetsexploredAverage.SetText("" + db.GetAverage("PlanetsExplored"));
+            rocketslaunchedAverage.SetText("" + db.GetAverage("RocketsLaunched"));
+            rubbleremovedAverage.SetText("" + db.GetAverage("RubbleCleared"));
+        }
     }
 }

@@ -71,6 +71,10 @@ public class ScreenKeyboard : MonoBehaviour
         db.InsertHighscore(score);
         db.Close();
 
+        //Export the highscore file
+        CsvExport exporter = new CsvExport();
+        exporter.Export();
+
         //Load the highscore screen
         sceneManager.LoadLevel(3);
     }
