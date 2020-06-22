@@ -795,6 +795,50 @@ Transform:
   m_LocalScale: {x: 55.821762, y: 37.993988, z: 0.1}
   m_Children: []
   m_Father: {fileID: 0}
+  m_RootOrder: 11
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &534013869
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 534013871}
+  - component: {fileID: 534013870}
+  m_Layer: 0
+  m_Name: click
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &534013870
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 534013869}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2aa6bd630f1f1a4bbe4491b8203b60a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  laserRate: 1
+--- !u!4 &534013871
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 534013869}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 407.57584, y: 419.82635, z: -0.005493164}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
   m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &607358798
@@ -1263,7 +1307,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 13
+  m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 160, y: 30, z: 0}
 --- !u!1 &740847223
 GameObject:
@@ -1385,14 +1429,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f940ce23988948c49a40dd1ae39484a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  holdSteak: {fileID: 0}
-  streakScore: 20
-  slowSatellite: {fileID: 0}
-  slowScore: 40
-  netThrow: {fileID: 0}
-  netScore: 80
-  breakShot: {fileID: 0}
-  breakScore: 100
 --- !u!1 &773492733
 GameObject:
   m_ObjectHideFlags: 0
@@ -1483,7 +1519,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 14
+  m_RootOrder: 15
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!1 &796409872
 GameObject:
@@ -1612,7 +1648,7 @@ Transform:
   m_LocalScale: {x: 62.347363, y: 13.401089, z: 0.1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &963194225
 GameObject:
@@ -2274,6 +2310,18 @@ MonoBehaviour:
     type: 3}
   trashHub: {fileID: 6182501256707505823, guid: cc351f664748f764a9dfb0557636af93,
     type: 3}
+  beamEffect: {fileID: 6915457143345255012, guid: 278a415dfae560544b2887a27a724e0a,
+    type: 3}
+  explosionEffect: {fileID: 6296471366095315486, guid: 534385f4dd99fc44db84ea99fc6842dd,
+    type: 3}
+  laserEffect: {fileID: 6590033291764170926, guid: 4273260038788d548a9756672a368a6f,
+    type: 3}
+  shieldEffect: {fileID: 3630954970856934008, guid: 40648677c75bb234abcf6b43960a7429,
+    type: 3}
+  rippleEffect: {fileID: 1407819867533430281, guid: 08cbb93c3f0283740bb79776c22a39cb,
+    type: 3}
+  breakThroughEffect: {fileID: 4648583137236202757, guid: d51ba7725b6c22146a91f8e34247e3a4,
+    type: 3}
   trashHandler: {fileID: 2136963515}
   score: 0
   points: 0
@@ -2303,6 +2351,7 @@ MonoBehaviour:
   rocketDestructTime: 3
   trashSpeed: -10
   trashDropAmount: 5
+  failedDropAmount: 7
   trashDropRand: 3
   trashGap: 1
   currentRubble: 0
@@ -2336,6 +2385,7 @@ MonoBehaviour:
   streak: 0
   currentStreak: 0
   satelliteObject: {fileID: 0}
+  baseObject: {fileID: 0}
 --- !u!4 &1301306965
 Transform:
   m_ObjectHideFlags: 0
@@ -2857,7 +2907,7 @@ RectTransform:
   m_Children:
   - {fileID: 1649804451}
   m_Father: {fileID: 0}
-  m_RootOrder: 12
+  m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -8010,7 +8060,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 15
+  m_RootOrder: 16
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1992925161
 GameObject:
