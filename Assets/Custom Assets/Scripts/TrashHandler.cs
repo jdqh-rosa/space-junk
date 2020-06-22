@@ -50,6 +50,7 @@ public class TrashHandler : MonoBehaviour
                 if (trashList[j] == null)
                 {
                     trashList.RemoveAt(j);
+                    GameManager.Instance.rubbleremoved++;
                     if (j > trashList.Count - 1) continue;
                 }
 

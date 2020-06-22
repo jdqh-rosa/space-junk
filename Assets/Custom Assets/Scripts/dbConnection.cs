@@ -100,6 +100,34 @@ public class dbConnection
         return feedback;
     }
 
+    public float GetAverage(string field)
+    {
+        //Create the list
+        float avg = 0;
+
+        //Create the sql command
+        command = connection.CreateCommand();
+        //Set command text
+        command.CommandText = "SELECT avg("+field+") FROM highscores;";
+        //Execute the sql command
+        IDataReader reader = command.ExecuteReader();
+
+        //This while loops over all found entries (1 loop for each found entry)
+        while (reader.Read())
+        {
+            //Get the entry values from the reader
+            avg = reader.GetFloat(0);
+        }
+
+        //Close the reader
+        reader.Close();
+        //Dispose the command
+        command.Dispose();
+
+        //Return the result(s)
+        return avg;
+    }
+
     public void InsertHighscore(highscore pScore)
     {
         command = connection.CreateCommand();
