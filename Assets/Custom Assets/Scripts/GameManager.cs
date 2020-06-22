@@ -28,6 +28,7 @@ public sealed class GameManager : MonoBehaviour
 
     [Header("Prefabs")]
     public GameObject[] earthPrefabs;
+    public GameObject[] planetPrefabs;
     public GameObject[] satellitePrefabs;
     public GameObject[] earthBasePrefabs;
     public GameObject[] act1RocketPrefabs;

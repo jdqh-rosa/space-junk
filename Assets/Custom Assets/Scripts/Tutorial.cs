@@ -6,30 +6,18 @@ public class Tutorial : MonoBehaviour
 {
     // Start is called before the first frame update
     public GameObject canvas;
+    public GameObject[] panels;
+    public GameObject[] buttonPanels;
     bool off;
-    int step = 0;
+    int step = 1;
     void Start()
     {
-        PauseGame();
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetMouseButtonDown(0))
-        {
-            StartGame();
-            if (off) { gameObject.SetActive(false); }
-        }
-
-        if (GameManager.Instance.targetAcquired)
-        {
-            if (off) { return; }
-            PauseGame();
-            GameManager.Instance.targetAcquired = false;
-            off = true;
-        }
-
         switch (step)
         {
             case 1:
@@ -53,47 +41,84 @@ public class Tutorial : MonoBehaviour
             case 7:
                 HoldTut();
                 break;
+            case 8:
+                EndTut();
+                break;
         }
 
     }
     void FailedTut()
     {
-
+        PauseGame();
     }
     void MeterTut()
     {
-
+        PauseGame();
     }
     void CorrectTut()
     {
-
+        if (GameManager.Instance.targetAcquired)
+        {
+            PauseGame();
+            GameManager.Instance.targetAcquired = false;
+        }
     }
     void NetTut()
     {
-
+        PauseGame();
     }
     void BreakTut()
     {
-
+        PauseGame();
     }
     void SlowTut()
     {
-
+        PauseGame();
     }
     void HoldTut()
     {
+        PauseGame();
+    }
 
+    void EndTut()
+    {
+        off = true;
     }
 
     void PauseGame()
     {
         GameManager.gameTimeScale = 0;
         canvas.SetActive(true);
+
+        if (step == 1 || step == 3)
+        {
+            Helper.BowTo(panels, step - 1);
+        }
+        else
+        {
+            if (step == 2)
+            {
+                Helper.BowTo(panels, -1);
+                Helper.ToBow(buttonPanels, 0);
+            }
+            else
+            {
+                Helper.BowTo(panels, -1);
+                Helper.ToBow(buttonPanels, step - 3);
+            }
+        }
+
+        if (Input.GetMouseButtonDown(0))
+        {
+            StartGame();
+            if (off) { gameObject.SetActive(false); }
+        }
     }
 
     void StartGame()
     {
         GameManager.gameTimeScale = 1;
+        step += 1;
         canvas.SetActive(false);
     }
 }
