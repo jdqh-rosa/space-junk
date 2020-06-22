@@ -17,8 +17,7 @@ public class dbConnection
     private IDataReader reader;
     public dbConnection()
     {
-        connectionString = "URI=file:" + Application.dataPath + "/Custom Assets/database.db";
-
+        connectionString = "URI=file:" + Application.dataPath + "/StreamingAssets/database.db";
         Debug.Log("Stablishing connection to: " + connectionString);
         connection = new SqliteConnection(connectionString);
         connection.Open();
