@@ -50,19 +50,19 @@ public class Satellite : MonoBehaviour
                     {
                         GameManager.Instance.targetAcquired = true;
                         print("hit target");
+                    }
+                    else
+                    {
+                        GameManager.Instance.targetAcquired = false;
+                    }
 
-                        if (Input.GetKeyDown(laserKey))
+                     if (Input.GetKeyDown(laserKey))
                         {
                             PewPew();
 
                             laserCountDown = 1 / laserRate;
                             laserTimer = laserDuration;
                         }
-                    }
-                    else
-                    {
-                        GameManager.Instance.targetAcquired = false;
-                    }
                 }
             }
         }
@@ -94,7 +94,6 @@ public class Satellite : MonoBehaviour
 
         Instantiate(GameManager.Instance.laserEffect, transform.position, transform.rotation);
 
-
         lr.SetPosition(1, target.transform.position);
         if (Physics.Raycast(transform.position, Vector3.Normalize(target.gameObject.transform.position - transform.position), out hit))
         {
@@ -104,9 +103,6 @@ public class Satellite : MonoBehaviour
                 if (hit.collider.gameObject.tag == "Base")
                 {
                     print("hit target");
-
-                    
-
                     lr.SetPosition(1, target.gameObject.transform.position);
 
                     GameManager.Instance.BeamHit();

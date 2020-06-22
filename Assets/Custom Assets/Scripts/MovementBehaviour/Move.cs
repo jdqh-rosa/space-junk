@@ -22,13 +22,13 @@ public class Move : MonoBehaviour
         switch (moveDirection)
         {
             case moveAxis.Forward:
-                direction = Vector3.forward;
+                direction = transform.forward;
                 break;
             case moveAxis.Right:
-                direction = Vector3.right;
+                direction = transform.right;
                 break;
             case moveAxis.Up:
-                direction = Vector3.up;
+                direction = transform.up;
                 break;
         }
     }
