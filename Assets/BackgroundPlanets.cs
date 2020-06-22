@@ -10,16 +10,20 @@ public class BackgroundPlanets : MonoBehaviour
 
     private void Start()
     {
-        planets = GameManager.Instance.planetPrefabs;
-
-        SpawnWorldAll();
+        //planets = GameManager.Instance.planetPrefabs;
+        //SpawnWorldAll();
     }
     void Update()
     {
-        if (true)
+        if (GameManager.Instance.totalLaunches==GameManager.Instance.launchesForPlanet*worldCount)
         {
-            //SpawnWorld();
+            SpawnWorld();
             ++worldCount;
+
+            if (worldCount > GameManager.Instance.planetPrefabs.Length)
+            {
+                Destroy(gameObject);
+            }
         }
     }
 

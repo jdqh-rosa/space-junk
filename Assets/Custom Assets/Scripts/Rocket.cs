@@ -62,6 +62,7 @@ public class Rocket : MonoBehaviour
         if (launchDistance + 1 <= (transform.position - startPosition).magnitude)
         {
             DropJunk();
+            ++GameManager.Instance.totalLaunches;
         }
     }
 

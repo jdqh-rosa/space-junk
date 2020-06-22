@@ -66,6 +66,9 @@ public sealed class GameManager : MonoBehaviour
     public float multiplierIncrease = 0.1f;
     public int pointsPerRocket = 10;
     public int maxRubble = 50;
+    public int launchesForPlanet =10;
+    [HideInInspector]
+    public int totalLaunches=9;
 
     [Header("Earth", order = 1)]
     public Vector3 earthLocation;
@@ -247,6 +250,8 @@ public sealed class GameManager : MonoBehaviour
 
         if (act == 3)
         {
+            if (earthObject.GetComponent<Orbit>() == null) { earthObject.AddComponent<Orbit>(); }
+            earthObject.GetComponent<Orbit>().radius = 0;
             earthObject.GetComponent<Orbit>().orbitSpeed = -5;
         }
         NewSatellite();

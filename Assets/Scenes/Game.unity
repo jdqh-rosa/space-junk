@@ -2712,7 +2712,7 @@ MonoBehaviour:
   - {fileID: 6233588872440084278, guid: 55e9c1de78a74314197dee6a95e10c0d, type: 3}
   - {fileID: 1521795635101482814, guid: 110955aea33ee8c47a684b2f22f7d884, type: 3}
   - {fileID: 1720641029454765491, guid: ec6faa0b0d39e444bb3356fa0c37cd60, type: 3}
-  blackHole: {fileID: 3648659889975131551, guid: a0e69c6145327c447aa24516a4f97943,
+  blackHole: {fileID: 9039724918749825368, guid: 87846ae0a3c996442a1b0a96b07b8ead,
     type: 3}
   aliens:
   - {fileID: 8673433253853881982, guid: 46256fcd6844d2b469364b89ccdd81de, type: 3}
@@ -2744,14 +2744,16 @@ MonoBehaviour:
   multiplierIncrease: 0.1
   pointsPerRocket: 10
   maxRubble: 50
+  launchesForPlanet: 10
+  totalLaunches: 0
   earthLocation: {x: 0, y: 0, z: 0}
   worldRadius: 8
   earthRotation: 5
   satelliteRadius: 17
   satelliteSpeed: 50
-  hitSound: {fileID: 0}
-  missSound: {fileID: 0}
-  shootSound: {fileID: 0}
+  hitSound: {fileID: 8300000, guid: 1bbd3d785704b634f90f230253a336bc, type: 3}
+  missSound: {fileID: 8300000, guid: 4c2da01825217044280ab5b93358c87d, type: 3}
+  shootSound: {fileID: 8300000, guid: 11981cf95bb09ca488afad31f07d990b, type: 3}
   targetAcquired: 0
   laserKey: 323
   laserFireRate: 1
@@ -2781,7 +2783,7 @@ MonoBehaviour:
   slowSatCurrentCooldown: 0
   netPointCost: 100
   netSpeed: 0.1
-  netSize: 2
+  netSize: 5
   netDuration: 5
   netActive: 0
   netCooldown: 15
@@ -3569,6 +3571,49 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &1814268140
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1814268142}
+  - component: {fileID: 1814268141}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1814268141
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1814268140}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 12b46c90961bd5c4abcb63cf94cfe17b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &1814268142
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1814268140}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1.2894211, y: 3.3411674, z: -0.114971876}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 18
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1821390889
 GameObject:
   m_ObjectHideFlags: 0

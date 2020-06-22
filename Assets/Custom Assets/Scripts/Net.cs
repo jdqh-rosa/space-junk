@@ -23,7 +23,7 @@ public class Net : MonoBehaviour
 
         if (timer <= duration && transform.localScale.x >= 0)
         {
-            transform.localScale -= new Vector3(0.01f, 0, 0.01f);
+            transform.localScale -= new Vector3(0.02f, 0, 0.02f);
             transform.position -= transform.up * movementSpeed;
         }
         else
