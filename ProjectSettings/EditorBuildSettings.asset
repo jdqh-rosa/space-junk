@@ -15,9 +15,15 @@ EditorBuildSettings:
     path: Assets/Scenes/Web Win.unity
     guid: 1c2b8655cfbe28a45842a96e4914bde7
   - enabled: 1
-    path: Assets/Scenes/Result.unity
+    path: Assets/Scenes/Score.unity
     guid: 1ceaabdd2e8e0de40acea77df4b4fdc4
   - enabled: 1
     path: Assets/Scenes/HighScore.unity
     guid: 90eaf1e0d2a30e6448fe08b6311f63fa
+  - enabled: 1
+    path: Assets/Scenes/Feedback.unity
+    guid: d2c58a83cbdd28447ae29ce9de99579d
+  - enabled: 1
+    path: Assets/Scenes/Results.unity
+    guid: fbdf341f99a55f44ebc16a68118e5a11
   m_configObjects: {}
