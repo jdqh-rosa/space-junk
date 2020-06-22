@@ -7,21 +7,21 @@ public class SpawnRocket : MonoBehaviour
     GameObject rocketObject;
     private void Update()
     {
-        if (Input.GetKeyDown(GameManager.Instance.laserKey))
-        {
-            if (GameManager.breakThroughActive)
-            {
-                ImperviousLaunch();
-            }
-            else if (GameManager.Instance.targetAcquired)
-            {
-                Launch();
-            }
-            else
-            {
-                FaultyLaunch();
-            }
-        }
+        //if (Input.GetKeyDown(GameManager.Instance.laserKey))
+        //{
+        //    if (GameManager.breakThroughActive)
+        //    {
+        //        ImperviousLaunch();
+        //    }
+        //    else if (GameManager.Instance.targetAcquired)
+        //    {
+        //        Launch();
+        //    }
+        //    else
+        //    {
+        //        FaultyLaunch();
+        //    }
+        //}
     }
 
     public void Launch()
@@ -41,7 +41,9 @@ public class SpawnRocket : MonoBehaviour
     public void ImperviousLaunch()
     {
         Launch();
+        Instantiate(GameManager.Instance.breakThroughEffect, transform.position , transform.rotation);
         rocketObject.GetComponent<BoxCollider>().enabled = false;
+        GameManager.breakThroughActive = false;
     }
 
     void SetRocketParams(GameObject rocket)

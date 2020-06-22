@@ -39,6 +39,13 @@ public sealed class GameManager : MonoBehaviour
     public GameObject netObject;
     public GameObject trashHub;
 
+    [Header("Effects")]
+    public GameObject beamEffect;
+    public GameObject explosionEffect;
+    public GameObject laserEffect;
+    public GameObject shieldEffect;
+    public GameObject rippleEffect;
+    public GameObject breakThroughEffect;
     public GameObject[][] rockets = new GameObject[3][];
 
     [Header("Trash Handler")]
@@ -92,6 +99,7 @@ public sealed class GameManager : MonoBehaviour
     [Header("Trash")]
     public float trashSpeed;
     public int trashDropAmount;
+    public int failedDropAmount;
     public int trashDropRand;
     public float trashGap;
 
@@ -155,8 +163,10 @@ public sealed class GameManager : MonoBehaviour
     GameObject earthObject;
     [HideInInspector]
     public GameObject satelliteObject;
-    GameObject baseObject;
+    public GameObject baseObject;
     GameObject[] trashObjects;
+
+    private float percentage;
 
     public static GameManager Instance
     {
@@ -258,7 +268,7 @@ public sealed class GameManager : MonoBehaviour
     /// </summary>
     /// <param name="amount">amount of rubble blocks</param>
     /// 
-    float percentage;
+   
 
     /// <summary>
     /// Transition to the end screen and show the results
@@ -405,6 +415,10 @@ public sealed class GameManager : MonoBehaviour
     {
         if (holdStreak)
         {
+            if (holdStreakTimer == 0)
+            {
+                Instantiate(shieldEffect, satelliteObject.transform);
+            }
             holdStreakCurrentCooldown = holdStreakCooldown;
             holdStreakTimer += GameManager.gameDeltaTime;
 
@@ -429,7 +443,7 @@ public sealed class GameManager : MonoBehaviour
             if (slowSatDuration >= slowSatTimer)
             {
                 satelliteObject.GetComponent<Orbit>().orbitSpeed = slowSatSpeed;
-                GameManager.gameTimeScale = .5f;
+                GameManager.gameTimeScale = 0.5f;
             }
             else
             {

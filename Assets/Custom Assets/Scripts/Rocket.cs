@@ -73,8 +73,9 @@ public class Rocket : MonoBehaviour
         if (launchDistance + 1 <= (transform.position - startPosition).magnitude)
         {
             GameObject hub = Instantiate(trashHub, endPosition, transform.rotation);
-            hub.GetComponent<JunkDrop>().dropAmount = (int)(hub.GetComponent<JunkDrop>().dropAmount * 1.2);
+            hub.GetComponent<JunkDrop>().dropAmount = (int)(GameManager.Instance.failedDropAmount);
             Destroy(gameObject);
+             Instantiate(GameManager.Instance.explosionEffect, transform.position, transform.rotation);
         }
     }
 
@@ -87,6 +88,7 @@ public class Rocket : MonoBehaviour
         if (other.gameObject.CompareTag("TrashJunk"))
         {
             Destroy(gameObject);
+            Instantiate(GameManager.Instance.explosionEffect, transform.position, transform.rotation);
         }
     }
 

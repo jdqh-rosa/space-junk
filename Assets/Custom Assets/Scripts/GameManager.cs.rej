@@ -1,0 +1,9 @@
+diff a/Assets/Custom Assets/Scripts/GameManager.cs b/Assets/Custom Assets/Scripts/GameManager.cs	(rejected hunks)
+@@ -92,7 +92,6 @@
+     [Header("Trash")]
+     public float trashSpeed;
+     public int trashDropAmount;
+-    public int failedDropAmount;
+     public int trashDropRand;
+     public float trashGap;
+ 

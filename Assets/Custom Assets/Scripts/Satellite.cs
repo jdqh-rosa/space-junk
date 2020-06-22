@@ -53,18 +53,10 @@ public class Satellite : MonoBehaviour
 
                         if (Input.GetKeyDown(laserKey))
                         {
-                            var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-                            RaycastHit hit;
-                            if (Physics.Raycast(ray, out hit))
-                            {
-                                if (hit.collider.tag == "click")
-                                {
-                                    PewPew();
+                            PewPew();
 
-                                    laserCountDown = 1 / laserRate;
-                                    laserTimer = laserDuration;
-                                }
-                            }
+                            laserCountDown = 1 / laserRate;
+                            laserTimer = laserDuration;
                         }
                     }
                     else
@@ -80,7 +72,6 @@ public class Satellite : MonoBehaviour
             if (laserTimer <= 0)
             {
                 lr.enabled = false;
-                gameObject.GetComponent<Renderer>().material.color = Color.white;
             }
         }
 
@@ -101,6 +92,9 @@ public class Satellite : MonoBehaviour
 
         audioSource.Play();
 
+        Instantiate(GameManager.Instance.laserEffect, transform.position, transform.rotation);
+
+
         lr.SetPosition(1, target.transform.position);
         if (Physics.Raycast(transform.position, Vector3.Normalize(target.gameObject.transform.position - transform.position), out hit))
         {
@@ -111,14 +105,8 @@ public class Satellite : MonoBehaviour
                 {
                     print("hit target");
 
-                    //gameObject.GetComponent<Renderer>().material.color = Color.red;
-                    //if (!GameManager.breakThroughActive)
-                    //{
-                    //    hit.collider.gameObject.GetComponent<SpawnRocket>().Launch();
-                    //}
-                    //else { hit.collider.gameObject.GetComponent<SpawnRocket>().ImperviousLaunch(); }
-                    //Destroy(hit.collider.gameObject);
-                    //GameManager.Instance.CreateBase();
+                    
+
                     lr.SetPosition(1, target.gameObject.transform.position);
 
                     GameManager.Instance.BeamHit();
