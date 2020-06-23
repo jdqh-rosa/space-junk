@@ -19,7 +19,6 @@ public class JunkDrop : MonoBehaviour
 
     public void Start()
     {
-        dropAmount = Random.Range(dropAmount - dropRand, dropAmount + dropRand + 1);
         cluster = new GameObject[dropAmount];
         radius = (transform.position - pivotPoint).magnitude;
         dropLocation = Helper.CalcDegToPos(Helper.CalcPosToDeg(pivotPoint, transform.position), radius - 1);

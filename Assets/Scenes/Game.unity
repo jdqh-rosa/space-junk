@@ -1705,7 +1705,7 @@ Transform:
   m_LocalScale: {x: 55.821762, y: 37.993988, z: 0.1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &515353342
 GameObject:
@@ -1781,50 +1781,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 515353342}
   m_CullTransparentMesh: 0
---- !u!1 &534013869
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 534013871}
-  - component: {fileID: 534013870}
-  m_Layer: 0
-  m_Name: click
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &534013870
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 534013869}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d2aa6bd630f1f1a4bbe4491b8203b60a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  laserRate: 1
---- !u!4 &534013871
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 534013869}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 407.57584, y: 419.82635, z: -0.005493164}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 10
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &565746397
 GameObject:
   m_ObjectHideFlags: 0
@@ -2845,7 +2801,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 14
+  m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 160, y: 30, z: 0}
 --- !u!1 &713886019
 GameObject:
@@ -3106,7 +3062,6 @@ GameObject:
   - component: {fileID: 740847226}
   - component: {fileID: 740847225}
   - component: {fileID: 740847224}
-  - component: {fileID: 740847228}
   m_Layer: 5
   m_Name: HUD Canvas
   m_TagString: Untagged
@@ -3203,18 +3158,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
---- !u!114 &740847228
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 740847223}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f940ce23988948c49a40dd1ae39484a4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &773492733
 GameObject:
   m_ObjectHideFlags: 0
@@ -3305,7 +3248,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 15
+  m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!1 &796409872
 GameObject:
@@ -3343,6 +3286,12 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &810164045 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1854366431925140164, guid: 31ed25b0b38d6db49a743e7d1c57a2bc,
+    type: 3}
+  m_PrefabInstance: {fileID: 1854366430288243005}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &859167269
 GameObject:
   m_ObjectHideFlags: 0
@@ -3584,7 +3533,7 @@ Transform:
   m_LocalScale: {x: 62.347363, y: 13.401089, z: 0.1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 12
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &963194225
 GameObject:
@@ -4827,7 +4776,7 @@ MonoBehaviour:
   - {fileID: 6233588872440084278, guid: 55e9c1de78a74314197dee6a95e10c0d, type: 3}
   - {fileID: 1521795635101482814, guid: 110955aea33ee8c47a684b2f22f7d884, type: 3}
   - {fileID: 1720641029454765491, guid: ec6faa0b0d39e444bb3356fa0c37cd60, type: 3}
-  blackHole: {fileID: 3648659889975131551, guid: a0e69c6145327c447aa24516a4f97943,
+  blackHole: {fileID: 9039724918749825368, guid: 87846ae0a3c996442a1b0a96b07b8ead,
     type: 3}
   aliens:
   - {fileID: 8673433253853881982, guid: 46256fcd6844d2b469364b89ccdd81de, type: 3}
@@ -4841,13 +4790,13 @@ MonoBehaviour:
     type: 3}
   explosionEffect: {fileID: 6296471366095315486, guid: 534385f4dd99fc44db84ea99fc6842dd,
     type: 3}
-  laserEffect: {fileID: 6590033291764170926, guid: 4273260038788d548a9756672a368a6f,
+  laserEffect: {fileID: 6191057604466233051, guid: 9c52d1026f592434fb6941c45efa81ef,
     type: 3}
   shieldEffect: {fileID: 3630954970856934008, guid: 40648677c75bb234abcf6b43960a7429,
     type: 3}
   rippleEffect: {fileID: 1407819867533430281, guid: 08cbb93c3f0283740bb79776c22a39cb,
     type: 3}
-  breakThroughEffect: {fileID: 4648583137236202757, guid: d51ba7725b6c22146a91f8e34247e3a4,
+  breakThroughEffect: {fileID: 4648583137236202757, guid: 55f8f3f86ae414b4f81ced06f3c0cff1,
     type: 3}
   trashHandler: {fileID: 2136963515}
   score: 0
@@ -4862,6 +4811,8 @@ MonoBehaviour:
   multiplierIncrease: 0.1
   pointsPerRocket: 10
   maxRubble: 50
+  launchesForPlanet: 10
+  totalLaunches: 9
   gameDuration: 600
   earthLocation: {x: 0, y: 0, z: 0}
   worldRadius: 8
@@ -4881,9 +4832,9 @@ MonoBehaviour:
   rocketFlightSpeed: 5
   rocketDestructTime: 3
   trashSpeed: -10
-  trashDropAmount: 5
-  failedDropAmount: 7
-  trashDropRand: 3
+  trashDropAmount: 3
+  failedDropAmount: 6
+  trashSpeedRand: 2
   trashGap: 1
   currentRubble: 0
   holdStreakPointCost: 20
@@ -4917,6 +4868,8 @@ MonoBehaviour:
   currentStreak: 0
   satelliteObject: {fileID: 0}
   baseObject: {fileID: 0}
+  shoot: 0
+  tutorialActive: 0
 --- !u!4 &1301306965
 Transform:
   m_ObjectHideFlags: 0
@@ -6134,7 +6087,7 @@ MonoBehaviour:
     type: 3}
   m_PrefabInstance: {fileID: 1854366430288243005}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 810164045}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dbec4865cf67aaa459797060211b5c4b, type: 3}
@@ -6307,7 +6260,7 @@ RectTransform:
   m_Children:
   - {fileID: 1649804451}
   m_Father: {fileID: 0}
-  m_RootOrder: 13
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -6420,16 +6373,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canvas: {fileID: 178466755}
-  panels:
-  - {fileID: 1484468665}
-  - {fileID: 70168892}
-  - {fileID: 1531477044}
-  - {fileID: 294379912}
-  - {fileID: 565746397}
-  - {fileID: 1115290072}
-  - {fileID: 1873443701}
-  buttonPanels:
-  - {fileID: 70168892}
+  badShot: {fileID: 1484468665}
+  explode: {fileID: 2020099071}
+  explode2: {fileID: 1731898026}
+  corShot: {fileID: 1531477044}
+  corShot2: {fileID: 1659784586}
+  corShot3: {fileID: 936188358}
+  netBut: {fileID: 294379912}
+  breakBut: {fileID: 565746397}
+  slowBut: {fileID: 1115290072}
+  shieldBut: {fileID: 1873443701}
+  score:
+  - {fileID: 810164045}
+  - {fileID: 8892064730345577710}
+  - {fileID: 80192444}
+  - {fileID: 2062804095}
+  RubbleMeter: {fileID: 1330389870109835049}
+  buttons:
   - {fileID: 294379912}
   - {fileID: 565746397}
   - {fileID: 1115290072}
@@ -6447,7 +6407,7 @@ Transform:
   m_Children:
   - {fileID: 178466759}
   m_Father: {fileID: 0}
-  m_RootOrder: 17
+  m_RootOrder: 16
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1749860586
 GameObject:
@@ -12480,7 +12440,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 16
+  m_RootOrder: 15
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1992925161
 GameObject:
@@ -13261,7 +13221,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   minGapLength: 0.5
   trashSpeed: -10
-  trashSpeedRand: 2
 --- !u!4 &2136963516
 Transform:
   m_ObjectHideFlags: 0

@@ -102,7 +102,7 @@ public class Tutorial : MonoBehaviour
             timer = 0;
             once = !once;
         }
-        else
+        else if(timer>=0.05f)
         {
             GameManager.Instance.shoot = false;
         }
@@ -206,7 +206,7 @@ public class Tutorial : MonoBehaviour
     {
         TimerTZero();
         PauseGame();
-        buttons[2].SetActive(true);
+        buttons[1].SetActive(true);
         breakBut.SetActive(true);
 
         if (Input.GetKeyDown(GameManager.Instance.laserKey) && timerT>pauseTime)
@@ -219,7 +219,7 @@ public class Tutorial : MonoBehaviour
     {
         TimerTZero();
         PauseGame();
-        buttons[3].SetActive(true);
+        buttons[2].SetActive(true);
         slowBut.SetActive(true);
 
         if (Input.GetKeyDown(GameManager.Instance.laserKey) && timerT>pauseTime)
@@ -232,7 +232,7 @@ public class Tutorial : MonoBehaviour
     {
         TimerTZero();
         PauseGame();
-        buttons[1].SetActive(true);
+        buttons[3].SetActive(true);
         shieldBut.SetActive(true);
 
         if (Input.GetKeyDown(GameManager.Instance.laserKey) && timerT>pauseTime)
