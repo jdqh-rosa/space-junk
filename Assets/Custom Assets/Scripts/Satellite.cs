@@ -31,8 +31,7 @@ public class Satellite : MonoBehaviour
     }
     void Update()
     {
-        //CheckTarget();
-        if (Input.GetKeyDown(laserKey))
+        if (Input.GetKeyDown(KeyCode.Mouse0))
         {
             audioSource.clip = GameManager.Instance.shootSound;
 
@@ -114,25 +113,6 @@ public class Satellite : MonoBehaviour
             }
         }
     }
-
-
-    void LaunchRocket()
-    {
-        if (GameManager.breakThroughActive)
-        {
-            GameManager.Instance.baseObject.GetComponent<SpawnRocket>().ImperviousLaunch();
-        }
-        else if (GameManager.Instance.targetAcquired)
-        {
-            GameManager.Instance.baseObject.GetComponent<SpawnRocket>().Launch();
-        }
-        else
-        {
-            GameManager.Instance.baseObject.GetComponent<SpawnRocket>().FaultyLaunch();
-        }
-        laserCountDown = 1 / laserRate;
-    }
-
 }
 
 

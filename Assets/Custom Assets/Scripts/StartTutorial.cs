@@ -17,6 +17,7 @@ public class StartTutorial : MonoBehaviour
         if (!introRocket.activeSelf)
         {
             tutorialCanvas.SetActive(true);
+            gameObject.SetActive(false);
         }
     }
 }

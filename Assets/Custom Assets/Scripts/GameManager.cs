@@ -206,6 +206,7 @@ public sealed class GameManager : MonoBehaviour
 
     public void Start()
     {
+        tutorialActive=true;
         rockets[0] = act1RocketPrefabs;
         rockets[1] = act2RocketPrefabs;
         rockets[2] = act3RocketPrefabs;

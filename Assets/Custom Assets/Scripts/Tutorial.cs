@@ -126,6 +126,7 @@ public class Tutorial : MonoBehaviour
             case 2:
                 explode.SetActive(false);
                 explode2.SetActive(false);
+                once=false;
                 ++step;
                 slide = 0;
                 break;
@@ -177,6 +178,7 @@ public class Tutorial : MonoBehaviour
                 corShot2.SetActive(false);
                 corShot3.SetActive(false);
                 ++step;
+                once=false;
                 slide = 0;
                 break;
         }
@@ -199,6 +201,7 @@ public class Tutorial : MonoBehaviour
         {
             ++step;
             netBut.SetActive(false);
+            once=false;
         }
     }
     void BreakTut()
@@ -212,6 +215,7 @@ public class Tutorial : MonoBehaviour
         {
             ++step;
             breakBut.SetActive(false);
+            once=false;
         }
     }
     void SlowTut()
@@ -225,6 +229,7 @@ public class Tutorial : MonoBehaviour
         {
             ++step;
             slowBut.SetActive(false);
+            once=false;
         }
     }
     void HoldTut()
@@ -238,6 +243,7 @@ public class Tutorial : MonoBehaviour
         {
             ++step;
             shieldBut.SetActive(false);
+            once=false;
         }
     }
 
