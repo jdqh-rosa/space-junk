@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Tutorial : MonoBehaviour
 {
-    // Start is called before the first frame update
     [Header("Panels")]
     public GameObject canvas;
     public GameObject badShot;
