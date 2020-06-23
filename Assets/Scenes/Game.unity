@@ -4478,9 +4478,9 @@ MonoBehaviour:
   earthRotation: 5
   satelliteRadius: 17
   satelliteSpeed: 50
-  hitSound: {fileID: 0}
-  missSound: {fileID: 0}
-  shootSound: {fileID: 0}
+  hitSound: {fileID: 8300000, guid: 1bbd3d785704b634f90f230253a336bc, type: 3}
+  missSound: {fileID: 8300000, guid: 4c2da01825217044280ab5b93358c87d, type: 3}
+  shootSound: {fileID: 8300000, guid: 11981cf95bb09ca488afad31f07d990b, type: 3}
   targetAcquired: 0
   laserKey: 323
   laserFireRate: 1
