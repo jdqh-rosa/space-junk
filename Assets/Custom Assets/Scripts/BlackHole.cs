@@ -20,6 +20,7 @@ public class BlackHole : MonoBehaviour
 
     void SpawnBlackHole()
     {
+        radius = GameManager.Instance.blackHoleRadius;
         transform.position = Helper.CalcDegToPos(Random.Range(0, 360), radius);
     }
 

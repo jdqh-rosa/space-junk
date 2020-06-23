@@ -76,7 +76,7 @@ public class Rocket : MonoBehaviour
             GameObject hub = Instantiate(trashHub, endPosition, transform.rotation);
             hub.GetComponent<JunkDrop>().dropAmount = (int)(GameManager.Instance.failedDropAmount);
             Destroy(gameObject);
-             Instantiate(GameManager.Instance.explosionEffect, transform.position, transform.rotation);
+            Instantiate(GameManager.Instance.explosionEffect, transform.position, transform.rotation);
         }
     }
 
@@ -89,12 +89,15 @@ public class Rocket : MonoBehaviour
         if (other.gameObject.CompareTag("TrashJunk"))
         {
             Destroy(gameObject);
+            GameObject hub = Instantiate(trashHub, endPosition, transform.rotation);
+            hub.GetComponent<JunkDrop>().dropAmount = (int)(GameManager.Instance.failedDropAmount);
             Instantiate(GameManager.Instance.explosionEffect, transform.position, transform.rotation);
         }
     }
 
     void DropJunk()
     {
-        Instantiate(trashHub, endPosition, transform.rotation);
+        GameObject hub = Instantiate(trashHub, endPosition, transform.rotation);
+        hub.GetComponent<JunkDrop>().dropAmount = (int)(GameManager.Instance.trashDropAmount);
     }
 }

@@ -10,7 +10,6 @@ public class TrashHandler : MonoBehaviour
 
     public float minGapLength = 1;
     public float trashSpeed;
-    public float trashSpeedRand;
 
     static public bool speedChange = true;
 

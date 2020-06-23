@@ -23,7 +23,9 @@ public class Tutorial : MonoBehaviour
     public GameObject RubbleMeter;
     public GameObject[] buttons;
 
-    private List<GameObject> panels;
+    private float pauseTime = 1f;
+    private float timerT = 0;
+    private float timer = 0;
 
     bool off;
     int step = 1;
@@ -38,79 +40,89 @@ public class Tutorial : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        switch (step)
+        if (!off)
         {
-            case 1:
-                FailedTut();
-                break;
-            case 2:
-                MeterTut();
-                break;
-            case 3:
-                CorrectTut();
-                break;
-            case 4:
-                NetTut();
-                break;
-            case 5:
-                BreakTut();
-                break;
-            case 6:
-                SlowTut();
-                break;
-            case 7:
-                HoldTut();
-                break;
-            case 8:
-                EndTut();
-                break;
+            switch (step)
+            {
+                case 1:
+                    FailedTut();
+                    break;
+                case 2:
+                    MeterTut();
+                    break;
+                case 3:
+                    CorrectTut();
+                    break;
+                case 4:
+                    NetTut();
+                    break;
+                case 5:
+                    BreakTut();
+                    break;
+                case 6:
+                    SlowTut();
+                    break;
+                case 7:
+                    HoldTut();
+                    break;
+                case 8:
+                    EndTut();
+                    break;
+            }
         }
-
+        timer += GameManager.gameDeltaTime;
+        timerT += Time.deltaTime;
     }
 
     private int slide = 0;
 
-    private float timer = 0;
+
     private bool once;
     void FailedTut()
     {
         if (!once)
         {
+            timerT = 0;
+            timer = 0;
             PauseGame();
             badShot.SetActive(true);
-            GameManager.Instance.shoot = true;
             once = !once;
         }
-        if (Input.GetKeyDown(KeyCode.Mouse0))
+        if (Input.GetKeyDown(GameManager.Instance.laserKey) && timerT > pauseTime)
         {
+            GameManager.Instance.shoot = true;
             badShot.SetActive(false);
             StartGame();
-            GameManager.Instance.shoot = false;
         }
-
-        timer += GameManager.gameDeltaTime;
 
         if (timer > 1)
         {
+
             ++step;
             timer = 0;
             once = !once;
+        }
+        else
+        {
+            GameManager.Instance.shoot = false;
         }
     }
     void MeterTut()
     {
         PauseGame();
-        RubbleMeter.SetActive(true);
         GameManager.Instance.shoot = false;
         switch (slide)
         {
             case 0:
+                TimerTZero();
                 explode.SetActive(true);
                 explode2.SetActive(false);
                 break;
             case 1:
+                TimerTZero();
                 explode.SetActive(false);
                 explode2.SetActive(true);
+                RubbleMeter.SetActive(true);
                 break;
             case 2:
                 explode.SetActive(false);
@@ -120,9 +132,10 @@ public class Tutorial : MonoBehaviour
                 break;
         }
 
-        if (Input.GetKeyDown(KeyCode.Mouse0))
+        if (Input.GetKeyDown(GameManager.Instance.laserKey) && timerT > pauseTime)
         {
             ++slide;
+            TimerTZero();
         }
     }
     void CorrectTut()
@@ -140,20 +153,22 @@ public class Tutorial : MonoBehaviour
         switch (slide)
         {
             case 0:
-
+                TimerTZero();
                 corShot.SetActive(true);
                 corShot2.SetActive(false);
                 corShot3.SetActive(false);
                 break;
             case 1:
+                TimerTZero();
                 corShot.SetActive(false);
                 corShot2.SetActive(true);
                 corShot3.SetActive(false);
+                Helper.ToBow(score, -1);
                 StartGame();
                 GameManager.Instance.shoot = false;
-                timer += GameManager.gameDeltaTime;
                 break;
             case 2:
+                TimerTZero();
                 corShot.SetActive(false);
                 corShot2.SetActive(false);
                 corShot3.SetActive(true);
@@ -162,13 +177,12 @@ public class Tutorial : MonoBehaviour
                 corShot.SetActive(false);
                 corShot2.SetActive(false);
                 corShot3.SetActive(false);
-                Helper.ToBow(score, -1);
                 ++step;
                 slide = 0;
                 break;
         }
 
-        if (Input.GetKeyDown(KeyCode.Mouse0))
+        if (Input.GetKeyDown(GameManager.Instance.laserKey) && timerT>pauseTime)
         {
             ++slide;
         }
@@ -177,11 +191,12 @@ public class Tutorial : MonoBehaviour
     }
     void NetTut()
     {
+        TimerTZero();
         PauseGame();
         buttons[0].SetActive(true);
         netBut.SetActive(true);
 
-        if (Input.GetKeyDown(KeyCode.Mouse0))
+        if (Input.GetKeyDown(GameManager.Instance.laserKey) && timerT>pauseTime)
         {
             ++step;
             netBut.SetActive(false);
@@ -189,11 +204,12 @@ public class Tutorial : MonoBehaviour
     }
     void BreakTut()
     {
+        TimerTZero();
         PauseGame();
         buttons[2].SetActive(true);
         breakBut.SetActive(true);
 
-        if (Input.GetKeyDown(KeyCode.Mouse0))
+        if (Input.GetKeyDown(GameManager.Instance.laserKey) && timerT>pauseTime)
         {
             ++step;
             breakBut.SetActive(false);
@@ -201,11 +217,12 @@ public class Tutorial : MonoBehaviour
     }
     void SlowTut()
     {
+        TimerTZero();
         PauseGame();
         buttons[3].SetActive(true);
         slowBut.SetActive(true);
 
-        if (Input.GetKeyDown(KeyCode.Mouse0))
+        if (Input.GetKeyDown(GameManager.Instance.laserKey) && timerT>pauseTime)
         {
             ++step;
             slowBut.SetActive(false);
@@ -213,11 +230,12 @@ public class Tutorial : MonoBehaviour
     }
     void HoldTut()
     {
+        TimerTZero();
         PauseGame();
         buttons[1].SetActive(true);
         shieldBut.SetActive(true);
 
-        if (Input.GetKeyDown(KeyCode.Mouse0))
+        if (Input.GetKeyDown(GameManager.Instance.laserKey) && timerT>pauseTime)
         {
             ++step;
             shieldBut.SetActive(false);
@@ -228,10 +246,10 @@ public class Tutorial : MonoBehaviour
     {
         off = true;
         TrashHandler.ClearTrash();
-        GameManager.Instance.actProgression=0;
-        GameManager.Instance.score=0;
+        GameManager.Instance.actProgression = 0;
+        GameManager.Instance.score = 0;
         GameManager.Instance.currentMultiplier = 1f;
-        GameManager.Instance.tutorialActive=false;
+        GameManager.Instance.tutorialActive = false;
     }
 
     void PauseGame()
@@ -251,5 +269,14 @@ public class Tutorial : MonoBehaviour
         GameManager.gameTimeScale = 1;
         //step += 1;
         //canvas.SetActive(false);
+    }
+
+    void TimerTZero()
+    {
+        if (!once)
+        {
+            timerT = 0;
+            once = !once;
+        }
     }
 }

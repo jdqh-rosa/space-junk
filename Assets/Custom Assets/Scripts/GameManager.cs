@@ -107,7 +107,7 @@ public sealed class GameManager : MonoBehaviour
     public float trashSpeed;
     public int trashDropAmount;
     public int failedDropAmount;
-    public int trashDropRand;
+    public int trashSpeedRand;
     public float trashGap;
 
     [HideInInspector]
@@ -173,7 +173,7 @@ public sealed class GameManager : MonoBehaviour
     public GameObject baseObject;
     GameObject[] trashObjects;
 
-    [HideInInspector] public bool shoot=false;
+    [HideInInspector] public bool shoot;
     [HideInInspector] public bool tutorialActive=false;
                     
 
@@ -215,6 +215,7 @@ public sealed class GameManager : MonoBehaviour
     /// </summary>
     public void BeamHit()
     {
+        if(tutorialActive){return;}
         //Add score and add multiplier
         score += (int)(pointsPerRocket * currentMultiplier);
         //points += (int)(pointsPerRocket * currentMultiplier);
@@ -428,19 +429,21 @@ public sealed class GameManager : MonoBehaviour
     /// turns the skill off once a certain amount of time has been reached
     /// </summary>
     float holdStreakTimer;
+    GameObject shieldObject;
     private void StreakHoldTimer()
     {
         if (holdStreak)
         {
             if (holdStreakTimer == 0)
             {
-                Instantiate(shieldEffect, satelliteObject.transform);
+                shieldObject = Instantiate(shieldEffect, satelliteObject.transform);
             }
             holdStreakCurrentCooldown = holdStreakCooldown;
             holdStreakTimer += GameManager.gameDeltaTime;
 
             if (holdStreakDuration <= holdStreakTimer)
             {
+                Destroy(shieldObject);
                 holdStreak = false;
                 holdStreakTimer = 0;
             }
@@ -464,6 +467,7 @@ public sealed class GameManager : MonoBehaviour
             }
             else
             {
+                GameManager.gameTimeScale = 1f;
                 satelliteObject.GetComponent<Orbit>().orbitSpeed = satelliteSpeed;
                 slowSatActive = false;
                 slowSatTimer = 0;
@@ -491,7 +495,6 @@ public sealed class GameManager : MonoBehaviour
 
     void TrashHandlerVars()
     {
-        trashHandler.trashSpeedRand = trashDropRand;
         trashHandler.minGapLength = trashGap;
     }
 

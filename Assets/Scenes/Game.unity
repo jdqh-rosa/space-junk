@@ -1565,7 +1565,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &534013870
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4456,7 +4456,7 @@ MonoBehaviour:
     type: 3}
   rippleEffect: {fileID: 1407819867533430281, guid: 08cbb93c3f0283740bb79776c22a39cb,
     type: 3}
-  breakThroughEffect: {fileID: 4648583137236202757, guid: d51ba7725b6c22146a91f8e34247e3a4,
+  breakThroughEffect: {fileID: 4648583137236202757, guid: 55f8f3f86ae414b4f81ced06f3c0cff1,
     type: 3}
   trashHandler: {fileID: 2136963515}
   score: 0
@@ -4491,9 +4491,9 @@ MonoBehaviour:
   rocketFlightSpeed: 5
   rocketDestructTime: 3
   trashSpeed: -10
-  trashDropAmount: 5
-  failedDropAmount: 7
-  trashDropRand: 3
+  trashDropAmount: 3
+  failedDropAmount: 6
+  trashSpeedRand: 0
   trashGap: 1
   currentRubble: 0
   holdStreakPointCost: 20
@@ -4519,7 +4519,7 @@ MonoBehaviour:
   breakTroughCooldown: 15
   breakTroughCurrentCooldown: 0
   blackHoleChancePerMinute: 50
-  blackHoleRadius: 10
+  blackHoleRadius: 15
   blackHoleDuration: 30
   garbageTruckChancePerMinute: 0
   garbageTruckSpeed: 0
@@ -6024,7 +6024,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1733354456
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12886,7 +12886,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   minGapLength: 0.5
   trashSpeed: -10
-  trashSpeedRand: 2
 --- !u!4 &2136963516
 Transform:
   m_ObjectHideFlags: 0

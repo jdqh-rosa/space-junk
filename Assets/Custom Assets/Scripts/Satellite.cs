@@ -16,6 +16,9 @@ public class Satellite : MonoBehaviour
 
     AudioSource audioSource;
 
+    private float laserCountDown = 0;
+    private float laserTimer = 0;
+
     void Start()
     {
         laserKey = GameManager.Instance.laserKey;
@@ -28,50 +31,31 @@ public class Satellite : MonoBehaviour
     }
     void Update()
     {
-        CheckTarget();
+        //CheckTarget();
         if (Input.GetKeyDown(laserKey))
         {
             audioSource.clip = GameManager.Instance.shootSound;
-            PewPew();
 
-            laserCountDown = 1 / laserRate;
-            laserTimer = laserDuration;
-        }
-    }
-
-    float laserCountDown = 0;
-    float laserTimer = 0;
-    void CheckTarget()
-    {
-        audioSource.clip = GameManager.Instance.shootSound;
-
-        lr.SetPosition(0, transform.position);
-
-        //COOLDOWN FOR THE LASER
-        if (laserCountDown <= 0)
-        {
-            if (Physics.Raycast(transform.position, Vector3.Normalize(target.gameObject.transform.position - transform.position), out hit))
+            var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
+            if (Physics.Raycast(ray, out hit))
             {
-                if (hit.collider)
+                if (hit.collider.tag == "click")
                 {
-                    if (hit.collider.gameObject.tag == "Base")
+                    if (GameManager.Instance.tutorialActive)
                     {
-                        GameManager.Instance.targetAcquired = true;
-                        print("hit target");
+                        if (GameManager.Instance.shoot)
+                        {
+                            PewPew();
+                        }
                     }
-                    else
+                    else if (laserCountDown <= 0)
                     {
-                        GameManager.Instance.targetAcquired = false;
+                        PewPew();
+                        laserCountDown = 1 / laserRate;
+                        laserTimer = laserDuration;
                     }
                 }
-            }
-        }
-        //HOW LONG THE LASER STAYS ON
-        if (lr.enabled)
-        {
-            if (laserTimer <= 0)
-            {
-                lr.enabled = false;
             }
         }
 
@@ -90,8 +74,9 @@ public class Satellite : MonoBehaviour
 
         audioSource.Play();
 
-        GameObject laser = Instantiate(GameManager.Instance.laserEffect, transform.position, Quaternion.Euler(0, 0, transform.rotation.z - 90));
-        laser.GetComponent<Follow>().targetLocation = GameManager.Instance.earthLocation;
+        Vector3 bla = -transform.up * 6;
+
+
 
         lr.SetPosition(1, target.transform.position);
         if (Physics.Raycast(transform.position, Vector3.Normalize(target.gameObject.transform.position - transform.position), out hit))
@@ -104,72 +89,50 @@ public class Satellite : MonoBehaviour
                     print("hit target");
                     lr.SetPosition(1, target.gameObject.transform.position);
 
+                    if (GameManager.breakThroughActive)
+                    {
+                        //GameManager.Instance.baseObject.GetComponent<SpawnRocket>().ImperviousLaunch();
+                        Instantiate(GameManager.Instance.breakThroughEffect, transform.position, Quaternion.Euler(0, 0, transform.rotation.eulerAngles.z + 180));
+                        GameManager.breakThroughActive=false;
+                    }
+                    else
+                    {
+                        Instantiate(GameManager.Instance.laserEffect, transform.position + bla, Quaternion.Euler(0, 0, transform.rotation.eulerAngles.z - 90), transform);
+                        GameManager.Instance.baseObject.GetComponent<SpawnRocket>().Launch();
+                    }
                     GameManager.Instance.BeamHit();
                 }
                 else
                 {
                     audioSource.clip = GameManager.Instance.missSound;
                     audioSource.Play();
+                    Instantiate(GameManager.Instance.laserEffect, transform.position + bla, Quaternion.Euler(0, 0, transform.rotation.eulerAngles.z - 90), transform);
                     lr.SetPosition(1, hit.collider.gameObject.transform.position);
+                    GameManager.Instance.baseObject.GetComponent<SpawnRocket>().FaultyLaunch();
                     GameManager.Instance.BeamMissed();
                 }
-
             }
         }
     }
 
-    //void BreakThroughShot()
-    //{
-    //    if (target == null)
-    //    {
-    //        if (lr.enabled) { lr.enabled = false; }
-    //        return;
-    //    }
 
-    //    RaycastHit hit;
+    void LaunchRocket()
+    {
+        if (GameManager.breakThroughActive)
+        {
+            GameManager.Instance.baseObject.GetComponent<SpawnRocket>().ImperviousLaunch();
+        }
+        else if (GameManager.Instance.targetAcquired)
+        {
+            GameManager.Instance.baseObject.GetComponent<SpawnRocket>().Launch();
+        }
+        else
+        {
+            GameManager.Instance.baseObject.GetComponent<SpawnRocket>().FaultyLaunch();
+        }
+        laserCountDown = 1 / laserRate;
+    }
 
-    //    lr.SetPosition(1, target.transform.position);
-    //    if (Physics.Raycast(transform.position, Vector3.Normalize(target.gameObject.transform.position - transform.position), out hit))
-    //    {
-    //        if (hit.collider)
-    //        {
-    //            lr.SetPosition(1, hit.point);
-    //            if (hit.collider.gameObject.tag == "TrashJunk")
-    //            {
-    //                print("BREEEEEEAAAAAAK THROOOOOOOOUUUUUUGGGGHHHH!!!!!!!!!!");
-    //                gameObject.GetComponent<Renderer>().material.color = Color.magenta;
-    //                Destroy(hit.collider.gameObject);
-    //            }
-    //            PewPew();
-    //        }
-    //    }
-    //}
 }
 
 
-//if (GameManager.breakThroughActive)
-//                    {
-//                        if (Input.GetKeyDown(laserKey))
-//                        {
-//                            if (!lr.enabled) { lr.enabled = true; }
-//                            BreakThroughShot();
-//                            GameManager.breakThroughActive = false;
-//                            GameManager.Instance.breakTroughCurrentCooldown = GameManager.Instance.breakTroughCooldown;
-//                        }
-//                    }
-
-//                    if (Input.GetKeyDown(laserKey))
-//                    {
-//                        var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-//                        RaycastHit hit;
-//                        if (Physics.Raycast(ray, out hit))
-//                        {
-//                            if (hit.collider.tag == "click")
-//                            {
-//                                if (!lr.enabled) { lr.enabled = true; }
-//                                PewPew();
-//                                laserCountDown = 1 / laserRate;
-//                                laserTimer = laserDuration;
-//                            }
-//                        }
-//                    }

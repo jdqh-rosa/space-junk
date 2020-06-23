@@ -68,7 +68,6 @@ public struct Helper
             else { array[i].SetActive(true); }
         }
     }
-
     // public static bool operator !=(bool left, bool right){
     //     if(left == right){
     //         left = !right;

@@ -13,7 +13,7 @@ public class Net : MonoBehaviour
 
     void Start()
     {
-        transform.localScale = new Vector3(startSize, 0.10f, startSize);
+        transform.localScale = new Vector3(GameManager.Instance.netSize, 0.10f, GameManager.Instance.netSize);
     }
 
     float timer;
