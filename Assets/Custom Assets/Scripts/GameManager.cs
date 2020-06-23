@@ -25,6 +25,7 @@ public sealed class GameManager : MonoBehaviour
     public CustomSlider SlowSatBtn;
     public CustomSlider BreakTroughBtn;
     public CustomSlider NetBtn;
+    public CustomSlider timeSlider;
 
     [Header("Prefabs")]
     public GameObject[] earthPrefabs;
@@ -69,6 +70,7 @@ public sealed class GameManager : MonoBehaviour
     public float multiplierIncrease = 0.1f;
     public int pointsPerRocket = 10;
     public int maxRubble = 50;
+    public float gameDuration = 600;
 
     [Header("Earth", order = 1)]
     public Vector3 earthLocation;
@@ -354,7 +356,12 @@ public sealed class GameManager : MonoBehaviour
         percentage = (float)TrashHandler.ListCount() / (float)maxRubble;
         rubbleMeter.text = percentage.ToString("0%");
         rubbleMeter.value = percentage;
-        if (percentage >= 1f)
+
+        float percentageTime = (float)gameTime / (float)gameDuration;
+        timeSlider.value = percentageTime;
+
+
+        if (percentage >= 1f || percentageTime >= 1f)
         {
             GameOver();
         }
