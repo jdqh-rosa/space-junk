@@ -29,15 +29,13 @@ public class Satellite : MonoBehaviour
     void Update()
     {
         CheckTarget();
-        if (GameManager.Instance.targetAcquired)
+        if (Input.GetKeyDown(laserKey))
         {
-            if (Input.GetKeyDown(laserKey))
-            {
-                PewPew();
+            audioSource.clip = GameManager.Instance.shootSound;
+            PewPew();
 
-                laserCountDown = 1 / laserRate;
-                laserTimer = laserDuration;
-            }
+            laserCountDown = 1 / laserRate;
+            laserTimer = laserDuration;
         }
     }
 
@@ -92,7 +90,8 @@ public class Satellite : MonoBehaviour
 
         audioSource.Play();
 
-        Instantiate(GameManager.Instance.laserEffect, transform.position, transform.rotation);
+        GameObject laser = Instantiate(GameManager.Instance.laserEffect, transform.position, Quaternion.Euler(0, 0, transform.rotation.z - 90));
+        laser.GetComponent<Follow>().targetLocation = GameManager.Instance.earthLocation;
 
         lr.SetPosition(1, target.transform.position);
         if (Physics.Raycast(transform.position, Vector3.Normalize(target.gameObject.transform.position - transform.position), out hit))

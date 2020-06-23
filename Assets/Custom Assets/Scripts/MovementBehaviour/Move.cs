@@ -14,6 +14,7 @@ public class Move : MonoBehaviour
     public moveAxis moveDirection;
     public float movementSpeed = 5;
     public GameObject target;
+    public Vector3 targetLocation;
     private Vector3 direction;
 
 
@@ -38,7 +39,7 @@ public class Move : MonoBehaviour
         {
             transform.position += direction * movementSpeed;
         }
-        else
+        else if(target)
         {
             transform.position = Vector3.MoveTowards(transform.position, target.transform.position, movementSpeed * GameManager.gameDeltaTime);
         }
