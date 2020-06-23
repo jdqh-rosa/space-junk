@@ -21,6 +21,14 @@ public class TrashHandler : MonoBehaviour
         trashHandlerTF = transform;
     }
 
+    public static void ClearTrash()
+    {
+        foreach(GameObject g in trashList)
+        {
+            Destroy(g);
+        }
+        trashList.Clear();
+    }
     public static int ListCount()
     {
         return trashList.Count;

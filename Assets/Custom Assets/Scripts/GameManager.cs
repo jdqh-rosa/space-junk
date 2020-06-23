@@ -173,6 +173,10 @@ public sealed class GameManager : MonoBehaviour
     public GameObject baseObject;
     GameObject[] trashObjects;
 
+    [HideInInspector] public bool shoot=false;
+    [HideInInspector] public bool tutorialActive=false;
+                    
+
     private float percentage;
 
     public static GameManager Instance
@@ -213,7 +217,7 @@ public sealed class GameManager : MonoBehaviour
     {
         //Add score and add multiplier
         score += (int)(pointsPerRocket * currentMultiplier);
-        points += (int)(pointsPerRocket * currentMultiplier);
+        //points += (int)(pointsPerRocket * currentMultiplier);
         currentMultiplier += multiplierIncrease;
         rocketslaunched++;
 
