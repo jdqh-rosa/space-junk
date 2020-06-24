@@ -8,14 +8,14 @@ public class Alien : MonoBehaviour
     public float suckSpeed;
     void Start()
     {
-        transform.position = new Vector3(Camera.main.ViewportToWorldPoint(Vector2.zero).x, transform.position.y, transform.position.z);
+        transform.position = new Vector3(-32, transform.position.y, transform.position.z);
         transform.position += Vector3.up * 16;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (transform.position.x <= Camera.main.ViewportToWorldPoint(Vector3.one).x)
+        if (transform.position.x >= 32)
         {
             Destroy(gameObject);
         }
