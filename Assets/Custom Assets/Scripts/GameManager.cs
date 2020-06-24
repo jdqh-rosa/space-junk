@@ -73,7 +73,7 @@ public sealed class GameManager : MonoBehaviour
 
     public int launchesForPlanet =10;
     [HideInInspector]
-    public int totalLaunches=9;
+    public int totalLaunches=0;
 
     public float gameDuration = 600;
 
