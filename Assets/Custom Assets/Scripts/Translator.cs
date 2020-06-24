@@ -14,6 +14,7 @@ public class Translator : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        PlayerPrefs.SetString("Language", "NL");
         text = GetComponent<TextMeshProUGUI>();
         UpdateLanguage();
     }
