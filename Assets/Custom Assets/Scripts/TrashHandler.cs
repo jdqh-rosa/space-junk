@@ -51,12 +51,13 @@ public class TrashHandler : MonoBehaviour
     {
         for (int i = 0; i < trashList.Count; ++i)
         {
-            if (trashList[i] == null) { trashList.RemoveAt(i); }
+            if (trashList[i] == null) { trashList.RemoveAt(i); ++GameManager.Instance.rubbleremoved;}
             for (int j = i + 1; j < trashList.Count; ++j)
             {
                 if (trashList[j] == null)
                 {
                     trashList.RemoveAt(j);
+                    ++GameManager.Instance.rubbleremoved;
                     GameManager.Instance.rubbleremoved++;
                     if (j > trashList.Count - 1) continue;
                 }
