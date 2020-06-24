@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Tutorial : MonoBehaviour
 {
+    public GameObject introRocket;
+
     [Header("Panels")]
     public GameObject canvas;
     public GameObject badShot;
@@ -22,18 +24,18 @@ public class Tutorial : MonoBehaviour
     public GameObject RubbleMeter;
     public GameObject[] buttons;
 
-    private float pauseTime = 1f;
+    private float pauseTime = 0.5f;
     private float timerT = 0;
     private float timer = 0;
 
     bool off;
-    int step = 1;
+    int step = 0;
     void Start()
     {
         GameManager.Instance.tutorialActive = true;
-        Helper.BowTo(score, -1);
-        RubbleMeter.SetActive(false);
-        Helper.BowTo(buttons, -1);
+        //Helper.BowTo(score, -1);
+        //RubbleMeter.SetActive(false);
+        //Helper.BowTo(buttons, -1);
     }
 
     // Update is called once per frame
@@ -43,6 +45,9 @@ public class Tutorial : MonoBehaviour
         {
             switch (step)
             {
+                case 0:
+                    StartTut();
+                    break;
                 case 1:
                     FailedTut();
                     break;
@@ -75,6 +80,13 @@ public class Tutorial : MonoBehaviour
 
     private int slide = 0;
 
+    void StartTut()
+    {
+        if (!introRocket.activeSelf)
+        {
+            ++step;
+        }
+    }
 
     private bool once;
     void FailedTut()
@@ -255,6 +267,7 @@ public class Tutorial : MonoBehaviour
         GameManager.Instance.score = 0;
         GameManager.Instance.currentMultiplier = 1f;
         GameManager.Instance.tutorialActive = false;
+        StartGame();
     }
 
     void PauseGame()
@@ -264,7 +277,7 @@ public class Tutorial : MonoBehaviour
 
         if (Input.GetMouseButtonDown(0))
         {
-            StartGame();
+            //StartGame();
             if (off) { gameObject.SetActive(false); }
         }
     }

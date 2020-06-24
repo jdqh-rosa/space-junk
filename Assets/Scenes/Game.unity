@@ -6724,7 +6724,7 @@ MonoBehaviour:
   slowSatCurrentCooldown: 0
   netPointCost: 100
   netSpeed: 0.1
-  netSize: 2
+  netSize: 5
   netDuration: 5
   netActive: 0
   netCooldown: 15
@@ -6733,7 +6733,7 @@ MonoBehaviour:
   breakTroughCooldown: 15
   breakTroughCurrentCooldown: 0
   blackHoleChancePerMinute: 50
-  blackHoleRadius: 10
+  blackHoleRadius: 15
   blackHoleDuration: 30
   garbageTruckChancePerMinute: 0
   garbageTruckSpeed: 0
@@ -7619,7 +7619,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1447061941}
-  - component: {fileID: 1447061942}
   m_Layer: 0
   m_Name: Rob_animation
   m_TagString: Untagged
@@ -7650,22 +7649,8 @@ Transform:
   - {fileID: 439381766}
   - {fileID: 1577458256}
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1447061942
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1447061940}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1dccbe489c319dc428c7dc128366b790, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  introRocket: {fileID: 1573578804}
-  tutorialCanvas: {fileID: 1733354455}
 --- !u!1 &1484468665
 GameObject:
   m_ObjectHideFlags: 0
@@ -8483,7 +8468,7 @@ PrefabInstance:
     - target: {fileID: 2146129324647015830, guid: 0d86129fe43ade449a399b9bc1137fb4,
         type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2146129324647015830, guid: 0d86129fe43ade449a399b9bc1137fb4,
         type: 3}
@@ -8524,6 +8509,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: rocket_act2.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3140078322343778181, guid: 0d86129fe43ade449a399b9bc1137fb4,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7605148836274650638, guid: 0d86129fe43ade449a399b9bc1137fb4,
         type: 3}
@@ -9814,6 +9804,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1733354457}
+  - component: {fileID: 1733354458}
   - component: {fileID: 1733354456}
   m_Layer: 0
   m_Name: Tut
@@ -9834,6 +9825,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96d8ee523a4114d4ca2d1c5b2f29d614, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  introRocket: {fileID: 1573578804}
   canvas: {fileID: 178466755}
   badShot: {fileID: 1484468665}
   explode: {fileID: 2020099071}
@@ -9871,6 +9863,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 18
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1733354458
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1733354455}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1dccbe489c319dc428c7dc128366b790, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  introRocket: {fileID: 1573578804}
+  tutorialCanvas: {fileID: 178466755}
 --- !u!1 &1749860586
 GameObject:
   m_ObjectHideFlags: 0
@@ -16511,6 +16517,7 @@ GameObject:
   - component: {fileID: 2045930620}
   - component: {fileID: 2045930619}
   - component: {fileID: 2045930618}
+  - component: {fileID: 2045930622}
   m_Layer: 5
   m_Name: BGVID
   m_TagString: Untagged
@@ -16547,10 +16554,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
+  m_ReferenceResolution: {x: 1920, y: 1080}
   m_ScreenMatchMode: 0
   m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3
@@ -16598,6 +16605,18 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &2045930622
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2045930617}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 12b46c90961bd5c4abcb63cf94cfe17b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2062804095
 GameObject:
   m_ObjectHideFlags: 0

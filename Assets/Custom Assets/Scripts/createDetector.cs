@@ -12,8 +12,8 @@ public class createDetector : MonoBehaviour
         brick.GetComponent<MeshRenderer>().enabled=false;
         brick.transform.position = transform.position;
         brick.transform.rotation = transform.rotation;
-        brick.transform.localScale = Vector3.one * 0.4f;
-        brick.AddComponent<breakthroughShot>();
+        brick.transform.localScale = Vector3.one;
+        brick.AddComponent<BreakthroughShot>();
         //brick.AddComponent<Rigidbody>();
         //brick.GetComponent<Rigidbody>().useGravity=false;
     }

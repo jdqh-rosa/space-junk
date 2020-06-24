@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Alien : MonoBehaviour
 {
-    List<GameObject> objectList;
+    List<GameObject> objectList = new List<GameObject>();
     public float suckSpeed;
     void Start()
     {
@@ -19,15 +19,16 @@ public class Alien : MonoBehaviour
         {
             Destroy(gameObject);
         }
+        Suction();
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider collider)
     {
-        if (collision.gameObject.tag == "TrashJunk")
+        if (collider.gameObject.tag == "TrashJunk")
         {
-            if (!objectList.Contains(collision.gameObject))
+            if (!objectList.Contains(collider.gameObject))
             {
-                objectList.Add(collision.gameObject);
+                objectList.Add(collider.gameObject);
             }
         }
     }

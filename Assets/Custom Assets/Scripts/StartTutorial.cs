@@ -8,7 +8,7 @@ public class StartTutorial : MonoBehaviour
     public GameObject tutorialCanvas;
     void Start()
     {
-        tutorialCanvas.SetActive(false);
+        //tutorialCanvas.SetActive(false);
     }
 
     // Update is called once per frame
@@ -17,7 +17,7 @@ public class StartTutorial : MonoBehaviour
         if (!introRocket.activeSelf)
         {
             tutorialCanvas.SetActive(true);
-            gameObject.SetActive(false);
+            //gameObject.SetActive(false);
         }
     }
 }

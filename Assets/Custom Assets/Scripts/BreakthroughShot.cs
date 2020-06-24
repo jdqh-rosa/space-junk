@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class breakthroughShot : MonoBehaviour
+public class BreakthroughShot : MonoBehaviour
 {
     void Update()
     {
-        transform.position += transform.up *1f;
+        transform.position += transform.up *0.8f;
     }
 
     private void OnTriggerEnter(Collider collider)
@@ -18,9 +18,11 @@ public class breakthroughShot : MonoBehaviour
         else if (collider.gameObject.tag == "Base")
         {
             collider.gameObject.GetComponent<SpawnRocket>().ImperviousLaunch();
+            GameManager.Instance.BeamHit();
             Destroy(gameObject);
         }else if (collider.gameObject.tag == "Finish")
         {
+            GameManager.Instance.BeamMissed();
             Destroy(gameObject);
         }
     }

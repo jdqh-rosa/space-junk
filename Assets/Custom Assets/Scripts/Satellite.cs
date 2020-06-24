@@ -31,7 +31,7 @@ public class Satellite : MonoBehaviour
     }
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Mouse0))
+        if (Input.GetKeyDown(GameManager.Instance.laserKey))
         {
             audioSource.clip = GameManager.Instance.shootSound;
 
@@ -83,22 +83,21 @@ public class Satellite : MonoBehaviour
             if (hit.collider)
             {
                 //lr.SetPosition(1, hit.point);
-                if (hit.collider.gameObject.tag == "Base")
+                if (GameManager.breakThroughActive)
+                {
+                    //GameManager.Instance.baseObject.GetComponent<SpawnRocket>().ImperviousLaunch();
+                    Instantiate(GameManager.Instance.breakThroughEffect, transform.position, Quaternion.Euler(0, 0, transform.rotation.eulerAngles.z + 180));
+                    GameManager.breakThroughActive = false;
+                }
+                else if (hit.collider.gameObject.tag == "Base")
                 {
                     print("hit target");
                     lr.SetPosition(1, target.gameObject.transform.position);
 
-                    if (GameManager.breakThroughActive)
-                    {
-                        //GameManager.Instance.baseObject.GetComponent<SpawnRocket>().ImperviousLaunch();
-                        Instantiate(GameManager.Instance.breakThroughEffect, transform.position, Quaternion.Euler(0, 0, transform.rotation.eulerAngles.z + 180));
-                        GameManager.breakThroughActive=false;
-                    }
-                    else
-                    {
-                        Instantiate(GameManager.Instance.laserEffect, transform.position + bla, Quaternion.Euler(0, 0, transform.rotation.eulerAngles.z - 90), transform);
-                        GameManager.Instance.baseObject.GetComponent<SpawnRocket>().Launch();
-                    }
+
+                    Instantiate(GameManager.Instance.laserEffect, transform.position + bla, Quaternion.Euler(0, 0, transform.rotation.eulerAngles.z - 90), transform);
+                    GameManager.Instance.baseObject.GetComponent<SpawnRocket>().Launch();
+
                     GameManager.Instance.BeamHit();
                 }
                 else
