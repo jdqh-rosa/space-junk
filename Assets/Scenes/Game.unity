@@ -6735,8 +6735,8 @@ MonoBehaviour:
   blackHoleChancePerMinute: 50
   blackHoleRadius: 15
   blackHoleDuration: 30
-  garbageTruckChancePerMinute: 0
-  garbageTruckSpeed: 0
+  garbageTruckChancePerMinute: 5
+  garbageTruckSpeed: 5
   streak: 0
   currentStreak: 0
   satelliteObject: {fileID: 0}
