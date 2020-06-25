@@ -6690,7 +6690,7 @@ MonoBehaviour:
   earthLocation: {x: 0, y: 0, z: 0}
   worldRadius: 8
   earthRotation: 5
-  satelliteRadius: 17
+  satelliteRadius: 18
   satelliteSpeed: 50
   hitSound: {fileID: 0}
   missSound: {fileID: 0}
@@ -9875,8 +9875,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1dccbe489c319dc428c7dc128366b790, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  introRocket: {fileID: 1573578804}
-  tutorialCanvas: {fileID: 178466755}
 --- !u!1 &1749860586
 GameObject:
   m_ObjectHideFlags: 0

@@ -71,9 +71,9 @@ public sealed class GameManager : MonoBehaviour
     public int pointsPerRocket = 10;
     public int maxRubble = 50;
 
-    public int launchesForPlanet =10;
+    public int launchesForPlanet = 10;
     [HideInInspector]
-    public int totalLaunches=0;
+    public int totalLaunches = 0;
 
     public float gameDuration = 600;
 
@@ -179,8 +179,8 @@ public sealed class GameManager : MonoBehaviour
     GameObject[] trashObjects;
 
     [HideInInspector] public bool shoot;
-    [HideInInspector] public bool tutorialActive=false;
-                    
+    [HideInInspector] public bool tutorialActive = false;
+
 
     private float percentage;
 
@@ -206,7 +206,7 @@ public sealed class GameManager : MonoBehaviour
 
     public void Start()
     {
-        tutorialActive=true;
+        tutorialActive = true;
         rockets[0] = act1RocketPrefabs;
         rockets[1] = act2RocketPrefabs;
         rockets[2] = act3RocketPrefabs;
@@ -221,7 +221,7 @@ public sealed class GameManager : MonoBehaviour
     /// </summary>
     public void BeamHit()
     {
-        if(tutorialActive){return;}
+        if (tutorialActive) { return; }
         //Add score and add multiplier
         score += (int)(pointsPerRocket * currentMultiplier);
         //points += (int)(pointsPerRocket * currentMultiplier);
@@ -289,7 +289,7 @@ public sealed class GameManager : MonoBehaviour
     /// </summary>
     /// <param name="amount">amount of rubble blocks</param>
     /// 
-   
+
 
     /// <summary>
     /// Transition to the end screen and show the results
@@ -381,6 +381,7 @@ public sealed class GameManager : MonoBehaviour
         }
         StreakHoldTimer();
         SlowSatTimer();
+        BreakThroughTimer();
         SpawnBlackHole();
         NothingButNet();
         manageCooldowns();
@@ -501,6 +502,18 @@ public sealed class GameManager : MonoBehaviour
             net.GetComponent<Net>().startSize = netSize;
 
             netActive = false;
+        }
+    }
+
+    /// <summary>
+    /// turns the skill off once a certain amount of time has been reached
+    /// </summary>
+    float breakThroughTimer;
+    private void BreakThroughTimer()
+    {
+        if (breakThroughActive)
+        {
+            breakTroughCurrentCooldown = breakTroughCooldown;
         }
     }
 
